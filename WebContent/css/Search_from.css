@@ -1,0 +1,217 @@
+@charset "utf-8";
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+#content{
+    overflow: hidden;
+}
+#content .result_bar{
+    width: 100%;
+    background-color: #ccc;
+    overflow: hidden;
+    margin-top: 1px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #0058ff;
+}
+#content .result_bar div{
+    width: 1020px;
+    margin: 0 auto;
+    padding: 20px 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+
+}
+#content .itemlist{
+    width: 1020px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+#content .itemlist .itembox{
+    float: left;
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    background-color: #0080ff;
+    color: white;
+    margin-right: 1px;
+}
+#content .itemlist .selected{
+    background-color: white;
+    border-top: 2px solid #0080ff;
+    border-left: 1px solid #0080ff;
+    border-right: 1px solid #0080ff;
+    color: black;
+    padding-bottom: 8px;
+}
+#content .itemlist .itembox:hover a{
+    text-decoration: underline;
+}
+#content .itemlist .Latest{
+    float: right;
+    border: 1px solid #ccc;
+    padding: 10px 10px;
+    background-color: white;
+    color: black;
+    width: 60px;
+    text-align: center;
+}
+
+#content .itemlist .Accuracy{
+    float: right;
+    background-color: #727272;
+    border: 1px solid #ccc;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    width: 60px;
+}
+#content .Contents{
+    width: 1020px;
+    margin: 0 auto;
+}
+
+.Contents .Tourist{
+    overflow: hidden;
+}
+.Contents .Tourist .Tourist_Title{
+    overflow: hidden;
+    display: block;
+}
+.Contents .Tourist h1{
+    font-size: 1.7rem;
+    font-family: "Nanum Gothic", sans-serif;
+    margin-bottom: 20px;
+    float: left;
+}
+.Contents .Tourist h2{
+    font-size: 1.3rem;
+    float: right;
+    margin-top:5px;
+    font-weight: normal;
+}
+.Contents .Tourist h2 img{
+    margin-left: 5px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+.Contents .Tourist .Tour_group{
+    border: 1px solid #ccc;
+    padding: 20px;
+    overflow: hidden;
+    float: left;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.Contents .Tourist .Tour_group li{
+    float: left;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.3rem;
+}
+
+.Contents .Tourist .Tour_group .TourImage{
+    float: left;
+    width: 148px;
+}
+.Contents .Tourist .Tour_group .TourImage img{
+    transition: 0.5s;
+}
+.Contents .Tourist .Tour_group .TourInfo{
+    float: left;
+    overflow: hidden;
+    margin-left: 30px;
+    width: 260px;
+}
+.Contents .Tourist .Tour_group .TourInfo .TourTitle{
+    float: left;
+    display: block;
+    width: 150px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.Contents .Tourist .Tour_group .TourContent{
+    display: block;
+    color: #626262;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.Contents .Tourist .Tour_group .shopping_add{
+    float: right;
+    cursor: pointer;
+    margin-top: 3px;
+}
+.Contents .Tourist .Tour_group:hover{
+    background-color: #2c4c8f;
+    color: white;
+    cursor: pointer;
+}
+.Contents .Tourist .Tour_group:hover .TourContent{
+
+    color: white;
+}
+.Contents .Tourist .Tour_group:hover .TourImage img{
+    transform: scale(1.1);
+}
+.Contents .Restaurant{
+    margin-top: 20px;
+}
+
+.Contents .Travel_Course{
+    margin-top: 20px;
+}
+
+.Contents .Travel_Course .Tour_Course{
+    border: 1px solid #ccc;
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.Contents .Travel_Course .Tour_Course:hover{
+    border-color: #0076ff;
+}
+.Contents .Travel_Course .Tour_Course .top{
+    margin: 0 auto;
+    overflow: hidden;
+    display: block;
+    padding: 0px 10px;
+}
+.Contents .Travel_Course .Tour_Course .top .circle{
+    background-color: #00baff;
+    float: left;
+    color: white;
+    padding: 15px 10px;
+    border-radius: 100%;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.3rem;
+}
+.Contents .Travel_Course .Tour_Course .top .line{
+    float: left;
+    margin-top: 15px;
+}
+.Contents .Travel_Course .Tour_Course .area_info{
+    padding: 0px 10px;
+    float: left;
+}
+.Contents .Travel_Course .Tour_Course .area_info .map_name{
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.Contents .Travel_Course .Tour_Course .area_info .map_img{
+    margin-top: 5px;
+}
+.Contents .Travel_Course .Tour_Course .second{
+    margin-left: 75px;
+}
+.Contents .Railro_Note{
+    margin-top: 20px;
+}
