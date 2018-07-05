@@ -55,7 +55,7 @@ public class Note_Step1_InsertAction implements Action{
 		}
 		
         forward.setRedirect(true); //접속 끊었다가 다시 연결하면서 새로운 정보를 보여준다.
-        forward.setPath("./Railro_Note_Step2.pl"); //메인으로   
+        forward.setPath("./Note_Step2_SelectAction.pl?num="+cnt); //노트2로 이동  
 		return forward;
 	}
 

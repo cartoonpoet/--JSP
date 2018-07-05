@@ -1,109 +1,110 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="net.note.db.Note_Step2_Day_List_Bean"%>
+<%@ page import="net.note.db.Note_Step2_Select_Bean"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+    
+<%String ID = null, PW = null;
 
+Cookie cookies[] = request.getCookies();
+
+if(cookies!=null) {
+      for(int i = 0; i<cookies.length; i++){
+         String name = cookies[i].getName();
+         if(name.equals("ID")){
+            ID = cookies[i].getValue();
+         } else if (name.equals("PW")){
+            PW = cookies[i].getValue();
+         }
+      }
+}
+if(ID!=null&&PW!=null){
+      session.setAttribute("ID", ID);
+      session.setAttribute("PW", PW);
+}
+	Note_Step2_Select_Bean note_Step2_Bean=(Note_Step2_Select_Bean)request.getAttribute("note_Step2_Bean");
+	ArrayList<Note_Step2_Day_List_Bean> day_list=(ArrayList<Note_Step2_Day_List_Bean>)request.getAttribute("note_Step2_day_list");
+	
+	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	String to = transFormat.format(note_Step2_Bean.getTravel_Start_Day()); //시작일 저장
+	
+	Date date=transFormat.parse(to);
+	Calendar cal=Calendar.getInstance();
+	
+	cal.setTime(date);
+	cal.add(Calendar.DATE, note_Step2_Bean.getTravel_Day()-1);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>내일로 노트 :: 상세일정 만들기</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/Planner_STEP2.css">
+    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=2">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"> </script>
     
-
-
+    <script src="./jqcloud/d3.js"></script>
+    <script src="./jqcloud/d3.layout.cloud.js"></script>
+    <script src="./jqcloud/d3.wordcloud.js"></script>
 </head>
 <body>
     <header>
             <img src="./planner_Step2_JPG/LOGO.png" alt="">
-                <div class="Note_title">내일로 노트명</div>
+                <div class="Note_title"><%=note_Step2_Bean.getNote_Name() %></div>
                 <div class="Note_edit_title">
                     <input type="text" value="" class="Note_title_input" maxlength="20">
                     <input type="submit" value="확인" name="Note_title_submit" class="Note_title_submit">
                 </div>
-            <a href=""><input type="button" value="저장 후 닫기"></a>
+            <a href="./Main.me"><input type="button" value="저장 후 닫기"></a>
     </header>
     <section>
         <div class="side_left">
             <div class="edit_day">
 <!--전체일정란-->
                 <button class="date_change" id="datepicker">
-                    06.7~16.11
-                    <img src="./planner_Step2_JPG/settings.png" alt="" width="15px">
-                    <span>EDIT</span>
+                   <div class="date_info">
+                        <h1>
+                            <%=to %>&nbsp;~&nbsp;<%=transFormat.format(cal.getTime()).substring(5) %>
+                        </h1>
+<!--
+                        <div>
+                            <img src="./planner_Step2_JPG/settings.png" alt="" width="15px">
+                            <span>EDIT</span>
+                        </div>
+-->
+                   </div>
                 </button>
                 <div class="day_arrange">
+                <%for(int i=0; i<day_list.size(); i++) {%>
                     <button>
                         <ul>
                             <li class="day">
-                                <div class="day_num">DAY1</div>
-                                <div class="day_str">목요일</div>
+                                <div class="day_num">DAY<%=day_list.get(i).getTravel_Area_Day() %></div>
+                                <div class="day_str"><%=day_list.get(i).getDay() %></div>
                             </li>
                             <li class="date">
-                                <div class="date_num">06.07</div>
-                                <div class="date_area">서울</div>
+                                <div class="date_num"><%=day_list.get(i).getDate().substring(5) %></div>
+                                <div class="date_area"><%=day_list.get(i).getTravel_Area_Name() %></div>
                             </li>
                         </ul>
-                    </button>
-                    <button>
-                        <ul>
-                            <li class="day">
-                                <div class="day_num">DAY2</div>
-                                <div class="day_str">금요일</div>
-                            </li>
-                            <li class="date">
-                                <div class="date_num">06.08</div>
-                                <div class="date_area">대구</div>
-                            </li>
-                        </ul>
-                    </button>
-                    <button>
-                        <ul>
-                            <li class="day">
-                                <div class="day_num">DAY3</div>
-                                <div class="day_str">토요일</div>
-                            </li>
-                            <li class="date">
-                                <div class="date_num">06.09</div>
-                                <div class="date_area">여수</div>
-                            </li>
-                        </ul>
-                    </button>
-                    <button>
-                        <ul>
-                            <li class="day">
-                                <div class="day_num">DAY4</div>
-                                <div class="day_str">일요일</div>
-                            </li>
-                            <li class="date">
-                                <div class="date_num">06.10</div>
-                                <div class="date_area">전주</div>
-                            </li>
-                        </ul>
-                    </button>
-                    <button>
-                        <ul>
-                            <li class="day">
-                                <div class="day_num">DAY5</div>
-                                <div class="day_str">월요일</div>
-                            </li>
-                            <li class="date">
-                                <div class="date_num">06.11</div>
-                                <div class="date_area">포항</div>
-                            </li>
-                        </ul>
-                    </button>
-                    
+                    </button>  
+                    <%} %>  
                 </div>
             </div>
             <div class="edit_route">
                  <div class="top">
                    <div class="day_group">
-                        <span class="day">DAY1</span>
+                        <span class="day">DAY<%=day_list.get(0).getTravel_Area_Day() %></span>
                         <span class="wall">|</span>
-                        <span class="date">06.04</span>
-                        <span class="week">(목요일)</span>
+                        <span class="date"><%=day_list.get(0).getDate().substring(5)%></span>
+                        <span class="week">(<%=day_list.get(0).getDay() %>)</span>
                         <img src="./planner_Step2_JPG/refresh.png" alt="" width="20px" class="refresh">
                    </div>
                  </div>
@@ -132,10 +133,12 @@
             <div class="search_area">
                 <span class="area_name">
                     <ul>
-                        <li class="area">대구</li>
+                        <li class="area"></li>
+<!--
                         <li class="area_change">
                             도시변경
                         </li>
+-->
                     </ul>
                 </span>
                 <span class="search_form">
@@ -156,7 +159,8 @@
                 </span>
             </div>
             <div class="search_result">
-                <div class="search_data">
+               <div class="all">
+                   <div class="search_data">
                     <div class="img">
                         <img src="./jpg/bn01.jpg" alt="" width="100px" height="100px">
                     </div>
@@ -171,33 +175,123 @@
                             </div>
                             <div>|</div>
                             <div>
-                                <img src="./planner_Step2_JPG/stamp.png" alt="" width="15px">
+                            <img src="./planner_Step2_JPG/stamp.png" alt="" width="15px">
                                 24
                             </div>
-                            <div style="margin-left: 20px; color: #0062ff; font-weight: bold">
-                                DAY1
-                            </div>
                         </li>
-                        <li class="check">
-                            <input type="text" placeholder="출발시간" class="start">
-                            ~
-                            <input type="text" placeholder="도착시간" class="end">
-                        </li>
+                        <div class="day_marker">
+                            DAY1
+                        </div>
                     </ul>
                     <div class="add_btn">
                         <img src="./map_image/add.png" alt="" class="route_add_btn">
                     </div>
                 </div>
-                
+                    <div class="search_data">
+                    <div class="img">
+                        <img src="./jpg/bn01.jpg" alt="" width="100px" height="100px">
+                    </div>
+                    <ul class="info_group">
+                       <input type="hidden" class="content_id" value="0">
+                        <li class="title">묵집</li>
+                        <li class="sub_title">밥</li>
+                        <li class="comment_like_group">
+                            <div>
+                                <img src="./planner_Step2_JPG/comment.png" alt="" width="15px">
+                                523
+                            </div>
+                            <div>|</div>
+                            <div>
+                            <img src="./planner_Step2_JPG/stamp.png" alt="" width="15px">
+                                24
+                            </div>
+                        </li>
+                        <div class="day_marker">
+                            DAY1
+                        </div>
+                    </ul>
+                    <div class="add_btn">
+                        <img src="./map_image/add.png" alt="" class="route_add_btn">
+                    </div>
+                </div>
+               </div>
+        
+               <div class="hash_add">
+                   <input type="text" placeholder="#해시태그" class="hash" maxlength="6">
+                   
+                   <div class="radio_group">
+                        <label for="food"><img src="./planner_Step2_JPG/dish.png" alt="" width="50px"></label><input type="radio" name="kind" id="food" value="음식점">
+                       <label for="tour"><img src="./planner_Step2_JPG/camera.png" alt="" width="50px"></label><input type="radio" name="kind" id="tour" value="관광지">
+                       <label for="move"><img src="./planner_Step2_JPG/train.png" alt="" width="50px"></label><input type="radio" name="kind" id="move" value="이동">  
+                   </div>
+                    <textarea name="" id="" cols="35" rows="3" placeholder="메모" style="resize:none" maxlength="20"></textarea>
+                    
+                    <button class="hash_add_btn">추가하기</button>
+               </div>
             </div>
         </div>
+        <!-- 추가 정보 -->
+        <ul class="More_Info">
+            <li class="top">
+                <img src="./planner_Step2_JPG/right-arrow.png" alt="" width="30px" class="right">
+                <img src="./planner_Step2_JPG/add.png" alt="" width="25px" class="route_add">
+                <img src="./planner_Step2_JPG/more_Info_Stamp.png" alt="" width="25px" class="stamp">
+            </li>
+            <div class="info_scrolling">
+                    <img src="http://tong.visitkorea.or.kr/cms/resource/96/1023896_image2_1.jpg" alt="" class="thumbnail" width="100%">
+
+                <li class="Main_Title">
+                    <h1>
+                        강태분 할머니묵집
+                    </h1>
+                </li>
+                <li class="info">
+                    교태전은 왕비의 침전으로 광화문을 비롯하여 여섯 대문을 지나야 볼 수 있는 가장 깊은 곳에 위치하고 있다. 
+세종 이후에 마련된 전각으로 경복궁 전각 중 가장 화려한 건축미가 돋보인다.
+경복궁 내 임금의 침전인 강녕전과 함께 왕비의 침전인 교태전에는 용마루가 없는데 
+이는 용은 곧 임금을 상징하는데 성스러운 공간인 침전에 용마루가 누르고 있으면 좋지 않다는 설에서 전해져오고 있고
+또한, 교태전이 강녕전과 함께 용머리가 없다는 건 왕과 왕비를 동등하게 대우했다는 뜻한다
+                </li>
+                <li class="description">
+                    <div class="tel">전화번호</div>
+                    <div class="phone">010-1234-5678</div>
+                    <div class="addr_desc">주소</div>
+                    <div class="addr">대구대구대구대구</div>
+                    <div class="open">영업시간</div>
+                    <div class="open_time">21:00~24:00</div>
+                    <div class="menu">대표메뉴</div>
+                    <div class="menu_list">장어탕</div>
+                    <div id="wordcloud">
+<!--                     워드클라우드-->
+                    </div>
+                </li>
+                
+<!--
+                <li class="btn_group">
+                    <button>상세정보</button>
+                    <button>리뷰</button>
+                    <button>리뷰 작성</button>
+                </li>
+-->
+            </div>
+        </ul>
+        
+        
+        
     </section>
+           <script src="./js/Planner_STEP2.js?ver=3"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js"></script>
-        <script src="./datepicker/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./datepicker/jquery-ui.css">
-    <link rel="stylesheet" href="./timepicker/css/timepicker.css">
-    <script src="./timepicker/js/timepicker.js"></script>
-    <script src="./js/Planner_STEP2.js"></script>
+    <script src="./jqcloud/example.words.js"></script>
+    <script>
+		NoteID=<%=note_Step2_Bean.getTravel_ID()%>
+        //워드클라우드 스크립트 
+        d3.wordcloud()
+        .size([320, 450])
+        .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+        .words(words)
+        .start();
+        
+    </script>
 </body>
 </html>

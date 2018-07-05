@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.Ajax.Note.Action.Note_Name_UpdateAction;
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
 import net.member.action.MemberJoinAction;
@@ -45,10 +46,13 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         	forward.setRedirect(false);
         	forward.setPath("./planner_writer/Railro_Note_Step1.jsp");
         }
-        else if(command.equals("/Railro_Note_Step2.pl")) {
-        	forward=new ActionForward();
-        	forward.setRedirect(false);
-        	forward.setPath("./planner_writer/Railro_Note_Step2.jsp");
+        else if(command.equals("/Note_Step2_SelectAction.pl")) {
+        	action=new Note_Step2_SelectAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
         }
         else if(command.equals("/Note1InsertAction.pl")){ //Sign up Action page
         	action=new Note_Step1_InsertAction();
@@ -58,7 +62,14 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-        
+        else if(command.equals("/Note_Name_Update.pl")) {
+        	action=new Note_Name_UpdateAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         
         
         if(forward!=null){ 

@@ -13,11 +13,12 @@ if(cookies!=null) {
          String name = cookies[i].getName();
          if(name.equals("ID")){
             ID = cookies[i].getValue();
-         } else if (name.equals("PW")){
+         } 
+         else if (name.equals("PW")){
             PW = cookies[i].getValue();
          }
       }
-   }
+ }
    if(ID!=null&&PW!=null){
       session.setAttribute("ID", ID);
       session.setAttribute("PW", PW);
@@ -30,7 +31,7 @@ if(cookies!=null) {
     <meta charset="UTF-8">
     <title>Railro Tour - 전라도편</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css?ver=1">
     <link rel="stylesheet" href="./bxslide/dist/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>

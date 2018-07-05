@@ -1,4 +1,4 @@
-<%@page import="sun.java2d.loops.Blit" %>
+
 <%@page import="net.notice.db.NoticeBean" %>
 <%@page import="net.notice.db.NoticeDAO" %>
 <%@page import="java.util.List"%>

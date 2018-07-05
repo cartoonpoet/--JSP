@@ -13,11 +13,11 @@ if(cookies!=null) {
             PW = cookies[i].getValue();
          }
       }
-   }
-   if(ID!=null&&PW!=null){
+}
+if(ID!=null&&PW!=null){
       session.setAttribute("ID", ID);
       session.setAttribute("PW", PW);
-   }
+}
    
 %>
 <!DOCTYPE html>
