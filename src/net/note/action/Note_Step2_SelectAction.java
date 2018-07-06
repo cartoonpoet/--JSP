@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
+import net.note.db.Note_Step2_ALL_INFO_Bean;
 import net.note.db.Note_Step2_Day_List_Bean;
 import net.note.db.Note_Step2_Select_Bean;
 import net.note.db.Note_Step2_Select_DAO;
@@ -69,12 +70,24 @@ public class Note_Step2_SelectAction implements Action{
 				case 6: day_list.get(i).setDay("금요일"); break;
 				case 7: day_list.get(i).setDay("토요일"); break;
 			}
+			
+			String area_name=day_list.get(i).getTravel_Area_Name();
+			
+			day_list.get(i).setDo_code(note_Step2_Select_DAO.do_code_Action(day_list.get(i).getTravel_Area_Name())); //도 코드 셋팅
+			day_list.get(i).setArea_code(note_Step2_Select_DAO.area_code_Action(day_list.get(i).getTravel_Area_Name())); // 지역 코드 셋팅
 		}
 		
 		for(int i=0; i<day_list.size(); i++) {
 			System.out.println(day_list.get(i).getTravel_Area_Day()+"일차 : "+day_list.get(i).getTravel_Area_Name());
 		}
 		
+		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=note_Step2_Select_DAO.Area_Info_Select_Action(day_list.get(0).getArea_code(), day_list.get(0).getDo_code());
+		
+//		for(int i=0; i<Info_List.size(); i++) {
+//			System.out.println(i+"제목 : "+Info_List.get(i).getTitle());
+//		}
+		
+		request.setAttribute("Info_List", Info_List);
 		request.setAttribute("note_Step2_Bean", note_Step2_Bean);
 		request.setAttribute("note_Step2_day_list", day_list);
         forward.setRedirect(false); //접속 끊었다가 다시 연결하면서 새로운 정보를 보여준다.

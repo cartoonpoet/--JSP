@@ -6,7 +6,7 @@
 <%@ page import="net.note.db.Note_Step2_Select_Bean"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-    
+<%@ page import="net.note.db.Note_Step2_ALL_INFO_Bean" %>
 <%String ID = null, PW = null;
 
 Cookie cookies[] = request.getCookies();
@@ -27,6 +27,7 @@ if(ID!=null&&PW!=null){
 }
 	Note_Step2_Select_Bean note_Step2_Bean=(Note_Step2_Select_Bean)request.getAttribute("note_Step2_Bean");
 	ArrayList<Note_Step2_Day_List_Bean> day_list=(ArrayList<Note_Step2_Day_List_Bean>)request.getAttribute("note_Step2_day_list");
+	ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=(ArrayList<Note_Step2_ALL_INFO_Bean>)request.getAttribute("Info_List");
 	
 	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -44,7 +45,7 @@ if(ID!=null&&PW!=null){
     <meta charset="UTF-8">
     <title>내일로 노트 :: 상세일정 만들기</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=2">
+    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=4">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
 
@@ -83,7 +84,8 @@ if(ID!=null&&PW!=null){
                 </button>
                 <div class="day_arrange">
                 <%for(int i=0; i<day_list.size(); i++) {%>
-                    <button>
+                    <button data-areacode=<%=day_list.get(i).getArea_code() %>
+                    data-docode=<%=day_list.get(i).getDo_code() %>>
                         <ul>
                             <li class="day">
                                 <div class="day_num">DAY<%=day_list.get(i).getTravel_Area_Day() %></div>
@@ -160,14 +162,29 @@ if(ID!=null&&PW!=null){
             </div>
             <div class="search_result">
                <div class="all">
-                   <div class="search_data">
+               <%for(int i=0; i<Info_List.size(); i++){ %>
+                   <div class="search_data" 
+                   		data-areacode=<%=Info_List.get(i).getAreacode() %>
+                   		data-sigungucode=<%=Info_List.get(i).getSigungucode() %>
+                   		data-cat1=<%=Info_List.get(i).getCat1() %>
+                   		data-cat2=<%=Info_List.get(i).getCat2() %>
+                   		data-cat3=<%=Info_List.get(i).getCat3() %>
+                   		data-contentid=<%=Info_List.get(i).getContent_id() %>
+                   		data-contenttypeid=<%=Info_List.get(i).getContenttype_id() %>
+                   		data-lat=<%=Info_List.get(i).getMapx() %>
+                   		data-lng=<%=Info_List.get(i).getMapy() %>>
                     <div class="img">
-                        <img src="./jpg/bn01.jpg" alt="" width="100px" height="100px">
+                        <img src="<%=Info_List.get(i).getFirstimage() %>" alt="" width="100px" height="100px">
                     </div>
                     <ul class="info_group">
                        <input type="hidden" class="content_id" value="0">
-                        <li class="title">북촌 한옥 마을</li>
-                        <li class="sub_title">관광지</li>
+                        <li class="title"><%=Info_List.get(i).getTitle() %></li>
+                        <%if(Info_List.get(i).getContenttype_id()==12){ %>
+                        	<li class="sub_title">관광지</li>
+                        <%} %>
+                        <%if(Info_List.get(i).getContenttype_id()==39) {%>
+                        	<li class="sub_title">음식점</li>
+                        <%} %>
                         <li class="comment_like_group">
                             <div>
                                 <img src="./planner_Step2_JPG/comment.png" alt="" width="15px">
@@ -180,40 +197,14 @@ if(ID!=null&&PW!=null){
                             </div>
                         </li>
                         <div class="day_marker">
-                            DAY1
+                            <!-- DAY1 -->
                         </div>
                     </ul>
                     <div class="add_btn">
                         <img src="./map_image/add.png" alt="" class="route_add_btn">
                     </div>
                 </div>
-                    <div class="search_data">
-                    <div class="img">
-                        <img src="./jpg/bn01.jpg" alt="" width="100px" height="100px">
-                    </div>
-                    <ul class="info_group">
-                       <input type="hidden" class="content_id" value="0">
-                        <li class="title">묵집</li>
-                        <li class="sub_title">밥</li>
-                        <li class="comment_like_group">
-                            <div>
-                                <img src="./planner_Step2_JPG/comment.png" alt="" width="15px">
-                                523
-                            </div>
-                            <div>|</div>
-                            <div>
-                            <img src="./planner_Step2_JPG/stamp.png" alt="" width="15px">
-                                24
-                            </div>
-                        </li>
-                        <div class="day_marker">
-                            DAY1
-                        </div>
-                    </ul>
-                    <div class="add_btn">
-                        <img src="./map_image/add.png" alt="" class="route_add_btn">
-                    </div>
-                </div>
+                  <%} %>
                </div>
         
                <div class="hash_add">

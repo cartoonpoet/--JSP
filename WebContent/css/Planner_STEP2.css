@@ -423,14 +423,22 @@
         float: left;
         margin-top: 19px;
     }
-    .search_data .info_group .title{
-        font-weight: bold;
-        font-size: 1.1rem;
-    }
-    .search_data .info_group .sub_title{
-        margin-top: 7px;
-        color: #909090;
-    }
+.search_data .info_group .title{
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 150px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.search_data .info_group .sub_title{
+    margin-top: 7px;
+    color: #909090;
+    width: 150px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+}
     .search_data .info_group .comment_like_group{
         padding: 10px 0px;
         overflow: hidden;

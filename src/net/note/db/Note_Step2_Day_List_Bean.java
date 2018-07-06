@@ -5,6 +5,24 @@ public class Note_Step2_Day_List_Bean {
 	int Travel_Area_Day;
 	String day;
 	String date;
+	int do_code;
+	int area_code;
+	public int getDo_code() {
+		return do_code;
+	}
+
+	public void setDo_code(int do_code) {
+		this.do_code = do_code;
+	}
+
+	public int getArea_code() {
+		return area_code;
+	}
+
+	public void setArea_code(int area_code) {
+		this.area_code = area_code;
+	}
+
 	public String getDay() {
 		return day;
 	}
