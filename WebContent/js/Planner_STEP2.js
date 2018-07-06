@@ -99,6 +99,24 @@ $(document).ready(function(){
     
     $(".search_data .img").on("click", function(){
         $(".More_Info").animate({"margin-right":'+=500'});
+        var content_id=$(this).parent().data("contentid");
+        var content_type_id=$(this).parent().data("contenttypeid");
+        
+        $.ajax({
+        	type:'post',
+        	url:'./Note_More_Info.pl',
+        	data:{
+        		contentid:content_id,
+        		contenttypeid:content_type_id
+        	},
+        	dataType:"json",
+    		success:function(data){
+    			alert('전송완료 : '+data.Title);
+    		},
+    		error:function(request,status,error){
+    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	    }
+        })
     })
     $(".More_Info>.top>.right").on("click", function(){
         $(".More_Info").animate({"margin-right":'-=500'});

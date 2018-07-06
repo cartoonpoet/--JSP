@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.Ajax.Note.Action.Note_More_Info_SelectAction;
 import net.Ajax.Note.Action.Note_Name_UpdateAction;
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
@@ -70,7 +71,14 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-        
+        else if(command.equals("/Note_More_Info.pl")) {
+        	action=new Note_More_Info_SelectAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         
         if(forward!=null){ 
             if(forward.isRedirect()){ 
