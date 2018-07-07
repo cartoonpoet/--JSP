@@ -98,7 +98,7 @@ $(document).ready(function(){
     });
     
     $(".search_data .img").on("click", function(){
-        $(".More_Info").animate({"margin-right":'+=500'});
+        
         var content_id=$(this).parent().data("contentid");
         var content_type_id=$(this).parent().data("contenttypeid");
         
@@ -111,12 +111,47 @@ $(document).ready(function(){
         	},
         	dataType:"json",
     		success:function(data){
-    			alert('전송완료 : '+data.Title);
+    			/*
+    			 * JSON 만든 것
+    			 * Content_id = 고유번호
+    			 * Content_type_id = 타입 번호(관광지/음식점)
+    			 * Title = 제목
+    			 * Address = 주소
+    			 * Overview = 개요
+    			 * Infocenter = 전화번호
+    			 * Mainimg= 메인이미지
+    			 * Opentime = 오픈시각
+    			 * Mainmenu=메인메뉴
+    			 */
+    			$('.More_Info').attr('data-contentid', data.Content_id);
+    			$('.More_Info').attr('data-contenttypeid', data.Content_type_id);
+    			$('.info_scrolling>.thumbnail').attr('src', data.Mainimg); //메인 이미지
+    			$('.Main_Title>h1').text(data.Title); //제목
+    			$('.info_scrolling .info').html(data.Overview); //내용
+    			$('.description .phone').text(data.Infocenter); //전화번호
+    			$('.description .addr').text(data.Address); //주소
+    			
+    			if(data.Content_type_id==12){
+    				$('.description .open').css('display', 'none');
+    				$('.description .open_time').css('display', 'none');
+    				$('.description .menu').css('display', 'none');
+    				$('.description .menu_list').css('display', 'none');
+    			}
+    			else if(data.Content_type_id==39){
+    				$('.description .open_time').text(data.Opentime); //영업시간
+    				$('.description .menu_list').html(data.Mainmenu); //메인메뉴
+    				$('.description .open').css('display', 'block');
+    				$('.description .open_time').css('display', 'block');
+    				$('.description .menu').css('display', 'block');
+    				$('.description .menu_list').css('display', 'block');
+    			}
     		},
     		error:function(request,status,error){
     	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     	    }
         })
+        
+        $(".More_Info").animate({"margin-right":'+=500'});
     })
     $(".More_Info>.top>.right").on("click", function(){
         $(".More_Info").animate({"margin-right":'-=500'});

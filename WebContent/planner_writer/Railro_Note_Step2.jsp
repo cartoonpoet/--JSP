@@ -222,7 +222,7 @@ if(ID!=null&&PW!=null){
             </div>
         </div>
         <!-- 추가 정보 -->
-        <ul class="More_Info">
+        <ul class="More_Info" data-contentid=0 data-contenttypeid=0>
             <li class="top">
                 <img src="./planner_Step2_JPG/right-arrow.png" alt="" width="30px" class="right">
                 <img src="./planner_Step2_JPG/add.png" alt="" width="25px" class="route_add">
@@ -270,7 +270,7 @@ if(ID!=null&&PW!=null){
         
         
     </section>
-           <script src="./js/Planner_STEP2.js?ver=11"></script>
+           <script src="./js/Planner_STEP2.js?ver=25"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js"></script>
     <script src="./jqcloud/example.words.js"></script>

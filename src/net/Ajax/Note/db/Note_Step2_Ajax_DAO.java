@@ -52,6 +52,12 @@ public class Note_Step2_Ajax_DAO{
 	}
 	public JSONObject More_Info_Select(int content_id, int content_type_id) {
 		JSONObject json=new JSONObject();
+		
+		System.out.println("content_id : "+content_id);
+		
+		json.put("Content_id", content_id);
+		json.put("Content_type_id", content_type_id);
+		
 		try {
 			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey="+Key+"&contentId="+content_id+"&defaultYN=Y&MobileOS=ETC&MobileApp=AppTest&contentTypeId="+content_type_id+"&overviewYN=Y&addrinfoYN=Y&_type=json");
 			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
@@ -69,7 +75,58 @@ public class Note_Step2_Ajax_DAO{
 			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
 			
 			items=(JSONObject) JSONValue.parseWithException(isr);
-			System.out.println(items);
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			obj=(JSONObject) obj.get("item");
+			
+			if(content_type_id==12) {
+				json.put("Infocenter", obj.get("infocenter"));
+				
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey="+Key+"&contentId="+content_id+"&imageYN=Y&MobileOS=ETC&MobileApp=AppTest&sublmageYN=Y&_type=json&numOfRows=1");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				items=(JSONObject) JSONValue.parseWithException(isr);
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+
+				
+				if(Integer.parseInt(obj.get("totalCount").toString())>0) {
+					obj=(JSONObject) obj.get("items");
+					obj=(JSONObject) obj.get("item");
+					json.put("Mainimg", obj.get("originimgurl"));
+					//System.out.println("관광지 사진 있음");
+				}
+				else {
+					json.put("Mainimg", "./jpg/no_image.gif");
+					//System.out.println("관광지 사진 없음");
+				}
+			}
+			else if(content_type_id==39) {
+				json.put("Infocenter", obj.get("infocenterfood"));
+				json.put("Opentime", obj.get("opentimefood"));
+				json.put("Mainmenu", obj.get("treatmenu"));
+				
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey="+Key+"&contentId="+content_id+"&imageYN=N&MobileOS=ETC&MobileApp=AppTest&_type=json&numOfRows=1");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				items=(JSONObject) JSONValue.parseWithException(isr);
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+				
+				if(Integer.parseInt(obj.get("totalCount").toString())>0) {
+					obj=(JSONObject) obj.get("items");
+					obj=(JSONObject) obj.get("item");
+					json.put("Mainimg", obj.get("originimgurl"));
+					//System.out.println("음식점 사진 있음");
+				}
+				else {
+					json.put("Mainimg", "./jpg/no_image.gif");
+					//System.out.println("음식점 사진 없음");
+				}
+			}
+
+			
+			//System.out.println("JSON 합치기 전 : "+obj);
+			//System.out.println("JSON 합치기 후 : "+json);
 		}catch(Exception e) {
 			System.out.println("More_Info_Select ERROR : "+e);
 		}
