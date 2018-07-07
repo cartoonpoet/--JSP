@@ -258,6 +258,10 @@ $(document).ready(function(){
         day_str=$(this).find(".day_str").text(); //요일
         date_num=$(this).find(".date_num").text(); //날짜
         date_area=$(this).find(".date_area").text(); //지역명
+        lat=$(this).data('lat');//위도
+        lng=$(this).data('lng');//경도
+        
+        map.panTo(new daum.maps.LatLng(lat, lng));
         
         $(".area_name>ul>.area").text(date_area);
         $(".day_group>.day").text(day_num);
