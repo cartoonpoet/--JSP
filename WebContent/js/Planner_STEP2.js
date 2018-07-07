@@ -8,6 +8,37 @@ for(var i=0; i<$('.day_arrange>button').length; i++){
 $('.area_name .area').text($('.day_arrange button:first-child .date_area').text());
 
 $(document).ready(function(){
+	$('.search_data').mouseover(function(){
+		type_id=$(this).data('contenttypeid');
+		var id=$(this).data('contentid');
+		var lat=$(this).data('lat');
+		var lng=$(this).data('lng');
+		
+		
+		for(var i=0; i<positions.length; i++){
+			if(positions[i].contentid==id){
+				num=i;
+				break;
+			}
+		}
+		
+
+	    ItemoverImage = new daum.maps.MarkerImage('./daum_map/marker_img/hover.png', new daum.maps.Size(44, 46));
+	    
+		markers[num].setImage(ItemoverImage);
+	})
+	$('.search_data').mouseleave(function(){
+		var normalImage;
+		
+	    if(Number(type_id)==12){
+	    	normalImage = new daum.maps.MarkerImage(TourMarkerImg, imageSize);
+	    }
+	    else if(Number(type_id)==39){
+	    	normalImage = new daum.maps.MarkerImage(FoodMarkerImg, imageSize);
+	    }
+		markers[num].setImage(normalImage);
+	})
+	
     $('.hash_add>.hash_add_btn').on('click', function(){
         var hash_tag=$(this).siblings('input').val();
         var select=$('.radio_group>input[name=kind]:checked').val();

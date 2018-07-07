@@ -16,7 +16,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		var lng=$('.search_data').eq(i).data('lng');
 		var type=$('.search_data').eq(i).data('contenttypeid');
 		var id=$('.search_data').eq(i).data('contentid');
-		
+
 		positions.push({
 			title:title,
 			latlng: new daum.maps.LatLng(lat, lng),
@@ -65,12 +65,12 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		    
 	    }
 	    
-	    addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title);
+	    markers.push(addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title));
 	    
 	}
 	
 	// 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-	function addMarker(position, contentTypeId, markerImage, title) {
+	function addMarker(position, contentTypeId, markerImage, title, contentId) {
 
 	    // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
 	    var normalImage = markerImage;
@@ -107,6 +107,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	    	marker.setImage(normalImage);
 	    });
 
+	    return marker;
 	}
 
 	
