@@ -402,10 +402,11 @@ public class Note_Step2_Select_DAO {
 					Info_List.get(i).setFirstimage2("./jpg/no_image.gif");
 				}
 				
-				Info_List.get(i).setMapx(Double.parseDouble(Part_Item.get("mapx").toString()));
-				Info_List.get(i).setMapy(Double.parseDouble(Part_Item.get("mapy").toString()));
+				Info_List.get(i).setMapx(Double.parseDouble(Part_Item.get("mapy").toString()));
+				Info_List.get(i).setMapy(Double.parseDouble(Part_Item.get("mapx").toString()));
 				Info_List.get(i).setSigungucode(Integer.parseInt(Part_Item.get("sigungucode").toString()));
 				Info_List.get(i).setTitle(Part_Item.get("title").toString());
+				
 			}
 		}catch(Exception e) {
 			System.out.println("Area_Info_Select_Action ERROR1  : "+e);
@@ -486,8 +487,8 @@ public class Note_Step2_Select_DAO {
 					Info_List.get(i).setFirstimage2("./jpg/no_image.gif");
 				}
 				
-				Info_List.get(i).setMapx(Double.parseDouble(Part_Item.get("mapx").toString()));
-				Info_List.get(i).setMapy(Double.parseDouble(Part_Item.get("mapy").toString()));
+				Info_List.get(i).setMapx(Double.parseDouble(Part_Item.get("mapy").toString()));
+				Info_List.get(i).setMapy(Double.parseDouble(Part_Item.get("mapx").toString()));
 				Info_List.get(i).setSigungucode(Integer.parseInt(Part_Item.get("sigungucode").toString()));
 				Info_List.get(i).setTitle(Part_Item.get("title").toString());
 			}

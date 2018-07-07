@@ -274,11 +274,13 @@ if(ID!=null&&PW!=null){
     </section>
     
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
-    <script src="./js/Planner_STEP2_Daum_map.js?ver=1"></script>
+    <script src="./js/Planner_STEP2_Daum_map.js?ver=48"></script>
     <script src="./jqcloud/example.words.js"></script>
     <script src="./js/Planner_STEP2.js?ver=27"></script>
     
     <script>
+    	
+    	
 		NoteID=<%=note_Step2_Bean.getTravel_ID()%>
         //워드클라우드 스크립트 
         d3.wordcloud()

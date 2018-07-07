@@ -4,85 +4,110 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         level : 9
     // 지도의 확대 레벨
     };
- 
+ 	
     var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다 
-    var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
- 
-    // 마커를 표시할 위치와 title 객체 배열입니다 
-    var positions = [ {
-        title : "카카오",
-        latlng : new daum.maps.LatLng(33.450705, 126.570677)
-    }, {
-        title : "제주공항",
-        latlng : new daum.maps.LatLng(33.5066211, 126.492810)
-    }, {
-        title : "테마파크",
-        latlng : new daum.maps.LatLng(33.2906595, 126.322529)
-    }, {
-        title : "수목원",
-        latlng : new daum.maps.LatLng(33.4696849, 126.493305)
-    } ];
- 
-    // 마커 이미지의 이미지 주소입니다
-    var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
- 
-    for (var i = 0; i < positions.length; i++) {
- 
-        // 마커 이미지의 이미지 크기 입니다
-        var imageSize = new daum.maps.Size(24, 35);
- 
-        // 마커 이미지를 생성합니다    
-        var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
- 
-        // 마커를 생성합니다
-        var marker = new daum.maps.Marker({
-            map : map, // 마커를 표시할 지도
-            position : positions[i].latlng, // 마커를 표시할 위치
-            title : positions[i].title,
-            image : markerImage
-        // 마커 이미지 
-        });
-    }
- 
-    var linePath;
-    var lineLine = new daum.maps.Polyline();
-    var distance;
- 
-    for (var i = 0; i < positions.length; i++) {
-        if (i != 0) {
-            linePath = [ positions[i - 1].latlng, positions[i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
-        }
-        ;
-        lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
- 
-        var drawLine = new daum.maps.Polyline({
-            map : map, // 선을 표시할 지도입니다 
-            path : linePath,
-            strokeWeight : 3, // 선의 두께입니다 
-            strokeColor : '#db4040', // 선의 색깔입니다
-            strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
-            strokeStyle : 'solid' // 선의 스타일입니다
-        });
- 
-        distance = Math.round(lineLine.getLength());
-        displayCircleDot(positions[i].latlng, distance);
-         
-    }
- 
-    function displayCircleDot(position, distance) {
-        if (distance > 0) {
-            // 클릭한 지점까지의 그려진 선의 총 거리를 표시할 커스텀 오버레이를 생성합니다
-            var distanceOverlay = new daum.maps.CustomOverlay(
-                    {
-                        content : '<div class="dotOverlay">거리 <span class="number">'
-                                + distance + '</span>m</div>',
-                        position : position,
-                        yAnchor : 1,
-                        zIndex : 2
-                    });
- 
-            // 지도에 표시합니다
-            distanceOverlay.setMap(map);
-        }
-    }
+    
+
+	var positions=new Array(0);
+	
+	for(var i=0; i<$('.search_data').length; i++){ //다중 마커 찍기위해 데이터 수집
+		var title=$('.search_data').eq(i).find('.title').text();
+		var lat=$('.search_data').eq(i).data('lat');
+		var lng=$('.search_data').eq(i).data('lng');
+		var type=$('.search_data').eq(i).data('contenttypeid');
+		var id=$('.search_data').eq(i).data('contentid');
+		
+		positions.push({
+			title:title,
+			latlng: new daum.maps.LatLng(lat, lng),
+			contenttypeid:type,
+			contentid:id
+		});
+		
+	}
+	
+	var TourMarkerImg = "./daum_map/marker_img/TourMarker.png"; //이미지 마커 주소
+	var FoodMarkerImg = "./daum_map/marker_img/FoodMarker.png"; //이미지 마커 주소
+	var TourHoverMarkerImg = "./daum_map/marker_img/TourMarker_Hover.png";
+	var FoodHoverMarkerImg = "./daum_map/marker_img/FoodMarker_Hover.png";
+	
+	var markers=new Array(0);
+	
+	for(var i=0; i<positions.length; i++){
+		// 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new daum.maps.Size(42, 43); 
+	    var markerImage;
+	    // 마커 이미지를 생성합니다    
+	    if(positions[i].contenttypeid==12){ //해당 위치가 관광지이면
+	    	markerImage = new daum.maps.MarkerImage(TourMarkerImg, imageSize); 
+		    
+//		    markers.push(new daum.maps.Marker({
+//		        map: map, // 마커를 표시할 지도
+//		        position: positions[i].latlng, // 마커를 표시할 위치
+//		        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+//		        image : markerImage, // 마커 이미지 
+//		        contenttypeid : positions[i].contenttypeid,
+//		        contentid : positions[i].contentid
+//		    }));
+		    
+	    }
+	    else if(positions[i].contenttypeid==39){ //해당 위치가 음식점이면
+	    	markerImage = new daum.maps.MarkerImage(FoodMarkerImg, imageSize);
+
+//		    markers.push(new daum.maps.Marker({
+//		        map: map, // 마커를 표시할 지도
+//		        position: positions[i].latlng, // 마커를 표시할 위치
+//		        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+//		        image : markerImage, // 마커 이미지 
+//		        contenttypeid : positions[i].contenttypeid, //타입
+//		        contentid : positions[i].contentid // 고유번호
+//		    }));
+		    
+	    }
+	    
+	    addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title);
+	    
+	}
+	
+	// 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
+	function addMarker(position, contentTypeId, markerImage, title) {
+
+	    // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+	    var normalImage = markerImage;
+	    var overImage;
+	    if(contentTypeId==12){
+	    	overImage = new daum.maps.MarkerImage(TourHoverMarkerImg, imageSize);
+	    }
+	    else if(contentTypeId==39){
+	    	overImage = new daum.maps.MarkerImage(FoodHoverMarkerImg, imageSize);
+	    }
+	    
+	    // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+	    var marker = new daum.maps.Marker({
+	        map: map,
+	        position: position,
+	        image: normalImage,
+	        title: title
+	    });
+
+	    // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+	    marker.normalImage = normalImage;
+
+	    // 마커에 mouseover 이벤트를 등록합니다
+	    daum.maps.event.addListener(marker, 'mouseover', function() {
+
+	        // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
+	        // 마커의 이미지를 오버 이미지로 변경합니다
+	        marker.setImage(overImage);
+	    });
+
+	    // 마커에 mouseout 이벤트를 등록합니다
+	    daum.maps.event.addListener(marker, 'mouseout', function() {
+
+	    	marker.setImage(normalImage);
+	    });
+
+	}
+
+	
+	
