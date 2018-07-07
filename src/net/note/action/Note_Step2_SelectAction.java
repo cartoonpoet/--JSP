@@ -75,10 +75,12 @@ public class Note_Step2_SelectAction implements Action{
 			
 			day_list.get(i).setDo_code(note_Step2_Select_DAO.do_code_Action(day_list.get(i).getTravel_Area_Name())); //도 코드 셋팅
 			day_list.get(i).setArea_code(note_Step2_Select_DAO.area_code_Action(day_list.get(i).getTravel_Area_Name())); // 지역 코드 셋팅
+			day_list.get(i).setMapX(note_Step2_Select_DAO.Search_mapX(day_list.get(i).getDo_code(), day_list.get(i).getArea_code()));
+			day_list.get(i).setMapY(note_Step2_Select_DAO.Search_mapY(day_list.get(i).getDo_code(), day_list.get(i).getArea_code()));
 		}
 		
 		for(int i=0; i<day_list.size(); i++) {
-			System.out.println(day_list.get(i).getTravel_Area_Day()+"일차 : "+day_list.get(i).getTravel_Area_Name());
+			System.out.println(day_list.get(i).getTravel_Area_Day()+"일차 : "+day_list.get(i).getTravel_Area_Name()+" 좌표 X : "+day_list.get(i).getMapX()+" 좌표 Y : "+day_list.get(i).getMapY());
 		}
 		
 		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=note_Step2_Select_DAO.Area_Info_Select_Action(day_list.get(0).getArea_code(), day_list.get(0).getDo_code());

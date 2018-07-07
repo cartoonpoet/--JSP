@@ -37,7 +37,52 @@ public class Note_Step2_Select_DAO {
 			return;
 		}
 	}
-	
+	public double Search_mapX(int sigungucode, int areacode) {
+		String sql="select * from area_locate where sigungu_code=? and area_code=?";
+		double mapX=0;
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, sigungucode);
+			pstmt.setInt(2, areacode);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+				mapX=rs.getDouble("mapx");
+			
+
+		}catch(Exception ex) {
+			System.out.println("Search_mapX ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		
+		return mapX;
+	}
+	public double Search_mapY(int sigungucode, int areacode) {
+		String sql="select * from area_locate where sigungu_code=? and area_code=?";
+		double mapY=0;
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, sigungucode);
+			pstmt.setInt(2, areacode);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+				mapY=rs.getDouble("mapy");
+			
+
+		}catch(Exception ex) {
+			System.out.println("Search_mapY ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		
+		return mapY;
+	}
 	public String Search_Note_Name(int Travel_ID, String Email_ID) {
 		String sql="select * from note_info1 where travel_id=? and email_id=?";
 		

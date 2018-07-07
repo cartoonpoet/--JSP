@@ -7,6 +7,24 @@ public class Note_Step2_Day_List_Bean {
 	String date;
 	int do_code;
 	int area_code;
+	double mapX;
+	double mapY;
+	public double getMapX() {
+		return mapX;
+	}
+
+	public void setMapX(double mapX) {
+		this.mapX = mapX;
+	}
+
+	public double getMapY() {
+		return mapY;
+	}
+
+	public void setMapY(double mapY) {
+		this.mapY = mapY;
+	}
+
 	public int getDo_code() {
 		return do_code;
 	}

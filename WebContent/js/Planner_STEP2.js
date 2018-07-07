@@ -128,7 +128,7 @@ $(document).ready(function(){
     			$('.info_scrolling>.thumbnail').attr('src', data.Mainimg); //메인 이미지
     			$('.Main_Title>h1').text(data.Title); //제목
     			$('.info_scrolling .info').html(data.Overview); //내용
-    			$('.description .phone').text(data.Infocenter); //전화번호
+    			$('.description .phone').html(data.Infocenter); //전화번호
     			$('.description .addr').text(data.Address); //주소
     			
     			if(data.Content_type_id==12){

@@ -85,7 +85,9 @@ if(ID!=null&&PW!=null){
                 <div class="day_arrange">
                 <%for(int i=0; i<day_list.size(); i++) {%>
                     <button data-areacode=<%=day_list.get(i).getArea_code() %>
-                    data-docode=<%=day_list.get(i).getDo_code() %>>
+                    data-docode=<%=day_list.get(i).getDo_code() %>
+                    data-lat=<%=day_list.get(i).getMapX() %>
+                    data-lng=<%=day_list.get(i).getMapY() %>>
                         <ul>
                             <li class="day">
                                 <div class="day_num">DAY<%=day_list.get(i).getTravel_Area_Day() %></div>
@@ -270,7 +272,7 @@ if(ID!=null&&PW!=null){
         
         
     </section>
-           <script src="./js/Planner_STEP2.js?ver=25"></script>
+           <script src="./js/Planner_STEP2.js?ver=26"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js"></script>
     <script src="./jqcloud/example.words.js"></script>
