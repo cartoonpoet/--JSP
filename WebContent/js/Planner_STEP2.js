@@ -142,6 +142,7 @@ $(document).ready(function(){
         		contenttypeid:content_type_id
         	},
         	dataType:"json",
+        	async: false,
     		success:function(data){
     			/*
     			 * JSON 만든 것
@@ -280,7 +281,13 @@ $(document).ready(function(){
         $(".Note_title").css("display", "block");
     })
     $(".day_arrange>button").on("click", function(){ //일정 변경 이벤트
+        for(var i=0; i<overlay.length; i++){ //커스텀 오버레이 모두 다 닫기
+        	overlay[i].setMap(null);
+        }
         
+        for(var i=0; i<markers.length; i++){
+      	   markers[i].setMap(null);
+         }
     	$('.kind_select>.all').find('img').attr('src', './planner_Step2_JPG/ALL2.png');
         $('.kind_select>.camera').find('img').attr('src','./planner_Step2_JPG/camera1.png');
         $('.kind_select>.food').find('img').attr('src', './planner_Step2_JPG/food1.png');
@@ -322,9 +329,7 @@ $(document).ready(function(){
         }
         
         document.getElementById('search_data').innerHTML='';
-        for(var i=0; i<overlay.length; i++){ //커스텀 오버레이 모두 다 닫기
-        	overlay[i].setMap(null);
-        }
+
         
         positions=[];
         overlay=[];
@@ -343,7 +348,9 @@ $(document).ready(function(){
         		areacode:areacode
         	},
         	dataType:"json",
+        	async: false,
         	success:function(data){
+        		
         		$.each(data, function(key, value) {
         		    if(key=='item'){
         		    	search_data=value;
@@ -379,9 +386,7 @@ $(document).ready(function(){
             		});
         		}
         		
-                for(var i=0; i<markers.length; i++){
-             	   markers[i].setMap(null);
-                }
+
         		
                 for(var i=0; i<positions.length; i++){
             		// 마커 이미지의 이미지 크기 입니다
@@ -453,6 +458,7 @@ $(document).ready(function(){
             		areacode:areacode
             	},
             	dataType:"json",
+            	async: false,
             	success:function(data){
             		$.each(data, function(key, value) {
             		    if(key=='item'){
@@ -531,6 +537,7 @@ $(document).ready(function(){
             		areacode:areacode
             	},
             	dataType:"json",
+            	async: false,
             	success:function(data){
             		$.each(data, function(key, value) {
             		    if(key=='item'){
@@ -610,6 +617,7 @@ $(document).ready(function(){
             		areacode:areacode
             	},
             	dataType:"json",
+            	async: false,
             	success:function(data){
             		$.each(data, function(key, value) {
             		    if(key=='item'){
@@ -700,6 +708,7 @@ $(document).ready(function(){
                 type : "GET",
                 url : "39.127.8.42:8080/Railro_Tour_WEB/SearchAction.se",
                 data:keyword,
+                async: false,
                 error : function(){
                     alert('통신실패!!');
                 },
