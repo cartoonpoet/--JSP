@@ -54,6 +54,7 @@ if(ID!=null&&PW!=null){
     <script src="./jqcloud/d3.js"></script>
     <script src="./jqcloud/d3.layout.cloud.js"></script>
     <script src="./jqcloud/d3.wordcloud.js"></script>
+    <link rel="stylesheet" href="./css/overlay.css">
 </head>
 <body>
     <header>
@@ -163,7 +164,7 @@ if(ID!=null&&PW!=null){
                 </span>
             </div>
             <div class="search_result">
-               <div class="all">
+               <div class="all" id="search_data">
                <%for(int i=0; i<Info_List.size(); i++){ %>
                    <div class="search_data" 
                    		data-areacode=<%=Info_List.get(i).getAreacode() %>
@@ -174,7 +175,9 @@ if(ID!=null&&PW!=null){
                    		data-contentid=<%=Info_List.get(i).getContent_id() %>
                    		data-contenttypeid=<%=Info_List.get(i).getContenttype_id() %>
                    		data-lat=<%=Info_List.get(i).getMapx() %>
-                   		data-lng=<%=Info_List.get(i).getMapy() %>>
+                   		data-lng=<%=Info_List.get(i).getMapy() %>
+                   		data-addr1="<%=Info_List.get(i).getAddr1() %>"
+                   		data-addr2="<%=Info_List.get(i).getAddr2() %>">
                     <div class="img">
                         <img src="<%=Info_List.get(i).getFirstimage() %>" alt="" width="100px" height="100px">
                     </div>
@@ -274,9 +277,9 @@ if(ID!=null&&PW!=null){
     </section>
     
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
-    <script src="./js/Planner_STEP2_Daum_map.js?ver=50"></script>
+    <script src="./js/Planner_STEP2_Daum_map.js?ver=71"></script>
     <script src="./jqcloud/example.words.js"></script>
-    <script src="./js/Planner_STEP2.js?ver=35"></script>
+    <script src="./js/Planner_STEP2.js?ver=41"></script>
     
     <script>
     	

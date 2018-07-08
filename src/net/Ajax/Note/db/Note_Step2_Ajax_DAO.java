@@ -6,13 +6,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.jasper.tagplugins.jstl.core.Url;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import net.note.db.Note_Step2_ALL_INFO_Bean;
 
 public class Note_Step2_Ajax_DAO{
 	Connection con = null;
@@ -131,5 +136,281 @@ public class Note_Step2_Ajax_DAO{
 			System.out.println("More_Info_Select ERROR : "+e);
 		}
 		return json;
+	}
+	public JSONObject Filter_Tour_Select(int contenttypeid, int sigungucode, int areacode) {
+		JSONArray jsonarray=new JSONArray();
+		JSONObject result=new JSONObject();
+		
+		JSONObject jsonobject=new JSONObject();
+		
+		try {
+			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId="+contenttypeid+"&_type=json");
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			JSONObject items=(JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			
+			int totalCount=Integer.parseInt(obj.get("totalCount").toString());
+			
+			
+			for(int i=0; i<totalCount; i++) {
+				result=new JSONObject();
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&pageNo="+(i+1)+"&numOfRows=1&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId="+contenttypeid+"&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				items=(JSONObject) JSONValue.parseWithException(isr);
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+				obj=(JSONObject) obj.get("items");
+				obj=(JSONObject) obj.get("item");
+				result.put("addr1", obj.get("addr1").toString());
+				
+				if(obj.get("addr2")!=null) {
+					result.put("addr2",obj.get("addr2").toString());
+				}
+				else {
+					result.put("addr2", null);
+				}
+				
+				result.put("areacode", obj.get("areacode").toString());
+				
+				if(obj.get("cat1")!=null) {
+					result.put("cat1", obj.get("cat1").toString());
+				}
+				else {
+					result.put("cat1", null);
+				}
+			
+				if(obj.get("cat2")!=null) {
+					result.put("cat2", obj.get("cat2").toString());
+				}
+				else {
+					result.put("cat2", null);
+				}
+				
+				if(obj.get("cat3")!=null) {
+					result.put("cat3", obj.get("cat3").toString());
+				}
+				else {
+					result.put("cat3", null);
+				}
+				
+				result.put("contentid", obj.get("contentid").toString());
+				result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+				
+				if(obj.get("firstimage")!=null) {
+					result.put("firstimage", obj.get("firstimage").toString());
+				}
+				else {
+					result.put("firstimage", "./jpg/no_image.gif");
+				}
+				
+				if(obj.get("firstimage2")!=null) {
+					result.put("firstimage2", obj.get("firstimage2").toString());
+				}
+				else {
+					result.put("firstimage2", "./jpg/no_image.gif");
+				}
+				
+				result.put("lat", obj.get("mapy").toString());
+				result.put("lng", obj.get("mapx").toString());
+				result.put("sigungucode", obj.get("sigungucode").toString());
+				result.put("title", obj.get("title").toString());
+
+				jsonarray.add(result);
+			}
+			
+			
+			jsonobject.put("item", jsonarray);
+			jsonobject.put("totalCount", totalCount);
+		}catch(Exception e) {
+			System.out.println("Filter_Tour_Select ERROR : "+e);
+		}
+		return jsonobject;
+	}
+	
+	public JSONObject ALL_Select_Action(int contenttypeid, int sigungucode, int areacode) {
+		JSONArray jsonarray=new JSONArray();
+		JSONObject result=new JSONObject();
+		JSONObject jsonobject=new JSONObject();
+		
+		int FoodtotalCount=0;
+		int TourtotalCount=0;
+		try {
+			URL	url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			
+			JSONObject items = (JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+		
+			String total=obj.get("totalCount").toString();
+			TourtotalCount=Integer.parseInt(total);
+		
+			System.out.println("AJAX 관광정보 데이터 개수 : "+TourtotalCount+"개");
+		
+			for(int i=0; i<TourtotalCount; i++) {
+				result=new JSONObject();
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+(i+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				
+				items=(JSONObject) JSONValue.parseWithException(isr);
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+				obj=(JSONObject) obj.get("items");
+				obj=(JSONObject) obj.get("item");
+				result.put("addr1", obj.get("addr1").toString());
+				
+				if(obj.get("addr2")!=null) {
+					result.put("addr2",obj.get("addr2").toString());
+				}
+				else {
+					result.put("addr2", null);
+				}
+				
+				result.put("areacode", obj.get("areacode").toString());
+				
+				if(obj.get("cat1")!=null) {
+					result.put("cat1", obj.get("cat1").toString());
+				}
+				else {
+					result.put("cat1", null);
+				}
+			
+				if(obj.get("cat2")!=null) {
+					result.put("cat2", obj.get("cat2").toString());
+				}
+				else {
+					result.put("cat2", null);
+				}
+				
+				if(obj.get("cat3")!=null) {
+					result.put("cat3", obj.get("cat3").toString());
+				}
+				else {
+					result.put("cat3", null);
+				}
+				
+				result.put("contentid", obj.get("contentid").toString());
+				result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+				
+				if(obj.get("firstimage")!=null) {
+					result.put("firstimage", obj.get("firstimage").toString());
+				}
+				else {
+					result.put("firstimage", "./jpg/no_image.gif");
+				}
+				
+				if(obj.get("firstimage2")!=null) {
+					result.put("firstimage2", obj.get("firstimage2").toString());
+				}
+				else {
+					result.put("firstimage2", "./jpg/no_image.gif");
+				}
+				
+				result.put("lat", obj.get("mapy").toString());
+				result.put("lng", obj.get("mapx").toString());
+				result.put("sigungucode", obj.get("sigungucode").toString());
+				result.put("title", obj.get("title").toString());
+
+				jsonarray.add(result);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("ALL_Select_Action TOUR ERROR : "+e);
+		}
+		
+		try {
+			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			
+			JSONObject items = (JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			
+			String total=obj.get("totalCount").toString();
+			
+			FoodtotalCount=Integer.parseInt(total);
+			System.out.println("AJAX 음식점 데이터 개수 : "+FoodtotalCount);
+			
+			for(int i=0; i<FoodtotalCount; i++) {
+				result=new JSONObject();
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+(i+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				
+				items=(JSONObject) JSONValue.parseWithException(isr);
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+				obj=(JSONObject) obj.get("items");
+				obj=(JSONObject) obj.get("item");
+				result.put("addr1", obj.get("addr1").toString());
+				
+				if(obj.get("addr2")!=null) {
+					result.put("addr2",obj.get("addr2").toString());
+				}
+				else {
+					result.put("addr2", null);
+				}
+				
+				result.put("areacode", obj.get("areacode").toString());
+				
+				if(obj.get("cat1")!=null) {
+					result.put("cat1", obj.get("cat1").toString());
+				}
+				else {
+					result.put("cat1", null);
+				}
+			
+				if(obj.get("cat2")!=null) {
+					result.put("cat2", obj.get("cat2").toString());
+				}
+				else {
+					result.put("cat2", null);
+				}
+				
+				if(obj.get("cat3")!=null) {
+					result.put("cat3", obj.get("cat3").toString());
+				}
+				else {
+					result.put("cat3", null);
+				}
+				
+				result.put("contentid", obj.get("contentid").toString());
+				result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+				
+				if(obj.get("firstimage")!=null) {
+					result.put("firstimage", obj.get("firstimage").toString());
+				}
+				else {
+					result.put("firstimage", "./jpg/no_image.gif");
+				}
+				
+				if(obj.get("firstimage2")!=null) {
+					result.put("firstimage2", obj.get("firstimage2").toString());
+				}
+				else {
+					result.put("firstimage2", "./jpg/no_image.gif");
+				}
+				
+				result.put("lat", obj.get("mapy").toString());
+				result.put("lng", obj.get("mapx").toString());
+				result.put("sigungucode", obj.get("sigungucode").toString());
+				result.put("title", obj.get("title").toString());
+
+				jsonarray.add(result);
+
+			}
+			
+		}catch(Exception e) {
+			System.out.println("ALL_Select_Action FOOD ERROR : "+e);
+		}
+		
+		jsonobject.put("item", jsonarray);
+		jsonobject.put("totalCount", TourtotalCount+FoodtotalCount);
+		
+		
+		return jsonobject;
 	}
 }
