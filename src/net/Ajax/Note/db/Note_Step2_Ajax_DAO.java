@@ -259,8 +259,16 @@ public class Note_Step2_Ajax_DAO{
 				obj=(JSONObject) obj.get("body");
 				obj=(JSONObject) obj.get("items");
 				obj=(JSONObject) obj.get("item");
-				result.put("addr1", obj.get("addr1").toString());
 				
+				
+				if(obj.get("addr1")!=null) {
+					result.put("addr1", obj.get("addr1").toString());
+				}
+				else {
+					result.put("addr1", null);
+				}
+				
+			
 				if(obj.get("addr2")!=null) {
 					result.put("addr2",obj.get("addr2").toString());
 				}
@@ -270,6 +278,7 @@ public class Note_Step2_Ajax_DAO{
 				
 				result.put("areacode", obj.get("areacode").toString());
 				
+		
 				if(obj.get("cat1")!=null) {
 					result.put("cat1", obj.get("cat1").toString());
 				}
@@ -283,7 +292,7 @@ public class Note_Step2_Ajax_DAO{
 				else {
 					result.put("cat2", null);
 				}
-				
+		
 				if(obj.get("cat3")!=null) {
 					result.put("cat3", obj.get("cat3").toString());
 				}
@@ -294,27 +303,30 @@ public class Note_Step2_Ajax_DAO{
 				result.put("contentid", obj.get("contentid").toString());
 				result.put("contenttypeid", obj.get("contenttypeid").toString());
 
-				
 				if(obj.get("firstimage")!=null) {
 					result.put("firstimage", obj.get("firstimage").toString());
 				}
 				else {
 					result.put("firstimage", "./jpg/no_image.gif");
 				}
-				
+
 				if(obj.get("firstimage2")!=null) {
 					result.put("firstimage2", obj.get("firstimage2").toString());
 				}
 				else {
 					result.put("firstimage2", "./jpg/no_image.gif");
 				}
-				
-				result.put("lat", obj.get("mapy").toString());
-				result.put("lng", obj.get("mapx").toString());
-				result.put("sigungucode", obj.get("sigungucode").toString());
-				result.put("title", obj.get("title").toString());
+
+				result.put("lat", obj.get("mapy"));
+
+				result.put("lng", obj.get("mapx"));
+
+				result.put("sigungucode", obj.get("sigungucode"));
+
+				result.put("title", obj.get("title"));
 
 				jsonarray.add(result);
+
 			}
 			
 		}catch(Exception e) {
@@ -344,7 +356,13 @@ public class Note_Step2_Ajax_DAO{
 				obj=(JSONObject) obj.get("body");
 				obj=(JSONObject) obj.get("items");
 				obj=(JSONObject) obj.get("item");
-				result.put("addr1", obj.get("addr1").toString());
+				
+				if(obj.get("addr1")!=null) {
+					result.put("addr1", obj.get("addr1").toString());
+				}
+				else {
+					result.put("addr2", null);
+				}
 				
 				if(obj.get("addr2")!=null) {
 					result.put("addr2",obj.get("addr2").toString());
@@ -394,13 +412,13 @@ public class Note_Step2_Ajax_DAO{
 					result.put("firstimage2", "./jpg/no_image.gif");
 				}
 				
-				result.put("lat", obj.get("mapy").toString());
-				result.put("lng", obj.get("mapx").toString());
-				result.put("sigungucode", obj.get("sigungucode").toString());
-				result.put("title", obj.get("title").toString());
+				result.put("lat", obj.get("mapy"));
+				result.put("lng", obj.get("mapx"));
+				result.put("sigungucode", obj.get("sigungucode"));
+				result.put("title", obj.get("title"));
 
 				jsonarray.add(result);
-
+				
 			}
 			
 		}catch(Exception e) {

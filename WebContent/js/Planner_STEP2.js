@@ -6,9 +6,10 @@ for(var i=0; i<$('.day_arrange>button').length; i++){
 }
 
 $('.area_name .area').text($('.day_arrange button:first-child .date_area').text());
-
+var markerNum;
 $(document).ready(function(){
-	$('.search_data').mouseover(function(){
+	$(document).on('mouseover', '.search_data', function(){ //검색된 데이터들 마우스 오버시 이벤트
+		
 		type_id=$(this).data('contenttypeid');
 		var id=$(this).data('contentid');
 		var lat=$(this).data('lat');
@@ -17,17 +18,18 @@ $(document).ready(function(){
 		
 		for(var i=0; i<positions.length; i++){
 			if(positions[i].contentid==id){
-				num=i;
+				markerNum=i;
 				break;
 			}
 		}
 		
-
+	
 	    ItemoverImage = new daum.maps.MarkerImage('./daum_map/marker_img/hover.png', new daum.maps.Size(44, 46));
 	    
-		markers[num].setImage(ItemoverImage);
+		markers[markerNum].setImage(ItemoverImage);
+	
 	})
-	$('.search_data').mouseleave(function(){
+	$(document).on('mouseleave', '.search_data', function(){ //검색된 데이터들 마우스 아웃시 이벤트
 		var normalImage;
 		
 	    if(Number(type_id)==12){
@@ -36,10 +38,10 @@ $(document).ready(function(){
 	    else if(Number(type_id)==39){
 	    	normalImage = new daum.maps.MarkerImage(FoodMarkerImg, imageSize);
 	    }
-		markers[num].setImage(normalImage);
+		markers[markerNum].setImage(normalImage);
 	})
 	
-    $('.hash_add>.hash_add_btn').on('click', function(){
+    $('.hash_add>.hash_add_btn').on('click', function(){ //해시태그 장소 추가 이벤트
         var hash_tag=$(this).siblings('input').val();
         var select=$('.radio_group>input[name=kind]:checked').val();
         var memo=$('.hash_add>textarea').val();
@@ -82,13 +84,13 @@ $(document).ready(function(){
         $('.hash_add>textarea').val('');
     })
     
-    $('.radio_group>label').on("click", function(){
+    $('.radio_group>label').on("click", function(){ //버튼 이벤트
         $(this).find('img').css('border', '1px solid black');
         $(this).siblings().find('img').css('border', '1px solid white');
     })
     
     var day, index, num;
-    $(".edit_route #route_add").sortable({
+    $(".edit_route #route_add").sortable({ //드래그 앤 드랍 이벤트
       axis: 'y',
         start:function(event, ui){
             index=ui.item.index();
@@ -128,7 +130,7 @@ $(document).ready(function(){
         }
     });
     
-    $(document).on("click", ".search_data .img",function(){
+    $(document).on("click", ".search_data .img",function(){ //추가 정보 이벤트
         var content_id=$(this).parent().data("contentid");
         var content_type_id=$(this).parent().data("contenttypeid");
         
@@ -183,10 +185,10 @@ $(document).ready(function(){
         
         $(".More_Info").animate({"margin-right":'+=500'});
     })
-    $(".More_Info>.top>.right").on("click", function(){
+    $(".More_Info>.top>.right").on("click", function(){ // 추가정보 닫기 이벤트
         $(".More_Info").animate({"margin-right":'-=500'});
     })
-    $(".day_group>.refresh").on("click", function(){
+    $(".day_group>.refresh").on("click", function(){ //일정 초기화
         /* 각 Day에 맞게 일정 추가 */
         var day_cnt=$('.day_arrange>button').length;
 
@@ -207,7 +209,7 @@ $(document).ready(function(){
         display(day_array[num]);
     })
     
-    $(document).on("click", ".add_btn>.route_add_btn",function(){
+    $(document).on("click", ".add_btn>.route_add_btn",function(){ //일정 추가 이벤트
 
         /* 각 Day에 맞게 일정 추가 */
         var day_cnt=$('.day_arrange>button').length;
@@ -277,8 +279,14 @@ $(document).ready(function(){
         $(".Note_title").text(NoteName);
         $(".Note_title").css("display", "block");
     })
-    $(".day_arrange>button").on("click", function(){
+    $(".day_arrange>button").on("click", function(){ //일정 변경 이벤트
         
+    	$('.kind_select>.all').find('img').attr('src', './planner_Step2_JPG/ALL2.png');
+        $('.kind_select>.camera').find('img').attr('src','./planner_Step2_JPG/camera1.png');
+        $('.kind_select>.food').find('img').attr('src', './planner_Step2_JPG/food1.png');
+        $('.kind_select>.cart').find('img').attr('src', './planner_Step2_JPG/cart1.png');
+        $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
+    	
         var position=$(this).index();
         
         $(this).css("backgroundColor", "#1a7ad9");
@@ -299,6 +307,102 @@ $(document).ready(function(){
         $(".day_group>.week").text('('+day_str+')');
        
         display(day_array[position]);
+        
+        /* 각 Day에 맞게 일정 추가 */
+        var day_cnt=$('.day_arrange>button').length;
+//        alert($(".day_arrange>button").eq(0).find(".date_area").text());
+        var Color_Hex='#1a7ad9'; // 선택되어 있는 RGB 색상 코드
+        var num; // 선택되어 있는 index 번호저장
+        for(var i=0; i<day_cnt; i++){
+            compareColor=rgb2hex($(".day_arrange>button").eq(i).css("background-Color"));
+            if(Color_Hex==compareColor){
+                num=i;
+                break;
+            }
+        }
+        
+        document.getElementById('search_data').innerHTML='';
+        for(var i=0; i<overlay.length; i++){ //커스텀 오버레이 모두 다 닫기
+        	overlay[i].setMap(null);
+        }
+        
+        positions=[];
+        overlay=[];
+        markers=[];
+        
+        var sigungucode=$(".day_arrange>button").eq(num).data('docode');
+        var areacode=$(".day_arrange>button").eq(num).data('areacode');
+        
+        
+        $.ajax({
+        	type:'post',
+        	url:'./Note_Filter_Search.pl',
+        	data:{
+        		contenttypeid:0,
+        		sigungucode:sigungucode,
+        		areacode:areacode
+        	},
+        	dataType:"json",
+        	success:function(data){
+        		$.each(data, function(key, value) {
+        		    if(key=='item'){
+        		    	search_data=value;
+
+        		    }
+        		    else if(key=='totalCount'){
+        		    	totalCount=Number(value);
+        		    }
+        		});
+        		for(var i=0; i<Number(totalCount); i++){
+        			document.getElementById('search_data').innerHTML+=append(data.item[i].areacode, data.item[i].sigungucode, data.item[i].cat1, data.item[i].cat2, data.item[i].cat3, data.item[i].contentid, data.item[i].contenttypeid, data.item[i].lat, data.item[i].lng, data.item[i].addr1, data.item[i].addr2, data.item[i].title, data.item[i].firstimage);
+        		
+        			var title=data.item[i].title;
+            		var lat=data.item[i].lat;
+            		var lng=data.item[i].lng;
+            		var type=data.item[i].contenttypeid;
+            		var id=data.item[i].contentid;
+            		var addr1=data.item[i].addr1;
+            		var addr2=data.item[i].addr2;
+            		var img=data.item[i].firstimage;
+            		
+            		if(addr2==null)
+            			addr2="";
+            		
+            		positions.push({
+            			title:title,
+            			latlng: new daum.maps.LatLng(lat, lng),
+            			contenttypeid:type,
+            			contentid:id,
+            			addr1:addr1,
+            			addr2:addr2,
+            			img:img
+            		});
+        		}
+        		
+                for(var i=0; i<markers.length; i++){
+             	   markers[i].setMap(null);
+                }
+        		
+                for(var i=0; i<positions.length; i++){
+            		// 마커 이미지의 이미지 크기 입니다
+            	    var imageSize = new daum.maps.Size(42, 43); 
+            	    var markerImage;
+            	    // 마커 이미지를 생성합니다    
+            	    if(positions[i].contenttypeid==12){ //해당 위치가 관광지이면
+            	    	markerImage = new daum.maps.MarkerImage(TourMarkerImg, imageSize); 
+            	    }
+            	    else if(positions[i].contenttypeid==39){ //해당 위치가 음식점이면
+            	    	markerImage = new daum.maps.MarkerImage(FoodMarkerImg, imageSize);
+            	    }
+            	    
+            	    markers.push(addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title, i, positions[i].contentid, positions[i].img, positions[i].addr1, positions[i].addr2));
+            	}
+        		
+        	},
+    		error:function(request,status,error){
+    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	    }
+        })
     })
     $(".kind_select>div").on("click", function(){
         var class_name=$(this).attr('class');
@@ -330,6 +434,7 @@ $(document).ready(function(){
         positions=[];
         overlay=[];
         
+        
         if(class_name=='all'){
             $(this).find('img').attr('src', './planner_Step2_JPG/ALL2.png');
             $('.kind_select>.camera').find('img').attr('src','./planner_Step2_JPG/camera1.png');
@@ -338,7 +443,7 @@ $(document).ready(function(){
             $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
             $('.search_result>.all').css('display', 'block');
             $('.search_result>.all').siblings().css('display', 'none');
-
+            
             $.ajax({
             	type:'post',
             	url:'./Note_Filter_Search.pl',
@@ -387,7 +492,7 @@ $(document).ready(function(){
                     for(var i=0; i<markers.length; i++){
                  	   markers[i].setMap(null);
                     }
-            		
+                    markers=[];
                     for(var i=0; i<positions.length; i++){
                 		// 마커 이미지의 이미지 크기 입니다
                 	    var imageSize = new daum.maps.Size(42, 43); 
@@ -465,7 +570,7 @@ $(document).ready(function(){
                     for(var i=0; i<markers.length; i++){
                  	   markers[i].setMap(null);
                     }
-            		
+                    markers=[];
                     for(var i=0; i<positions.length; i++){
                 		// 마커 이미지의 이미지 크기 입니다
                 	    var imageSize = new daum.maps.Size(42, 43); 
@@ -544,7 +649,7 @@ $(document).ready(function(){
                     for(var i=0; i<markers.length; i++){
                  	   markers[i].setMap(null);
                     }
-            		
+                    markers=[];
                     for(var i=0; i<positions.length; i++){
                 		// 마커 이미지의 이미지 크기 입니다
                 	    var imageSize = new daum.maps.Size(42, 43); 
@@ -587,7 +692,7 @@ $(document).ready(function(){
         
   
     })
-    $('.search_form .area_search').keydown(function(key){
+    $('.search_form .area_search').keydown(function(key){ //검색 이벤트
         var keyword=$(this).val();
         
         if (key.keyCode == 13) {
@@ -606,7 +711,7 @@ $(document).ready(function(){
         }
     })
 
-    $(document).on("click", ".delete_btn",function(){
+    $(document).on("click", ".delete_btn",function(){ //삭제 이벤트
         var day_cnt=$('.day_arrange>button').length;
 
         
