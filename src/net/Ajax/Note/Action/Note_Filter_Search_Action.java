@@ -30,10 +30,12 @@ public class Note_Filter_Search_Action implements Action{
 			json=note_Step2_Ajax_DAO.ALL_Select_Action(contenttypeid, sigungucode, areacode);
 		}
 		else if(contenttypeid==12) { //관광지 검색
-			json=note_Step2_Ajax_DAO.Filter_Tour_Select(contenttypeid, sigungucode, areacode);
+			//json=note_Step2_Ajax_DAO.Filter_Tour_Select(contenttypeid, sigungucode, areacode);
+			json=note_Step2_Ajax_DAO.TourAPI_Select(contenttypeid, sigungucode, areacode);
 		}
 		else if(contenttypeid==39) { //음식점 검색
-			json=note_Step2_Ajax_DAO.Filter_Tour_Select(contenttypeid, sigungucode, areacode);
+			//json=note_Step2_Ajax_DAO.Filter_Tour_Select(contenttypeid, sigungucode, areacode);
+			json=note_Step2_Ajax_DAO.TourAPI_Select(contenttypeid, sigungucode, areacode);
 		}
 		else {//여행 바구니 검색
 			

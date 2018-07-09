@@ -233,6 +233,7 @@ public class Note_Step2_Ajax_DAO{
 		JSONArray jsonarray=new JSONArray();
 		JSONObject result=new JSONObject();
 		JSONObject jsonobject=new JSONObject();
+		JSONArray resultArray=new JSONArray();
 		
 		int FoodtotalCount=0;
 		int TourtotalCount=0;
@@ -248,26 +249,19 @@ public class Note_Step2_Ajax_DAO{
 			TourtotalCount=Integer.parseInt(total);
 		
 			System.out.println("AJAX 관광정보 데이터 개수 : "+TourtotalCount+"개");
-		
-			for(int i=0; i<TourtotalCount; i++) {
+			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&pageNo=1&numOfRows="+TourtotalCount+"&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId=12&_type=json");
+			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			items=(JSONObject) JSONValue.parseWithException(isr); 
+	
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			jsonarray= (JSONArray) obj.get("item");
+			
+			for(int i=0; i<jsonarray.size(); i++) {
 				result=new JSONObject();
-				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+(i+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
-				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-				
-				items=(JSONObject) JSONValue.parseWithException(isr);
-				obj=(JSONObject) items.get("response");
-				obj=(JSONObject) obj.get("body");
-				obj=(JSONObject) obj.get("items");
-				obj=(JSONObject) obj.get("item");
-				
-				
-				if(obj.get("addr1")!=null) {
-					result.put("addr1", obj.get("addr1").toString());
-				}
-				else {
-					result.put("addr1", null);
-				}
-				
+				obj=(JSONObject) jsonarray.get(i);
+				result.put("addr1", obj.get("addr1").toString());
 			
 				if(obj.get("addr2")!=null) {
 					result.put("addr2",obj.get("addr2").toString());
@@ -278,7 +272,6 @@ public class Note_Step2_Ajax_DAO{
 				
 				result.put("areacode", obj.get("areacode").toString());
 				
-		
 				if(obj.get("cat1")!=null) {
 					result.put("cat1", obj.get("cat1").toString());
 				}
@@ -292,7 +285,7 @@ public class Note_Step2_Ajax_DAO{
 				else {
 					result.put("cat2", null);
 				}
-		
+				
 				if(obj.get("cat3")!=null) {
 					result.put("cat3", obj.get("cat3").toString());
 				}
@@ -303,30 +296,28 @@ public class Note_Step2_Ajax_DAO{
 				result.put("contentid", obj.get("contentid").toString());
 				result.put("contenttypeid", obj.get("contenttypeid").toString());
 
+				
 				if(obj.get("firstimage")!=null) {
 					result.put("firstimage", obj.get("firstimage").toString());
 				}
 				else {
 					result.put("firstimage", "./jpg/no_image.gif");
 				}
-
+				
 				if(obj.get("firstimage2")!=null) {
 					result.put("firstimage2", obj.get("firstimage2").toString());
 				}
 				else {
 					result.put("firstimage2", "./jpg/no_image.gif");
 				}
-
+				
 				result.put("lat", obj.get("mapy"));
-
 				result.put("lng", obj.get("mapx"));
-
 				result.put("sigungucode", obj.get("sigungucode"));
-
 				result.put("title", obj.get("title"));
 
-				jsonarray.add(result);
-
+				resultArray.add(result);
+				
 			}
 			
 		}catch(Exception e) {
@@ -346,23 +337,18 @@ public class Note_Step2_Ajax_DAO{
 			FoodtotalCount=Integer.parseInt(total);
 			System.out.println("AJAX 음식점 데이터 개수 : "+FoodtotalCount);
 			
-			for(int i=0; i<FoodtotalCount; i++) {
+			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&pageNo=1&numOfRows="+TourtotalCount+"&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId=39&_type=json");
+			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			items=(JSONObject) JSONValue.parseWithException(isr); 
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			jsonarray= (JSONArray) obj.get("item");
+			
+			for(int i=0; i<jsonarray.size(); i++) {
 				result=new JSONObject();
-				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+(i+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
-				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-				
-				items=(JSONObject) JSONValue.parseWithException(isr);
-				obj=(JSONObject) items.get("response");
-				obj=(JSONObject) obj.get("body");
-				obj=(JSONObject) obj.get("items");
-				obj=(JSONObject) obj.get("item");
-				
-				if(obj.get("addr1")!=null) {
-					result.put("addr1", obj.get("addr1").toString());
-				}
-				else {
-					result.put("addr2", null);
-				}
+				obj=(JSONObject) jsonarray.get(i);
+				result.put("addr1", obj.get("addr1").toString());
 				
 				if(obj.get("addr2")!=null) {
 					result.put("addr2",obj.get("addr2").toString());
@@ -417,18 +403,112 @@ public class Note_Step2_Ajax_DAO{
 				result.put("sigungucode", obj.get("sigungucode"));
 				result.put("title", obj.get("title"));
 
-				jsonarray.add(result);
-				
+				resultArray.add(result);
 			}
 			
 		}catch(Exception e) {
 			System.out.println("ALL_Select_Action FOOD ERROR : "+e);
 		}
 		
-		jsonobject.put("item", jsonarray);
+		jsonobject.put("item", resultArray);
 		jsonobject.put("totalCount", TourtotalCount+FoodtotalCount);
 		
+	
+		return jsonobject;
+	}
+	
+	public JSONObject TourAPI_Select(int contenttypeid, int sigungucode, int areacode) {
+		JSONArray jsonarray=new JSONArray();
+		JSONObject result=new JSONObject();
 		
+		JSONObject jsonobject=new JSONObject();
+		
+		JSONArray resultArray=new JSONArray();
+		
+		try {
+			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId="+contenttypeid+"&_type=json");
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			JSONObject items=(JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			
+			int totalCount=Integer.parseInt(obj.get("totalCount").toString());
+			
+			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey="+Key+"&pageNo=1&numOfRows="+totalCount+"&areaCode="+sigungucode+"&sigunguCode="+areacode+"&MobileOS=ETC&arrange=O&listYN=Y&MobileApp=AppTest&contentTypeId="+contenttypeid+"&_type=json");
+			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			items=(JSONObject) JSONValue.parseWithException(isr); 
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			jsonarray= (JSONArray) obj.get("item");
+			
+			for(int i=0; i<jsonarray.size(); i++) {
+				result=new JSONObject();
+				obj=(JSONObject) jsonarray.get(i);
+				result.put("addr1", obj.get("addr1").toString());
+				
+				if(obj.get("addr2")!=null) {
+					result.put("addr2",obj.get("addr2").toString());
+				}
+				else {
+					result.put("addr2", null);
+				}
+				
+				result.put("areacode", obj.get("areacode").toString());
+				
+				if(obj.get("cat1")!=null) {
+					result.put("cat1", obj.get("cat1").toString());
+				}
+				else {
+					result.put("cat1", null);
+				}
+			
+				if(obj.get("cat2")!=null) {
+					result.put("cat2", obj.get("cat2").toString());
+				}
+				else {
+					result.put("cat2", null);
+				}
+				
+				if(obj.get("cat3")!=null) {
+					result.put("cat3", obj.get("cat3").toString());
+				}
+				else {
+					result.put("cat3", null);
+				}
+				
+				result.put("contentid", obj.get("contentid").toString());
+				result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+				
+				if(obj.get("firstimage")!=null) {
+					result.put("firstimage", obj.get("firstimage").toString());
+				}
+				else {
+					result.put("firstimage", "./jpg/no_image.gif");
+				}
+				
+				if(obj.get("firstimage2")!=null) {
+					result.put("firstimage2", obj.get("firstimage2").toString());
+				}
+				else {
+					result.put("firstimage2", "./jpg/no_image.gif");
+				}
+				
+				result.put("lat", obj.get("mapy"));
+				result.put("lng", obj.get("mapx"));
+				result.put("sigungucode", obj.get("sigungucode"));
+				result.put("title", obj.get("title"));
+
+				resultArray.add(result);
+			}
+			
+			jsonobject.put("item", resultArray);
+			jsonobject.put("totalCount", totalCount);
+			
+		}catch(Exception e) {
+			System.out.println("TourAPI_Select ERROR : "+e);
+		}
 		return jsonobject;
 	}
 }
