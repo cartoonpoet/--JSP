@@ -448,7 +448,7 @@ $(document).ready(function(){
             $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
             $('.search_result>.all').css('display', 'block');
             $('.search_result>.all').siblings().css('display', 'none');
-            
+
             $.ajax({
             	type:'post',
             	url:'./Note_Filter_Search.pl',
@@ -526,8 +526,8 @@ $(document).ready(function(){
             $('.kind_select>.food').find('img').attr('src', './planner_Step2_JPG/food1.png');
             $('.kind_select>.cart').find('img').attr('src', './planner_Step2_JPG/cart1.png');
             $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
+            $('.search_result>.all').css('display', 'block');
             $('.search_result>.all').siblings().css('display', 'none');
-
             $.ajax({
             	type:'post',
             	url:'./Note_Filter_Search.pl',
@@ -606,8 +606,8 @@ $(document).ready(function(){
             $(this).find('img').attr('src', './planner_Step2_JPG/food2.png');
             $('.kind_select>.cart').find('img').attr('src', './planner_Step2_JPG/cart1.png');
             $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
+            $('.search_result>.all').css('display', 'block');
             $('.search_result>.all').siblings().css('display', 'none');
-            
             $.ajax({
             	type:'post',
             	url:'./Note_Filter_Search.pl',
@@ -686,7 +686,11 @@ $(document).ready(function(){
             $(this).find('img').attr('src', './planner_Step2_JPG/cart2.png');
             $('.kind_select>.tag').find('img').attr('src', './planner_Step2_JPG/tag1.png');
             $('.search_result>.all').html('');
+            $('.search_result>.all').css('display', 'block');
             $('.search_result>.all').siblings().css('display', 'none');
+            for(var i=0; i<markers.length; i++){
+          	   markers[i].setMap(null);
+             }
         }
         else if(class_name=='tag'){
             $('.kind_select>.all').find('img').attr('src', './planner_Step2_JPG/ALL1.png');
@@ -695,23 +699,39 @@ $(document).ready(function(){
             $('.kind_select>.cart').find('img').attr('src', './planner_Step2_JPG/cart1.png');
             $(this).find('img').attr('src', './planner_Step2_JPG/tag2.png');
             $('.search_result>.hash_add').css('display', 'block');
+            $('.search_result>.all').html('');
             $('.search_result>.hash_add').siblings().css('display', 'none');
+            for(var i=0; i<markers.length; i++){
+           	   markers[i].setMap(null);
+              }
         }
         
   
     })
     $('.search_form .area_search').keydown(function(key){ //검색 이벤트
         var keyword=$(this).val();
+        var day_cnt=$('.day_arrange>button').length;
+
+        var Color_Hex='#1a7ad9'; // 선택되어 있는 RGB 색상 코드
+        var num; // 선택되어 있는 index 번호저장
+        for(var i=0; i<day_cnt; i++){
+            compareColor=rgb2hex($(".day_arrange>button").eq(i).css("background-Color"));
+            if(Color_Hex==compareColor){
+                num=i;
+                break;
+            }
+        }
+        
         
         if (key.keyCode == 13) {
             $.ajax({
-                type : "GET",
-                url : "39.127.8.42:8080/Railro_Tour_WEB/SearchAction.se",
+                type : "POST",
+                url : "/Note_Place_Search.pl",
                 data:keyword,
                 async: false,
-                error : function(){
-                    alert('통신실패!!');
-                },
+        		error:function(request,status,error){
+        	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	    },
                 success : function(data){
                     alert("통신데이터 값 : " + data) ;
                 }

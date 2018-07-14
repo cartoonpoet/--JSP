@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import net.Ajax.Note.Action.Note_Filter_Search_Action;
 import net.Ajax.Note.Action.Note_More_Info_SelectAction;
 import net.Ajax.Note.Action.Note_Name_UpdateAction;
+import net.Ajax.Note.Action.Note_Place_Search_Action;
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
 import net.member.action.MemberJoinAction;
@@ -88,6 +89,15 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/Note_Place_Search.pl")) {
+        	action=new Note_Place_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

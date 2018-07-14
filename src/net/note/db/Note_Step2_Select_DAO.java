@@ -15,6 +15,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -326,7 +327,7 @@ public class Note_Step2_Select_DAO {
 	
 	public ArrayList<Note_Step2_ALL_INFO_Bean> Area_Info_Select_Action(int areacode, int sigungucode){
 		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=new ArrayList<Note_Step2_ALL_INFO_Bean>();
-
+		JSONObject Part_Item;
 		try {
 			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
 			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
@@ -339,19 +340,23 @@ public class Note_Step2_Select_DAO {
 			int totalCount=Integer.parseInt(total);
 			
 			System.out.println("관광정보 데이터 개수 : "+totalCount+"개");
+			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows="+total+"&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
 			
-			for(int i=0; i<totalCount; i++) {
-				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+(i+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
-				InputStreamReader inputStream = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-				
-				JSONObject All_Items = (JSONObject) JSONValue.parseWithException(inputStream); 
-				
-				JSONObject Part_Item=(JSONObject) All_Items.get("response");
-				Part_Item=(JSONObject) Part_Item.get("body");
-				Part_Item=(JSONObject) Part_Item.get("items");
-				Part_Item=(JSONObject) Part_Item.get("item");
+			items=(JSONObject) JSONValue.parseWithException(isr);
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			JSONArray jsonarray=(JSONArray) obj.get("item");
 
+			
+			for(int i=0; i<jsonarray.size(); i++) {
+				
+				Part_Item=(JSONObject) jsonarray.get(i);
+				
 				Info_List.add(new Note_Step2_ALL_INFO_Bean());
+				
+				
 				Info_List.get(i).setAddr1(Part_Item.get("addr1").toString());
 				
 				if(Part_Item.get("addr2")!=null) {
@@ -360,6 +365,7 @@ public class Note_Step2_Select_DAO {
 				else {
 					Info_List.get(i).setAddr2(null);
 				}
+				
 				Info_List.get(i).setAreacode(Integer.parseInt(Part_Item.get("areacode").toString()));
 
 				
@@ -401,7 +407,7 @@ public class Note_Step2_Select_DAO {
 				else {
 					Info_List.get(i).setFirstimage2("./jpg/no_image.gif");
 				}
-				
+	
 				Info_List.get(i).setMapx(Double.parseDouble(Part_Item.get("mapy").toString()));
 				Info_List.get(i).setMapy(Double.parseDouble(Part_Item.get("mapx").toString()));
 				Info_List.get(i).setSigungucode(Integer.parseInt(Part_Item.get("sigungucode").toString()));
@@ -425,17 +431,19 @@ public class Note_Step2_Select_DAO {
 			int totalCount=size+Integer.parseInt(total);
 			System.out.println("음식점 데이터 개수 : "+totalCount);
 			
-			for(int i=Info_List.size(); i<totalCount; i++) {
-				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo="+((i%size)+1)+"&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
-				InputStreamReader inputStream = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-				
-				JSONObject All_Items = (JSONObject) JSONValue.parseWithException(inputStream); 
-				
-				JSONObject Part_Item=(JSONObject) All_Items.get("response");
-				Part_Item=(JSONObject) Part_Item.get("body");
-				Part_Item=(JSONObject) Part_Item.get("items");
-				Part_Item=(JSONObject) Part_Item.get("item");
+			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows="+totalCount+"&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
+			isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			
+			items=(JSONObject) JSONValue.parseWithException(isr);
+			obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			obj=(JSONObject) obj.get("items");
+			JSONArray jsonarray=(JSONArray) obj.get("item");
 
+			for(int i=size; i<totalCount; i++) {
+
+				Part_Item=(JSONObject) jsonarray.get(i%size);
+				
 				Info_List.add(new Note_Step2_ALL_INFO_Bean());
 				Info_List.get(i).setAddr1(Part_Item.get("addr1").toString());
 				
