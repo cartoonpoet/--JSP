@@ -149,9 +149,9 @@ if(ID!=null&&PW!=null){
                 <span class="search_form">
                     <input type="text" maxlength="30" placeholder="장소 검색" class="area_search">
                     <div class="checks">
-                        <input type="radio" id="ex_rd1" name="search_type" checked>
+                        <input type="radio" id="ex_rd1" name="search_type" value="area_search" checked>
                         <label for="ex_rd1">도시내 검색</label>
-                        <input type="radio" id="ex_rd2" name="search_type">
+                        <input type="radio" id="ex_rd2" name="search_type" value="all_search">
                         <label for="ex_rd2">전체 검색</label> 
                     </div>
                 </span>
@@ -279,7 +279,7 @@ if(ID!=null&&PW!=null){
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js?ver=71"></script>
     <script src="./jqcloud/example.words.js"></script>
-    <script src="./js/Planner_STEP2.js?ver=42"></script>
+    <script src="./js/Planner_STEP2.js?ver=45"></script>
     
     <script>
     	

@@ -287,7 +287,7 @@ $(document).ready(function(){
         
         for(var i=0; i<markers.length; i++){
       	   markers[i].setMap(null);
-         }
+        }
     	$('.kind_select>.all').find('img').attr('src', './planner_Step2_JPG/ALL2.png');
         $('.kind_select>.camera').find('img').attr('src','./planner_Step2_JPG/camera1.png');
         $('.kind_select>.food').find('img').attr('src', './planner_Step2_JPG/food1.png');
@@ -338,7 +338,7 @@ $(document).ready(function(){
         var sigungucode=$(".day_arrange>button").eq(num).data('docode');
         var areacode=$(".day_arrange>button").eq(num).data('areacode');
         
-        
+
         $.ajax({
         	type:'post',
         	url:'./Note_Filter_Search.pl',
@@ -359,7 +359,9 @@ $(document).ready(function(){
         		    else if(key=='totalCount'){
         		    	totalCount=Number(value);
         		    }
+        		    
         		});
+        		
         		for(var i=0; i<Number(totalCount); i++){
         			document.getElementById('search_data').innerHTML+=append(data.item[i].areacode, data.item[i].sigungucode, data.item[i].cat1, data.item[i].cat2, data.item[i].cat3, data.item[i].contentid, data.item[i].contenttypeid, data.item[i].lat, data.item[i].lng, data.item[i].addr1, data.item[i].addr2, data.item[i].title, data.item[i].firstimage);
         		
@@ -385,8 +387,6 @@ $(document).ready(function(){
             			img:img
             		});
         		}
-        		
-
         		
                 for(var i=0; i<positions.length; i++){
             		// 마커 이미지의 이미지 크기 입니다
@@ -709,31 +709,107 @@ $(document).ready(function(){
   
     })
     $('.search_form .area_search').keydown(function(key){ //검색 이벤트
-        var keyword=$(this).val();
-        var day_cnt=$('.day_arrange>button').length;
+        
+        if (key.keyCode == 13) { //엔터 누를 시 검색시작
+            var keyword=$(this).val();
+            var day_cnt=$('.day_arrange>button').length;
 
-        var Color_Hex='#1a7ad9'; // 선택되어 있는 RGB 색상 코드
-        var num; // 선택되어 있는 index 번호저장
-        for(var i=0; i<day_cnt; i++){
-            compareColor=rgb2hex($(".day_arrange>button").eq(i).css("background-Color"));
-            if(Color_Hex==compareColor){
-                num=i;
-                break;
+            var Color_Hex='#1a7ad9'; // 선택되어 있는 RGB 색상 코드
+            var num; // 선택되어 있는 index 번호저장
+            for(var i=0; i<day_cnt; i++){
+                compareColor=rgb2hex($(".day_arrange>button").eq(i).css("background-Color"));
+                if(Color_Hex==compareColor){
+                    num=i;
+                    break;
+                }
             }
-        }
-        
-        
-        if (key.keyCode == 13) {
+            
+            var sigungucode=$(".day_arrange>button").eq(num).data('docode');
+            var areacode=$(".day_arrange>button").eq(num).data('areacode');
+            var search_type=$('input:radio[name="search_type"]:checked').val()
+            
             $.ajax({
                 type : "POST",
-                url : "/Note_Place_Search.pl",
-                data:keyword,
+                url : "./Note_Place_Search.pl",
+                data:{
+                	sigungucode: sigungucode,
+                	areacode: areacode,
+                	keyword:keyword,
+                	search_type:search_type
+                },
                 async: false,
         		error:function(request,status,error){
         	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         	    },
                 success : function(data){
-                    alert("통신데이터 값 : " + data) ;
+                	
+                	document.getElementById('search_data').innerHTML=''; //비우기
+                	
+                    for(var i=0; i<overlay.length; i++){ //커스텀 오버레이 모두 다 닫기
+                    	overlay[i].setMap(null);
+                    }
+                    
+                    positions=[]; //위치들 초기화
+                    overlay=[]; //오버레이 초기화
+                	
+                    var search_data, totalCount;
+                    
+                	$.each(data, function(key, value) {
+            		    if(key=='item'){
+            		    	search_data=value;
+            		    }
+            		    else if(key=='totalCount'){
+            		    	totalCount=Number(value);
+            		    }
+            		});
+                	
+   
+            		for(var i=0; i<Number(totalCount); i++){
+            			
+            			document.getElementById('search_data').innerHTML+=append(data.item[i].areacode, data.item[i].sigungucode, data.item[i].cat1, data.item[i].cat2, data.item[i].cat3, data.item[i].contentid, data.item[i].contenttypeid, data.item[i].lat, data.item[i].lng, data.item[i].addr1, data.item[i].addr2, data.item[i].title, data.item[i].firstimage);
+            		
+            			var title=data.item[i].title;
+                		var lat=data.item[i].lat;
+                		var lng=data.item[i].lng;
+                		var type=data.item[i].contenttypeid;
+                		var id=data.item[i].contentid;
+                		var addr1=data.item[i].addr1;
+                		var addr2=data.item[i].addr2;
+                		var img=data.item[i].firstimage;
+                		
+                		if(addr2==null)
+                			addr2="";
+                		
+                		positions.push({
+                			title:title,
+                			latlng: new daum.maps.LatLng(lat, lng),
+                			contenttypeid:type,
+                			contentid:id,
+                			addr1:addr1,
+                			addr2:addr2,
+                			img:img
+                		});
+            		}
+            		
+                    for(var i=0; i<markers.length; i++){ //마커 삭제
+                 	   markers[i].setMap(null);
+                    }
+                    markers=[]; //마커 초기화
+                    
+                    for(var i=0; i<positions.length; i++){ //마커 이미지 셋팅
+                		// 마커 이미지의 이미지 크기 입니다
+                	    var imageSize = new daum.maps.Size(42, 43); 
+                	    var markerImage;
+                	    // 마커 이미지를 생성합니다    
+                	    if(positions[i].contenttypeid==12){ //해당 위치가 관광지이면
+                	    	markerImage = new daum.maps.MarkerImage(TourMarkerImg, imageSize); 
+                	    }
+                	    else if(positions[i].contenttypeid==39){ //해당 위치가 음식점이면
+                	    	markerImage = new daum.maps.MarkerImage(FoodMarkerImg, imageSize);
+                	    }
+                	    
+                	    markers.push(addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title, i, positions[i].contentid, positions[i].img, positions[i].addr1, positions[i].addr2));
+                	}
                 }
             })
             $(this).val('');

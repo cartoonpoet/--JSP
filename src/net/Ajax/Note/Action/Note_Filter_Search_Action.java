@@ -40,6 +40,8 @@ public class Note_Filter_Search_Action implements Action{
 		else {//여행 바구니 검색
 			
 		}
+		
+		System.out.println("필터 검색 : "+json);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(json);
