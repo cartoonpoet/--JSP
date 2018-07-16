@@ -45,7 +45,7 @@ if(ID!=null&&PW!=null){
     <meta charset="UTF-8">
     <title>내일로 노트 :: 상세일정 만들기</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=8">
+    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=9">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
 
@@ -279,7 +279,7 @@ if(ID!=null&&PW!=null){
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js?ver=71"></script>
     <script src="./jqcloud/example.words.js"></script>
-    <script src="./js/Planner_STEP2.js?ver=45"></script>
+    <script src="./js/Planner_STEP2.js?ver=56"></script>
     
     <script>
     	

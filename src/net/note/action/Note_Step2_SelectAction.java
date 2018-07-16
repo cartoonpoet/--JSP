@@ -85,6 +85,8 @@ public class Note_Step2_SelectAction implements Action{
 		
 		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=note_Step2_Select_DAO.Area_Info_Select_Action(day_list.get(0).getArea_code(), day_list.get(0).getDo_code());
 		
+		note_Step2_Select_DAO.resetRoute(note_Step2_Bean.getTravel_ID());
+		
 //		for(int i=0; i<Info_List.size(); i++) {
 //			System.out.println(i+"제목 : "+Info_List.get(i).getTitle());
 //		}

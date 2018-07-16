@@ -109,7 +109,23 @@ $(document).ready(function(){
         },
         stop:function(event, ui){
             var save;
-            
+            /* day_array 2차원 배열에 들어가 있는 것들
+             		Content_ID:Content_ID,
+    	            Content_Type_ID:Content_Type_ID,
+    	            sigungucode:sigungucode,
+    	            areacode:areacode,
+    	            areaname:areaname,
+    	            date:date,
+    	            week:week,
+    	            day:day,
+    	            Title:Title,
+    	            Kind1:'일반',
+    	            Kind2:Kind2,
+    	            img:image,
+    	            latlng : new daum.maps.LatLng(lat, lng),
+    	            lat:lat,
+    	            lng:lng
+             */
             if(ui.item.index()<index){
                 for(var i=index; ui.item.index()<i; i--){
                     save=day_array[num][i];
@@ -125,8 +141,24 @@ $(document).ready(function(){
                 }
             }
 
-            
-            display(day_array[num]);
+            $.ajax({
+        		type:'GET',
+        		url:'./Note_Plans_Update.pl',
+        		async: false,
+        		data: {
+        			StartIndex:index,
+        			EndIndex:ui.item.index(),
+        			NoteID:NoteID
+        		},
+        		async: false,
+        		success:function(data){	
+        	        display(day_array[num]);
+        		},
+        		error:function(request,status,error){
+        	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	    }
+        	})
+        	
         }
     });
     
@@ -225,22 +257,71 @@ $(document).ready(function(){
             }
         }
         
-        // 콘텐츠 ID, 이름, 종류, 출발시각, 도착시각(방문시각)    
-        Content_ID=$(this).parent().siblings('.info_group').find('.content_id').val();
-        Title=$(this).parent().siblings('.info_group').find('.title').text();
-        Kind=$(this).parent().siblings('.info_group').find('.sub_title').text();
-        image=$(this).parent().siblings('.img').find('img').attr('src');
-        
-        day_array[num].push({
-            ID:Content_ID,
-            Title:Title,
-            Kind:Kind,
-            img:image,
-            latlng : new daum.maps.LatLng(33.450705, 126.570677)
-        })
+        // 콘텐츠 ID, 이름, 종류   
 
+
+        sigungucode=$(".day_arrange>button").eq(num).data('docode');
+        areacode=$(".day_arrange>button").eq(num).data('areacode');
+        areaname=$(".day_arrange>button").eq(num).find('.date_area').text();
+        date=$(".day_arrange>button").eq(num).find('.date_num').text();
+        week=$(".day_arrange>button").eq(num).find('.day_str').text();
+        day=$(".day_arrange>button").eq(num).find('.day_num').text();
+        Content_ID=$(this).parent().parent().data('contentid');
+        Content_Type_ID=$(this).parent().parent().data('contenttypeid');
+        Title=$(this).parent().siblings('.info_group').find('.title').text();
+        Kind2=$(this).parent().siblings('.info_group').find('.sub_title').text();
+        image=$(this).parent().siblings('.img').find('img').attr('src');
+        lat=$(this).parent().parent().data('lat');
+        lng=$(this).parent().parent().data('lng');
         
-        display(day_array[num]);
+        
+        $.ajax({
+    		type:'POST',
+    		url:'./Note_Plans_Save.pl',
+    		data: {
+    			NoteID: NoteID,
+    			Content_ID:Content_ID,
+    			Content_Type_ID:Content_Type_ID,
+    			Title:Title,
+    			Kind1:'일반',
+    			Kind2:Kind2,
+    			sigungucode:sigungucode,
+    			areacode:areacode,
+    			areaname:areaname,
+    			date:date,
+    			week:week,
+    			day:day,
+    			order:day_array[num].length
+    		},
+    		async: false,
+    		success:function(data){
+    			
+    	        day_array[num].push({
+    	            Content_ID:Content_ID,
+    	            Content_Type_ID:Content_Type_ID,
+    	            sigungucode:sigungucode,
+    	            areacode:areacode,
+    	            areaname:areaname,
+    	            date:date,
+    	            week:week,
+    	            day:day,
+    	            Title:Title,
+    	            Kind1:'일반',
+    	            Kind2:Kind2,
+    	            img:image,
+    	            latlng : new daum.maps.LatLng(lat, lng),
+    	            lat:lat,
+    	            lng:lng
+    	        })
+    	        display(day_array[num]);
+    		},
+    		error:function(data){
+    			alert('변경에 실패하였습니다.');
+    			return;
+    		}
+    	})
+       
+        
     })
     
     $(".Note_title").on("click", function(){ //클릭시 수정할 수 있는 폼으로 변환
@@ -855,7 +936,7 @@ function rgb2hex(rgb) {
 function display(array){
     document.getElementById('route_add').innerHTML="";
     for(var i=0; i<array.length; i++){
-        document.getElementById('route_add').innerHTML+=create(i, array[i].img, array[i].Title, array[i].Kind, array[i].Start_Time, array[i].End_Time, array[i].lat, array[i].lng, array[i].ID);
+        document.getElementById('route_add').innerHTML+=create(i, array[i].img, array[i].Title, array[i].Kind2, array[i].lat, array[i].lng, array[i].Content_ID);
     }
 }
 function create(num, img, title, kind, lat, lng, ID){ //동적 추가 

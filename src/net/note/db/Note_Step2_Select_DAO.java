@@ -506,4 +506,20 @@ public class Note_Step2_Select_DAO {
 		
 		return Info_List;
 	}
+	public void resetRoute(int travel_id) {
+		String sql="delete from note_info2 where travel_id=?";
+		int result=0;
+		try {
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, travel_id);
+			result=pstmt.executeUpdate();
+
+		}catch(Exception ex) {
+			System.out.println("resetRoute ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+	}
 }

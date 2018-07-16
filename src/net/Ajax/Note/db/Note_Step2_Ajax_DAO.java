@@ -829,4 +829,97 @@ public class Note_Step2_Ajax_DAO{
 		
 		return FinalData;
 	}
+	
+	public void Plans_Save_Action(int NoteID, int Content_ID, int Content_Type_ID, String Title, String Kind1, String Kind2, int sigungucode, int areacode, String date, String week, String day, int order, String areaname) {
+		String sql="insert into note_info2(travel_id, kinds_1, route_name, kinds_2, content_id, content_type_id, sigungu_code, area_code, area_name, weeks, days, dates, orders) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		int result=0;
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, NoteID);
+			pstmt.setString(2, Kind1);
+			pstmt.setString(3, Title);
+			pstmt.setString(4, Kind2);
+			pstmt.setInt(5, Content_ID);
+			pstmt.setInt(6, Content_Type_ID);
+			pstmt.setInt(7, sigungucode);
+			pstmt.setInt(8, areacode);
+			pstmt.setString(9, areaname);
+			pstmt.setString(10, week);
+			pstmt.setString(11, day);
+			pstmt.setString(12, date);
+			pstmt.setInt(13, order);
+			
+			result=pstmt.executeUpdate();
+
+		}catch(Exception ex) {
+			System.out.println("Plans_Save_Action ERROR : "+ex);
+		}finally {
+				if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	           if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+	}
+	
+	public void Plans_Update_Action(int StartIndex, int EndIndex) {
+		int result=0;
+		String sql="";
+		if(EndIndex<StartIndex) {
+			try {
+				sql="update note_info2 set orders=-1 where orders=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, StartIndex);
+				result=pstmt.executeUpdate();
+				
+				sql="update note_info2 set orders=orders+1 where orders<? AND orders>=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, StartIndex);
+				pstmt.setInt(2, EndIndex);
+				result=pstmt.executeUpdate();
+				
+				sql="update note_info2 set orders=? where orders=-1";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, EndIndex);
+				result=pstmt.executeUpdate();
+				
+			}catch(Exception ex) {
+				System.out.println("Note_Name_Update ERROR1 : "+ex);
+			}finally {
+				if(rs!=null) try{rs.close();}catch(SQLException ex){}
+		        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+			}
+		}
+		else {
+			try {
+				sql="update note_info2 set orders=-1 where orders=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, StartIndex);
+				result=pstmt.executeUpdate();
+				
+				sql = "update note_info2 set orders=orders-1 where orders>? AND orders<=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, StartIndex);
+				pstmt.setInt(2, EndIndex);
+				result = pstmt.executeUpdate();
+
+				sql = "update note_info2 set orders=? where orders=-1";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, EndIndex);
+				result=pstmt.executeUpdate();
+				
+			} catch (Exception ex) {
+				System.out.println("Note_Name_Update ERROR1 : " + ex);
+			} finally {
+				if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+			}
+		}
+	}
 }
