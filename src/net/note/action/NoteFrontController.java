@@ -15,6 +15,8 @@ import net.Ajax.Note.Action.Note_Filter_Search_Action;
 import net.Ajax.Note.Action.Note_More_Info_SelectAction;
 import net.Ajax.Note.Action.Note_Name_UpdateAction;
 import net.Ajax.Note.Action.Note_Place_Search_Action;
+import net.Ajax.Note.Action.Note_Plans_Delete_Action;
+import net.Ajax.Note.Action.Note_Plans_RESET_Action;
 import net.Ajax.Note.Action.Note_Plans_Update_Action;
 import net.Ajax.Note.Action.Note_plans_Save_Action;
 import net.commons.action.Action;
@@ -109,6 +111,22 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         }
         else if(command.equals("/Note_Plans_Update.pl")) {
         	action=new Note_Plans_Update_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Note_Plans_RESET.pl")) {
+        	action=new Note_Plans_RESET_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Note_Plans_Delete.pl")) {
+        	action=new Note_Plans_Delete_Action();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {

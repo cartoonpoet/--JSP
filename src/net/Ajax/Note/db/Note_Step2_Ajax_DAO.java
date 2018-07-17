@@ -972,4 +972,67 @@ public class Note_Step2_Ajax_DAO{
 			}
 		}
 	}
+	
+	public void Plans_Reset_Action(int travel_id, int day_orders) {//해당 일차의 일정 초기화
+		int result=0;
+		try {
+			String sql="delete from note_info2 where travel_id=? and day_orders=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, travel_id);
+			pstmt.setInt(2, day_orders);
+
+			result=pstmt.executeUpdate();
+			System.out.println("초기화 개수 : "+result);
+			
+		} catch (Exception ex) {
+			System.out.println("Plans_Reset_Action ERROR2 : " + ex);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+	}
+	public void Plans_Delete_Action(int travel_id, int day_orders, int position) {//해당 일차의 일정 부분 삭제
+		int result=0;
+		try {
+			String sql="delete from note_info2 where travel_id=? and day_orders=? and orders=?";
+			//해당 일정을 삭제한다
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, travel_id);
+			pstmt.setInt(2, day_orders);
+			pstmt.setInt(3, position);
+			result=pstmt.executeUpdate();
+			System.out.println("삭제 개수 : "+result);
+			
+			sql="update note_info2 set orders=orders-1 where travel_id=? and day_orders=? and orders>?";
+			//해당 일정을 삭제 한후 올바른 정렬을 시켜주기위해 삭제된것 보다 높은 포지션값들을 1 낮춰준다.
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, travel_id);
+			pstmt.setInt(2, day_orders);
+			pstmt.setInt(3, position);
+			result=pstmt.executeUpdate();
+			System.out.println("낮춘 개수 : "+result);
+			
+		} catch (Exception ex) {
+			System.out.println("Plans_Delete_Action ERROR2 : " + ex);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+	}
 }

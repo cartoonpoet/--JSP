@@ -245,8 +245,23 @@ $(document).ready(function(){
         
         if(input==true){
             day_array[num]=new Array(0);
+            $.ajax({
+        		type:'POST',
+        		url:'./Note_Plans_RESET.pl',
+        		data: {
+        			NoteID: NoteID,
+        			day_orders:num
+        		},
+        		async: false,
+        		success:function(data){
+        			display(day_array[num]);
+        		},
+        		error:function(data){
+        			alert('일정 초기화에 실패하였습니다.');
+        		}
+        	})
         }
-        display(day_array[num]);
+
     })
     
     $(document).on("click", ".add_btn>.route_add_btn",function(){ //일정 추가 이벤트
@@ -324,7 +339,7 @@ $(document).ready(function(){
     	        display(day_array[num]);
     		},
     		error:function(data){
-    			alert('변경에 실패하였습니다.');
+    			alert('추가에 실패하였습니다.');
     			return;
     		}
     	})
@@ -920,9 +935,25 @@ $(document).ready(function(){
         }
         
         var position=$(this).parent().parent().index();
+        $.ajax({
+    		type:'POST',
+    		url:'./Note_Plans_Delete.pl',
+    		data: {
+    			NoteID: NoteID,
+    			day_orders:num,
+    			position:position
+    		},
+    		async: false,
+    		success:function(data){
+    			day_array[num].splice(position, 1);
+    			display(day_array[num]);
+    		},
+    		error:function(data){
+    			alert('일정 삭제에 실패하였습니다.');
+    		}
+    	})
+           
 
-           day_array[num].splice(position, 1);
-           display(day_array[num]);
     })
 })
 
