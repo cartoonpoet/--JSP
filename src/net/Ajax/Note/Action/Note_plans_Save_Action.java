@@ -28,7 +28,7 @@ public class Note_plans_Save_Action implements Action{
 		String week=request.getParameter("week");//week
 		String day=request.getParameter("day");//day
 		int order=Integer.parseInt(request.getParameter("order"));//order
-		
+		int day_orders=Integer.parseInt(request.getParameter("day_orders"));
 //		System.out.println("노트 아이디 : "+NoteID);
 //		System.out.println("콘텐츠 아이디 : "+Content_ID);
 //		System.out.println("콘텐츠 타입 : "+Content_Type_ID);
@@ -41,9 +41,10 @@ public class Note_plans_Save_Action implements Action{
 //		System.out.println("요일 : "+week);
 //		System.out.println("일차 : "+day);
 //		System.out.println("순번 : "+order);
+		//System.out.println("day_orders : "+day_orders);
 
 		Note_Step2_Ajax_DAO note_plan_save=new Note_Step2_Ajax_DAO();
-		note_plan_save.Plans_Save_Action(NoteID, Content_ID, Content_Type_ID, Title, Kind1, Kind2, sigungucode, areacode, date, week, day, order, areaname);
+		note_plan_save.Plans_Save_Action(NoteID, Content_ID, Content_Type_ID, Title, Kind1, Kind2, sigungucode, areacode, date, week, day, order, areaname, day_orders);
 
 		return null;
 	}

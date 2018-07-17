@@ -140,7 +140,7 @@ $(document).ready(function(){
                     day_array[num][i+1]=save;
                 }
             }
-
+            
             $.ajax({
         		type:'GET',
         		url:'./Note_Plans_Update.pl',
@@ -148,7 +148,14 @@ $(document).ready(function(){
         		data: {
         			StartIndex:index,
         			EndIndex:ui.item.index(),
-        			NoteID:NoteID
+        			NoteID:NoteID,
+        			day_orders:num,
+                    sigungucode:$(".day_arrange>button").eq(num).data('docode'),
+                	areacode:$(".day_arrange>button").eq(num).data('areacode'),
+                	date:$(".day_arrange>button").eq(num).find('.date_num').text(),
+                	day:$(".day_arrange>button").eq(num).find('.day_num').text(),
+                	Content_ID:$('#route_add .route').eq(ui.item.index()).data('id'),
+                	Content_Type_ID:$('#route_add .route').eq(ui.item.index()).data('type'),
         		},
         		async: false,
         		success:function(data){	
@@ -157,7 +164,7 @@ $(document).ready(function(){
         		error:function(request,status,error){
         	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         	    }
-        	})
+        	}).disableSelection();
         	
         }
     });
@@ -259,7 +266,7 @@ $(document).ready(function(){
         
         // 콘텐츠 ID, 이름, 종류   
 
-
+ 
         sigungucode=$(".day_arrange>button").eq(num).data('docode');
         areacode=$(".day_arrange>button").eq(num).data('areacode');
         areaname=$(".day_arrange>button").eq(num).find('.date_area').text();
@@ -291,7 +298,8 @@ $(document).ready(function(){
     			date:date,
     			week:week,
     			day:day,
-    			order:day_array[num].length
+    			order:day_array[num].length,
+    			day_orders:num
     		},
     		async: false,
     		success:function(data){
@@ -936,11 +944,11 @@ function rgb2hex(rgb) {
 function display(array){
     document.getElementById('route_add').innerHTML="";
     for(var i=0; i<array.length; i++){
-        document.getElementById('route_add').innerHTML+=create(i, array[i].img, array[i].Title, array[i].Kind2, array[i].lat, array[i].lng, array[i].Content_ID);
+        document.getElementById('route_add').innerHTML+=create(i, array[i].img, array[i].Title, array[i].Kind2, array[i].lat, array[i].lng, array[i].Content_ID, array[i].Content_Type_ID);
     }
 }
-function create(num, img, title, kind, lat, lng, ID){ //동적 추가 
-    return '<div class="route" data-ID="'+ID+'" data-lat="'+lat+'" data-lng="'+lng+'"><div class="curcle">'+(num+1)+'</div><img src="'+img+'" alt="" width="80px" height="75px"><ul class="route_info"><li class="title">'+title+'</li><li class="kind">'+kind+'</li></ul><div class="btn_group"><img src="./jpg/cancel_btn.png" class="delete_btn"></div></div>'
+function create(num, img, title, kind, lat, lng, ID, type_ID){ //동적 추가 
+    return '<div class="route" data-ID="'+ID+'" data-type="'+type_ID+'" data-lat="'+lat+'" data-lng="'+lng+'"><div class="curcle">'+(num+1)+'</div><img src="'+img+'" alt="" width="80px" height="75px"><ul class="route_info"><li class="title">'+title+'</li><li class="kind">'+kind+'</li></ul><div class="btn_group"><img src="./jpg/cancel_btn.png" class="delete_btn"></div></div>'
 }
 
 function append(areacode, sigungucode, cat1, cat2, cat3, contentid, contenttypeid, lat, lng, addr1, addr2, title, img){

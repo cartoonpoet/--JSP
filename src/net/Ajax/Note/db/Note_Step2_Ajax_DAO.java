@@ -830,8 +830,8 @@ public class Note_Step2_Ajax_DAO{
 		return FinalData;
 	}
 	
-	public void Plans_Save_Action(int NoteID, int Content_ID, int Content_Type_ID, String Title, String Kind1, String Kind2, int sigungucode, int areacode, String date, String week, String day, int order, String areaname) {
-		String sql="insert into note_info2(travel_id, kinds_1, route_name, kinds_2, content_id, content_type_id, sigungu_code, area_code, area_name, weeks, days, dates, orders) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	public void Plans_Save_Action(int NoteID, int Content_ID, int Content_Type_ID, String Title, String Kind1, String Kind2, int sigungucode, int areacode, String date, String week, String day, int order, String areaname, int day_orders) {
+		String sql="insert into note_info2(travel_id, kinds_1, route_name, kinds_2, content_id, content_type_id, sigungu_code, area_code, area_name, weeks, days, dates, orders, day_orders) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int result=0;
 		
 		try {
@@ -849,6 +849,7 @@ public class Note_Step2_Ajax_DAO{
 			pstmt.setString(11, day);
 			pstmt.setString(12, date);
 			pstmt.setInt(13, order);
+			pstmt.setInt(14, day_orders);
 			
 			result=pstmt.executeUpdate();
 
@@ -860,27 +861,52 @@ public class Note_Step2_Ajax_DAO{
 		}
 	}
 	
-	public void Plans_Update_Action(int StartIndex, int EndIndex) {
+	public void Plans_Update_Action(int StartIndex, int EndIndex, int day_orders, int sigungucode, int areacode, String date, String day, int Content_ID, int Content_Type_ID, int note_id) {
 		int result=0;
 		String sql="";
 		if(EndIndex<StartIndex) {
 			try {
-				sql="update note_info2 set orders=-1 where orders=?";
+				sql="update note_info2 set orders=-1 where orders=? and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and content_id=? and content_type_id=? and travel_id=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, StartIndex);
+				pstmt.setInt(2, day_orders);
+				pstmt.setInt(3, sigungucode);
+				pstmt.setInt(4, areacode);
+				pstmt.setString(5, date);
+				pstmt.setString(6, day);
+				pstmt.setInt(7, Content_ID);
+				pstmt.setInt(8, Content_Type_ID);
+				pstmt.setInt(9, note_id);
 				result=pstmt.executeUpdate();
+				System.out.println("변경됫 개수1 : "+result);
 				
-				sql="update note_info2 set orders=orders+1 where orders<? AND orders>=?";
+				sql="update note_info2 set orders=orders+1 where orders<? AND orders>=? and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and travel_id=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, StartIndex);
 				pstmt.setInt(2, EndIndex);
+				pstmt.setInt(3, day_orders);
+				pstmt.setInt(4, sigungucode);
+				pstmt.setInt(5, areacode);
+				pstmt.setString(6, date);
+				pstmt.setString(7, day);
+				pstmt.setInt(8, note_id);
 				result=pstmt.executeUpdate();
 				
-				sql="update note_info2 set orders=? where orders=-1";
+				System.out.println("변경됫 개수2 : "+result);
+				
+				sql="update note_info2 set orders=? where orders=-1 and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and content_id=? and content_type_id=? and travel_id=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, EndIndex);
+				pstmt.setInt(2, day_orders);
+				pstmt.setInt(3, sigungucode);
+				pstmt.setInt(4, areacode);
+				pstmt.setString(5, date);
+				pstmt.setString(6, day);
+				pstmt.setInt(7, Content_ID);
+				pstmt.setInt(8, Content_Type_ID);
+				pstmt.setInt(9, note_id);
 				result=pstmt.executeUpdate();
-				
+				System.out.println("변경됫 개수3 : "+result);
 			}catch(Exception ex) {
 				System.out.println("Note_Name_Update ERROR1 : "+ex);
 			}finally {
@@ -890,24 +916,48 @@ public class Note_Step2_Ajax_DAO{
 		}
 		else {
 			try {
-				sql="update note_info2 set orders=-1 where orders=?";
+				sql="update note_info2 set orders=-1 where orders=? and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and content_id=? and content_type_id=? and travel_id=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, StartIndex);
+				pstmt.setInt(2, day_orders);
+				pstmt.setInt(3, sigungucode);
+				pstmt.setInt(4, areacode);
+				pstmt.setString(5, date);
+				pstmt.setString(6, day);
+				pstmt.setInt(7, Content_ID);
+				pstmt.setInt(8, Content_Type_ID);
+				pstmt.setInt(9, note_id);
 				result=pstmt.executeUpdate();
+				System.out.println("변경됫 개수1 : "+result);
 				
-				sql = "update note_info2 set orders=orders-1 where orders>? AND orders<=?";
+				sql = "update note_info2 set orders=orders-1 where orders>? AND orders<=? and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and travel_id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, StartIndex);
 				pstmt.setInt(2, EndIndex);
+				pstmt.setInt(3, day_orders);
+				pstmt.setInt(4, sigungucode);
+				pstmt.setInt(5, areacode);
+				pstmt.setString(6, date);
+				pstmt.setString(7, day);
+				pstmt.setInt(8, note_id);
 				result = pstmt.executeUpdate();
+				System.out.println("변경됫 개수2 : "+result);
 
-				sql = "update note_info2 set orders=? where orders=-1";
+				sql = "update note_info2 set orders=? where orders=-1 and day_orders=? and sigungu_code=? and area_code=? and dates=? and days=? and content_id=? and content_type_id=? and travel_id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, EndIndex);
+				pstmt.setInt(2, day_orders);
+				pstmt.setInt(3, sigungucode);
+				pstmt.setInt(4, areacode);
+				pstmt.setString(5, date);
+				pstmt.setString(6, day);
+				pstmt.setInt(7, Content_ID);
+				pstmt.setInt(8, Content_Type_ID);
+				pstmt.setInt(9, note_id);
 				result=pstmt.executeUpdate();
-				
+				System.out.println("변경됫 개수3 : "+result);
 			} catch (Exception ex) {
-				System.out.println("Note_Name_Update ERROR1 : " + ex);
+				System.out.println("Note_Name_Update ERROR2 : " + ex);
 			} finally {
 				if (rs != null)
 					try {
