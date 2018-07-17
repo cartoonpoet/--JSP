@@ -1,5 +1,8 @@
 var NoteName;
 var day_array=new Array(0);
+var linePath;
+var lineLine = new daum.maps.Polyline();
+var distance;
 
 for(var i=0; i<$('.day_arrange>button').length; i++){
     day_array.push(new Array());
@@ -336,6 +339,24 @@ $(document).ready(function(){
     	            lat:lat,
     	            lng:lng
     	        })
+    	        
+    	        for(var i=0; i<day_array[num].length; i++){
+    	        	if(i!=0){
+    	        		linePath=[day_array[num][i-1].latlng, day_array[num][i].latlng]
+    	        	}
+    	        	lineLine.setPath(linePath);
+    	        	
+    	        	var drawLine=new daum.maps.Polyline({
+    	        		map:map,
+    	        		path:linePath,
+    	        		strokeWeight : 3, //선의 두께
+    	        		strokeColor : '#db4040', //선의 색상
+    	        		strokeOpacity:1, //선의 불투명도 `1에서 0 사이 0에 가까울수록 투명
+    	        		strokeStyle:'solid' //선의 스타일
+    	        	});
+    	        	
+    	        }
+    	        
     	        display(day_array[num]);
     		},
     		error:function(data){
