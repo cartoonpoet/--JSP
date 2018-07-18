@@ -396,7 +396,8 @@ $(document).ready(function(){
     	        	day_marker_array.push(new daum.maps.Marker({
     	        		map:map,
     	        		position: new daum.maps.LatLng(lat, lng), 
-    	            	image: markerImage
+    	            	image: markerImage,
+    	            	title:Title
     	        	}))
     	        }
     	        else if(Number(Content_Type_ID)==39){
@@ -404,7 +405,8 @@ $(document).ready(function(){
     	        	day_marker_array.push(new daum.maps.Marker({
     	        		map:map,
     	        		position: new daum.maps.LatLng(lat, lng), 
-    	            	image: markerImage
+    	            	image: markerImage,
+    	            	title:Title
     	        	}))
     	        }
 
