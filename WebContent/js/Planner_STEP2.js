@@ -1,8 +1,10 @@
 var NoteName;
 var day_array=new Array(0);
+var day_marker_array=new Array(0);
+var path=new Array(0);
 var linePath;
 var lineLine = new daum.maps.Polyline();
-var distance;
+var polyline=new Array(0);
 
 for(var i=0; i<$('.day_arrange>button').length; i++){
     day_array.push(new Array());
@@ -134,6 +136,10 @@ $(document).ready(function(){
                     save=day_array[num][i];
                     day_array[num][i]=day_array[num][i-1];
                     day_array[num][i-1]=save;
+                    
+                    marker_save=day_marker_array[i];
+                    day_marker_array[i]=day_marker_array[i-1];
+                    day_marker_array[i-1]=marker_save;
                 }
             }
             else{
@@ -141,6 +147,10 @@ $(document).ready(function(){
                     save=day_array[num][i];
                     day_array[num][i]=day_array[num][i+1];
                     day_array[num][i+1]=save;
+                    
+                    marker_save=day_marker_array[i];
+                    day_marker_array[i]=day_marker_array[i+1];
+                    day_marker_array[i+1]=marker_save;
                 }
             }
             
@@ -162,6 +172,32 @@ $(document).ready(function(){
         		},
         		async: false,
         		success:function(data){	
+        			for(var i=0; i<polyline.length; i++){ //일정 마커 선 지우기
+        	        	polyline[i].setMap(null);
+        	        }
+        			
+        			  polyline=new Array(0);
+        			  
+        			for (var i = 0; i < day_array[num].length; i++) {
+        	            if (i != 0) {
+        	                linePath = [ day_array[num][i - 1].latlng, day_array[num][i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+        	            }
+        	            
+        	            lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+        	            if(i>0){
+        	            polyline.push(new daum.maps.Polyline({
+        	            	endArrow:true,
+        	                map : map, // 선을 표시할 지도입니다 
+        	                path : linePath,
+        	                strokeWeight : 3, // 선의 두께입니다 
+        	                strokeColor : '#db4040', // 선의 색깔입니다
+        	                strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+        	                strokeStyle : 'solid' // 선의 스타일입니다
+        	            }));
+        	            }
+        	        }
+        	      
+        	        
         	        display(day_array[num]);
         		},
         		error:function(request,status,error){
@@ -247,7 +283,7 @@ $(document).ready(function(){
         var input=confirm('해당 일정을 초기화 하시겠습니까?');
         
         if(input==true){
-            day_array[num]=new Array(0);
+            
             $.ajax({
         		type:'POST',
         		url:'./Note_Plans_RESET.pl',
@@ -257,6 +293,19 @@ $(document).ready(function(){
         		},
         		async: false,
         		success:function(data){
+        			for(var i=0; i<polyline.length; i++){
+        				polyline[i].setMap(null);
+        			}
+        			
+        			polyline=new Array(0);
+        			
+        			day_array[num]=new Array(0); //일정 리스트 초기화
+        			
+        			for(var i=0; i<day_marker_array.length; i++){ //표시된 마커 지우기
+        				day_marker_array[i].setMap(null);
+        			}
+        			
+        			day_marker_array=new Array(0); //일정 마커리스트 초기화
         			display(day_array[num]);
         		},
         		error:function(data){
@@ -283,8 +332,6 @@ $(document).ready(function(){
         }
         
         // 콘텐츠 ID, 이름, 종류   
-
- 
         sigungucode=$(".day_arrange>button").eq(num).data('docode');
         areacode=$(".day_arrange>button").eq(num).data('areacode');
         areaname=$(".day_arrange>button").eq(num).find('.date_area').text();
@@ -321,7 +368,7 @@ $(document).ready(function(){
     		},
     		async: false,
     		success:function(data){
-    			
+
     	        day_array[num].push({
     	            Content_ID:Content_ID,
     	            Content_Type_ID:Content_Type_ID,
@@ -340,21 +387,48 @@ $(document).ready(function(){
     	            lng:lng
     	        })
     	        
-    	        for(var i=0; i<day_array[num].length; i++){
-    	        	if(i!=0){
-    	        		linePath=[day_array[num][i-1].latlng, day_array[num][i].latlng]
-    	        	}
-    	        	lineLine.setPath(linePath);
-    	        	
-    	        	var drawLine=new daum.maps.Polyline({
+    	        //일정 추가시 해당 위치 표시 마커 처리
+    	        var Food_marker_Src="./daum_map/marker_img/Food_Select.png";
+    	        var Tour_marker_Src="./daum_map/marker_img/Tour_Select.png";
+    	        var imageSize = new daum.maps.Size(42, 43);
+    	        if(Number(Content_Type_ID)==12){
+    	        	markerImage = new daum.maps.MarkerImage(Tour_marker_Src, imageSize);
+    	        	day_marker_array.push(new daum.maps.Marker({
     	        		map:map,
-    	        		path:linePath,
-    	        		strokeWeight : 3, //선의 두께
-    	        		strokeColor : '#db4040', //선의 색상
-    	        		strokeOpacity:1, //선의 불투명도 `1에서 0 사이 0에 가까울수록 투명
-    	        		strokeStyle:'solid' //선의 스타일
-    	        	});
-    	        	
+    	        		position: new daum.maps.LatLng(lat, lng), 
+    	            	image: markerImage
+    	        	}))
+    	        }
+    	        else if(Number(Content_Type_ID)==39){
+    	        	markerImage = new daum.maps.MarkerImage(Food_marker_Src, imageSize);
+    	        	day_marker_array.push(new daum.maps.Marker({
+    	        		map:map,
+    	        		position: new daum.maps.LatLng(lat, lng), 
+    	            	image: markerImage
+    	        	}))
+    	        }
+
+    	        for(var i=0; i<polyline.length; i++){
+    	        	polyline[i].setMap(null);
+    	        }
+    	        polyline=new Array(0);
+    	        for (var i = 0; i < day_array[num].length; i++) {
+    	            if (i != 0) {
+    	                linePath = [ day_array[num][i - 1].latlng, day_array[num][i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+    	            }
+    	            
+    	            lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+    	            if(i>0){
+    	            polyline.push(new daum.maps.Polyline({
+    	            	endArrow:true,
+    	                map : map, // 선을 표시할 지도입니다 
+    	                path : linePath,
+    	                strokeWeight : 3, // 선의 두께입니다 
+    	                strokeColor : '#db4040', // 선의 색깔입니다
+    	                strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+    	                strokeStyle : 'solid' // 선의 스타일입니다
+    	            }));
+    	            }
     	        }
     	        
     	        display(day_array[num]);
@@ -410,9 +484,19 @@ $(document).ready(function(){
         	overlay[i].setMap(null);
         }
         
-        for(var i=0; i<markers.length; i++){
+        for(var i=0; i<markers.length; i++){ //마커 표시 지우기
       	   markers[i].setMap(null);
         }
+        for(var i=0; i<day_marker_array.length; i++){ //일정 마커 표시 지우기
+        	day_marker_array[i].setMap(null);
+        }
+        for(var i=0; i<polyline.length; i++){ //일정 마커 선 지우기
+        	polyline[i].setMap(null);
+        }
+        polyline=new Array(0);
+        
+        day_marker_array=new Array(0);
+        
     	$('.kind_select>.all').find('img').attr('src', './planner_Step2_JPG/ALL2.png');
         $('.kind_select>.camera').find('img').attr('src','./planner_Step2_JPG/camera1.png');
         $('.kind_select>.food').find('img').attr('src', './planner_Step2_JPG/food1.png');
@@ -437,7 +521,8 @@ $(document).ready(function(){
         $(".day_group>.day").text(day_num);
         $(".day_group>.date").text(date_num);
         $(".day_group>.week").text('('+day_str+')');
-       
+        
+        
         display(day_array[position]);
         
         /* 각 Day에 맞게 일정 추가 */
@@ -475,6 +560,24 @@ $(document).ready(function(){
         	dataType:"json",
         	async: false,
         	success:function(data){
+        		for (var i = 0; i < day_array[num].length; i++) {
+    	            if (i != 0) {
+    	                linePath = [ day_array[num][i - 1].latlng, day_array[num][i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+    	            }
+    	            
+    	            lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+    	            if(i>0){
+    	           	polyline.push(new daum.maps.Polyline({
+    	           		endArrow:true,
+    	           		map : map, // 선을 표시할 지도입니다 
+    	           		path : linePath,
+    	            	strokeWeight : 3, // 선의 두께입니다 
+    	            	strokeColor : '#db4040', // 선의 색깔입니다
+    	            	strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+    	            	strokeStyle : 'solid' // 선의 스타일입니다
+    	           	}));
+    	            }
+    	        }
         		
         		$.each(data, function(key, value) {
         		    if(key=='item'){
@@ -527,7 +630,26 @@ $(document).ready(function(){
             	    
             	    markers.push(addMarker(positions[i].latlng, positions[i].contenttypeid, markerImage, positions[i].title, i, positions[i].contentid, positions[i].img, positions[i].addr1, positions[i].addr2));
             	}
-        		
+                var Food_marker_Src="./daum_map/marker_img/Food_Select.png";
+    	        var Tour_marker_Src="./daum_map/marker_img/Tour_Select.png";
+    	        
+                for(var i=0; i<day_array[num].length; i++){
+                	var markerImage;
+                	var imageSize = new daum.maps.Size(42, 43);
+                	if(day_array[num][i].Content_Type_ID==12){
+                		markerImage=new daum.maps.MarkerImage(Tour_marker_Src, imageSize);
+                	}
+                	else if(day_array[num][i].Content_Type_ID==39){
+                		markerImage=new daum.maps.MarkerImage(Food_marker_Src, imageSize);
+                	}
+                	day_marker_array.push(new daum.maps.Marker({
+                		map:map,
+                	    position: day_array[num][i].latlng, 
+                	    image: markerImage, // 마커이미지 설정
+                	    title:day_array[num][i].Title
+                	}));
+                }
+                
         	},
     		error:function(request,status,error){
     	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -966,7 +1088,35 @@ $(document).ready(function(){
     		},
     		async: false,
     		success:function(data){
-    			day_array[num].splice(position, 1);
+    			day_array[num].splice(position, 1); //삭제된 일정 잘라내기
+    			day_marker_array[position].setMap(null); //삭제된 일정의 마커 위치 없애기
+    			day_marker_array.splice(position, 1); // 삭제된 일정의 마커 잘라내기
+
+    			for(var i=0; i<polyline.length; i++){
+    				polyline[i].setMap(null);
+    			}
+    			
+    			polyline=new Array(0);
+    			
+    			for (var i = 0; i < day_array[num].length; i++) {
+    	            if (i != 0) {
+    	                linePath = [ day_array[num][i - 1].latlng, day_array[num][i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+    	            }
+    	            
+    	            lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+    	            if(i>0){
+    	           	polyline.push(new daum.maps.Polyline({
+    	           		endArrow:true,
+    	           		map : map, // 선을 표시할 지도입니다 
+    	           		path : linePath,
+    	            	strokeWeight : 3, // 선의 두께입니다 
+    	            	strokeColor : '#db4040', // 선의 색깔입니다
+    	            	strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+    	            	strokeStyle : 'solid' // 선의 스타일입니다
+    	           	}));
+    	            }
+    	        }
+    			
     			display(day_array[num]);
     		},
     		error:function(data){
