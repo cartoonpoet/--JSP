@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
+import net.note.db.Note_All_Plans_Bean;
 import net.note.db.Note_Step2_ALL_INFO_Bean;
 import net.note.db.Note_Step2_Day_List_Bean;
 import net.note.db.Note_Step2_Select_Bean;
@@ -86,6 +87,7 @@ public class Note_Step2_SelectAction implements Action{
 		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=note_Step2_Select_DAO.Area_Info_Select_Action(day_list.get(0).getArea_code(), day_list.get(0).getDo_code());
 		
 		note_Step2_Select_DAO.resetRoute(note_Step2_Bean.getTravel_ID());
+		//ArrayList<Note_All_Plans_Bean> NoteInfo2_List=note_Step2_Select_DAO.Note_info2_All_Select(note_Step2_Bean.getTravel_ID());
 		
 //		for(int i=0; i<Info_List.size(); i++) {
 //			System.out.println(i+"제목 : "+Info_List.get(i).getTitle());
@@ -94,6 +96,7 @@ public class Note_Step2_SelectAction implements Action{
 		request.setAttribute("Info_List", Info_List);
 		request.setAttribute("note_Step2_Bean", note_Step2_Bean);
 		request.setAttribute("note_Step2_day_list", day_list);
+		//request.setAttribute("NoteInfo2_List", NoteInfo2_List);
         forward.setRedirect(false); //접속 끊었다가 다시 연결하면서 새로운 정보를 보여준다.
         forward.setPath("./planner_writer/Railro_Note_Step2.jsp"); //메인으로   
 		return forward;

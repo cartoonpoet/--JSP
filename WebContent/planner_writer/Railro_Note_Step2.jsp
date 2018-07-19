@@ -7,6 +7,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="net.note.db.Note_Step2_ALL_INFO_Bean" %>
+<%@ page import="net.note.db.Note_All_Plans_Bean" %>
 <%String ID = null, PW = null;
 
 Cookie cookies[] = request.getCookies();
@@ -28,7 +29,7 @@ if(ID!=null&&PW!=null){
 	Note_Step2_Select_Bean note_Step2_Bean=(Note_Step2_Select_Bean)request.getAttribute("note_Step2_Bean");
 	ArrayList<Note_Step2_Day_List_Bean> day_list=(ArrayList<Note_Step2_Day_List_Bean>)request.getAttribute("note_Step2_day_list");
 	ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=(ArrayList<Note_Step2_ALL_INFO_Bean>)request.getAttribute("Info_List");
-	
+	//ArrayList<Note_All_Plans_Bean> NoteInfo2_List=(ArrayList<Note_All_Plans_Bean>)request.getAttribute("NoteInfo2_List");
 	SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	String to = transFormat.format(note_Step2_Bean.getTravel_Start_Day()); //시작일 저장
@@ -279,12 +280,12 @@ if(ID!=null&&PW!=null){
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/Planner_STEP2_Daum_map.js?ver=71"></script>
     <script src="./jqcloud/example.words.js"></script>
-    <script src="./js/Planner_STEP2.js?ver=83"></script>
+    <script src="./js/Planner_STEP2.js?ver=84"></script>
     
     <script>
     	
-
 		NoteID=<%=note_Step2_Bean.getTravel_ID()%>
+		
         //워드클라우드 스크립트 
         d3.wordcloud()
         .size([320, 450])

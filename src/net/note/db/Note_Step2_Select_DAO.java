@@ -522,4 +522,68 @@ public class Note_Step2_Select_DAO {
 	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
 		}
 	}
+	
+	public ArrayList<Note_All_Plans_Bean> Note_info2_All_Select(int travel_id){
+		String sql="select * from note_info2 where travel_id=? order by day_orders asc, orders asc";
+		ArrayList<Note_All_Plans_Bean> NoteInfo2_List=new ArrayList<Note_All_Plans_Bean>();
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, travel_id);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				NoteInfo2_List.add(new Note_All_Plans_Bean());
+				NoteInfo2_List.get(rs.getRow()-1).setSigungucode(rs.getInt("sigungu_code"));
+				NoteInfo2_List.get(rs.getRow()-1).setAreacode(rs.getInt("area_code"));
+				NoteInfo2_List.get(rs.getRow()-1).setContent_ID(rs.getInt("content_id"));
+				NoteInfo2_List.get(rs.getRow()-1).setContent_Type_ID(rs.getInt("content_type_id"));
+				NoteInfo2_List.get(rs.getRow()-1).setDate(rs.getString("dates"));
+				NoteInfo2_List.get(rs.getRow()-1).setDay(rs.getString("days"));
+				NoteInfo2_List.get(rs.getRow()-1).setKind1(rs.getString("kinds_1"));
+				NoteInfo2_List.get(rs.getRow()-1).setKind2(rs.getString("kinds_2"));
+				NoteInfo2_List.get(rs.getRow()-1).setDay_orders(rs.getInt("day_orders"));
+				NoteInfo2_List.get(rs.getRow()-1).setOrders(rs.getInt("orders"));
+				NoteInfo2_List.get(rs.getRow()-1).setWeek(rs.getString("weeks"));
+				NoteInfo2_List.get(rs.getRow()-1).setMemo(rs.getString("memo"));
+			}
+
+			URL url;
+			InputStreamReader isr;
+			
+			JSONObject items; 
+
+			System.out.println("노트 정보 개수 : "+NoteInfo2_List.size());
+			
+			for(int i=0; i<NoteInfo2_List.size(); i++) {
+				if(NoteInfo2_List.get(i).getKind1().compareTo("일반")==0) {
+					url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?serviceKey="+Key+"&numOfRows=1&pageSize=1&pageNo=1&startPage=1&MobileOS=ETC&MobileApp=AppTest&contentId="+NoteInfo2_List.get(i).getContent_ID()+"&contentTypeId="+NoteInfo2_List.get(i).getContent_Type_ID()+"&defaultYN=Y&firstImageYN=Y&areacodeYN=N&catcodeYN=N&addrinfoYN=N&mapinfoYN=Y&overviewYN=N&_type=json");
+					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+					items=new JSONObject();
+					items=(JSONObject) JSONValue.parseWithException(isr); 
+					items=(JSONObject) items.get("response");
+					items=(JSONObject) items.get("body");
+					items=(JSONObject) items.get("items");
+					items=(JSONObject) items.get("item");
+					NoteInfo2_List.get(i).setTitle(items.get("title").toString());
+					if(items.get("firstimage")!=null) {
+						NoteInfo2_List.get(i).setImg(items.get("firstimage").toString());
+					}
+					else {
+						NoteInfo2_List.get(i).setImg("./jpg/no_image.gif");
+					}
+					NoteInfo2_List.get(i).setLat(Double.parseDouble(items.get("mapy").toString()));
+					NoteInfo2_List.get(i).setLng(Double.parseDouble(items.get("mapx").toString()));
+				}
+			}
+			
+		}catch(Exception ex) {
+			System.out.println("Note_info2_All_Select ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		
+		return NoteInfo2_List;
+	}
 }
