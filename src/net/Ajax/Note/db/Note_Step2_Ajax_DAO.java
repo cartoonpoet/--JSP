@@ -1035,4 +1035,338 @@ public class Note_Step2_Ajax_DAO{
 				}
 		}
 	}
+	
+	public JSONObject Search_within_Do(String keyword, int sigungucode) {
+		JSONArray jsonarray=new JSONArray();
+		JSONObject FinalData=new JSONObject();
+		int total=0;
+		JSONObject result=new JSONObject();
+		
+		JSONArray resultArray=new JSONArray();
+		
+		try {
+			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?serviceKey="+Key+"&MobileApp=AppTest&MobileOS=ETC&pageNo=1&startPage=1&numOfRows=1&pageSize=1&listYN=Y&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&keyword="+URLEncoder.encode(keyword, "UTF-8")+"&_type=json");
+			
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			JSONObject items=(JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+
+			int totalCount=Integer.parseInt(obj.get("totalCount").toString());
+			total=totalCount;
+			System.out.println("도시내 검색 관광지 개수 : "+totalCount);
+			if(totalCount>0) {
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?serviceKey="+Key+"&MobileApp=AppTest&MobileOS=ETC&pageNo=1&startPage=1&numOfRows="+totalCount+"&pageSize=1&listYN=Y&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&keyword="+URLEncoder.encode(keyword, "UTF-8")+"&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				items=(JSONObject) JSONValue.parseWithException(isr); 
+				obj=(JSONObject) items.get("response");
+				obj=(JSONObject) obj.get("body");
+				obj=(JSONObject) obj.get("items");
+				if(totalCount>1) {
+					jsonarray = (JSONArray) obj.get("item");
+
+					for (int i = 0; i < jsonarray.size(); i++) {
+						result = new JSONObject();
+						obj = (JSONObject) jsonarray.get(i);
+
+						if (obj.get("addr1") != null) {
+							result.put("addr1", obj.get("addr1").toString());
+						} else {
+							result.put("addr1", null);
+						}
+
+						if (obj.get("addr2") != null) {
+							result.put("addr2", obj.get("addr2").toString());
+						} else {
+							result.put("addr2", null);
+						}
+
+						result.put("areacode", obj.get("areacode").toString());
+
+						if (obj.get("cat1") != null) {
+							result.put("cat1", obj.get("cat1").toString());
+						} else {
+							result.put("cat1", null);
+						}
+
+						if (obj.get("cat2") != null) {
+							result.put("cat2", obj.get("cat2").toString());
+						} else {
+							result.put("cat2", null);
+						}
+
+						if (obj.get("cat3") != null) {
+							result.put("cat3", obj.get("cat3").toString());
+						} else {
+							result.put("cat3", null);
+						}
+
+						result.put("contentid", obj.get("contentid").toString());
+						result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+						if (obj.get("firstimage") != null) {
+							result.put("firstimage", obj.get("firstimage").toString());
+						} else {
+							result.put("firstimage", "./jpg/no_image.gif");
+						}
+
+						if (obj.get("firstimage2") != null) {
+							result.put("firstimage2", obj.get("firstimage2").toString());
+						} else {
+							result.put("firstimage2", "./jpg/no_image.gif");
+						}
+
+						result.put("lat", obj.get("mapy"));
+						result.put("lng", obj.get("mapx"));
+						result.put("sigungucode", obj.get("sigungucode"));
+						result.put("title", obj.get("title"));
+
+						resultArray.add(result);
+					}
+				}
+				else {
+					result = new JSONObject();
+					obj = (JSONObject) obj.get("item");
+
+					if (obj.get("addr1") != null) {
+						result.put("addr1", obj.get("addr1").toString());
+					} else {
+						result.put("addr1", null);
+					}
+
+					if (obj.get("addr2") != null) {
+						result.put("addr2", obj.get("addr2").toString());
+					} else {
+						result.put("addr2", null);
+					}
+
+					result.put("areacode", obj.get("areacode").toString());
+
+					if (obj.get("cat1") != null) {
+						result.put("cat1", obj.get("cat1").toString());
+					} else {
+						result.put("cat1", null);
+					}
+
+					if (obj.get("cat2") != null) {
+						result.put("cat2", obj.get("cat2").toString());
+					} else {
+						result.put("cat2", null);
+					}
+
+					if (obj.get("cat3") != null) {
+						result.put("cat3", obj.get("cat3").toString());
+					} else {
+						result.put("cat3", null);
+					}
+
+					result.put("contentid", obj.get("contentid").toString());
+					result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+					if (obj.get("firstimage") != null) {
+						result.put("firstimage", obj.get("firstimage").toString());
+					} else {
+						result.put("firstimage", "./jpg/no_image.gif");
+					}
+
+					if (obj.get("firstimage2") != null) {
+						result.put("firstimage2", obj.get("firstimage2").toString());
+					} else {
+						result.put("firstimage2", "./jpg/no_image.gif");
+					}
+
+					result.put("lat", obj.get("mapy"));
+					result.put("lng", obj.get("mapx"));
+					result.put("sigungucode", obj.get("sigungucode"));
+					result.put("title", obj.get("title"));
+
+					resultArray.add(result);
+				}
+		}
+		}catch(Exception e) {
+			System.out.println("Search_within_Do TOUR ERROR : "+e);
+		}
+		//음식점 검색
+		try {
+			URL url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?serviceKey="+Key+"&MobileApp=AppTest&MobileOS=ETC&pageNo=1&startPage=1&numOfRows=1&pageSize=1&listYN=Y&arrange=O&contentTypeId=39&areaCode="+sigungucode+"&keyword="+URLEncoder.encode(keyword, "UTF-8")+"&_type=json");
+			
+			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+			JSONObject items=(JSONObject) JSONValue.parseWithException(isr); 
+			JSONObject obj=(JSONObject) items.get("response");
+			obj=(JSONObject) obj.get("body");
+			
+			int totalCount=Integer.parseInt(obj.get("totalCount").toString());
+			System.out.println("도시내 검색 음식점 개수 : "+totalCount);
+			total+=totalCount;
+			if (totalCount > 0) {
+				url = new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?serviceKey="
+						+ Key + "&MobileApp=AppTest&MobileOS=ETC&pageNo=1&startPage=1&numOfRows=" + totalCount
+						+ "&pageSize=1&listYN=Y&arrange=O&contentTypeId=39&areaCode=" + sigungucode + "&keyword=" + URLEncoder.encode(keyword, "UTF-8") + "&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+				items = (JSONObject) JSONValue.parseWithException(isr);
+				obj = (JSONObject) items.get("response");
+				obj = (JSONObject) obj.get("body");
+				obj = (JSONObject) obj.get("items");
+				if(totalCount>1) {
+					jsonarray = (JSONArray) obj.get("item");
+
+					for (int i = 0; i < jsonarray.size(); i++) {
+						result = new JSONObject();
+						obj = (JSONObject) jsonarray.get(i);
+
+						if (obj.get("addr1") != null) {
+							result.put("addr1", obj.get("addr1").toString());
+						} else {
+							result.put("addr1", null);
+						}
+
+						if (obj.get("addr2") != null) {
+							result.put("addr2", obj.get("addr2").toString());
+						} else {
+							result.put("addr2", null);
+						}
+
+						result.put("areacode", obj.get("areacode").toString());
+
+						if (obj.get("cat1") != null) {
+							result.put("cat1", obj.get("cat1").toString());
+						} else {
+							result.put("cat1", null);
+						}
+
+						if (obj.get("cat2") != null) {
+							result.put("cat2", obj.get("cat2").toString());
+						} else {
+							result.put("cat2", null);
+						}
+
+						if (obj.get("cat3") != null) {
+							result.put("cat3", obj.get("cat3").toString());
+						} else {
+							result.put("cat3", null);
+						}
+
+						result.put("contentid", obj.get("contentid").toString());
+						result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+						if (obj.get("firstimage") != null) {
+							result.put("firstimage", obj.get("firstimage").toString());
+						} else {
+							result.put("firstimage", "./jpg/no_image.gif");
+						}
+
+						if (obj.get("firstimage2") != null) {
+							result.put("firstimage2", obj.get("firstimage2").toString());
+						} else {
+							result.put("firstimage2", "./jpg/no_image.gif");
+						}
+
+						result.put("lat", obj.get("mapy"));
+						result.put("lng", obj.get("mapx"));
+						result.put("sigungucode", obj.get("sigungucode"));
+						result.put("title", obj.get("title"));
+
+						resultArray.add(result);
+					}
+				}
+				else {
+					result = new JSONObject();
+					obj = (JSONObject) obj.get("item");
+
+					if (obj.get("addr1") != null) {
+						result.put("addr1", obj.get("addr1").toString());
+					} else {
+						result.put("addr1", null);
+					}
+
+					if (obj.get("addr2") != null) {
+						result.put("addr2", obj.get("addr2").toString());
+					} else {
+						result.put("addr2", null);
+					}
+
+					result.put("areacode", obj.get("areacode").toString());
+
+					if (obj.get("cat1") != null) {
+						result.put("cat1", obj.get("cat1").toString());
+					} else {
+						result.put("cat1", null);
+					}
+
+					if (obj.get("cat2") != null) {
+						result.put("cat2", obj.get("cat2").toString());
+					} else {
+						result.put("cat2", null);
+					}
+
+					if (obj.get("cat3") != null) {
+						result.put("cat3", obj.get("cat3").toString());
+					} else {
+						result.put("cat3", null);
+					}
+
+					result.put("contentid", obj.get("contentid").toString());
+					result.put("contenttypeid", obj.get("contenttypeid").toString());
+
+					if (obj.get("firstimage") != null) {
+						result.put("firstimage", obj.get("firstimage").toString());
+					} else {
+						result.put("firstimage", "./jpg/no_image.gif");
+					}
+
+					if (obj.get("firstimage2") != null) {
+						result.put("firstimage2", obj.get("firstimage2").toString());
+					} else {
+						result.put("firstimage2", "./jpg/no_image.gif");
+					}
+
+					result.put("lat", obj.get("mapy"));
+					result.put("lng", obj.get("mapx"));
+					result.put("sigungucode", obj.get("sigungucode"));
+					result.put("title", obj.get("title"));
+
+					resultArray.add(result);
+				}
+			}
+		}catch(Exception e) {
+			System.out.println("Search_within_Do FOOD ERROR : "+e);
+		}
+		FinalData.put("item", resultArray);
+		FinalData.put("totalCount", total);
+		System.out.println("FinalData : "+FinalData);
+		
+		return FinalData;
+	}
+	
+	public void Plans_HashTag_Save_Action(int NoteID, int Content_ID, int Content_Type_ID, String Title, String Kind1, String Kind2, int sigungucode, int areacode, String date, String week, String day, int order, String areaname, int day_orders, String memo) {
+		String sql="insert into note_info2(travel_id, kinds_1, route_name, kinds_2, content_id, content_type_id, sigungu_code, area_code, area_name, weeks, days, dates, orders, day_orders, memo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		int result=0;
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, NoteID);
+			pstmt.setString(2, Kind1);
+			pstmt.setString(3, Title);
+			pstmt.setString(4, Kind2);
+			pstmt.setInt(5, Content_ID);
+			pstmt.setInt(6, Content_Type_ID);
+			pstmt.setInt(7, sigungucode);
+			pstmt.setInt(8, areacode);
+			pstmt.setString(9, areaname);
+			pstmt.setString(10, week);
+			pstmt.setString(11, day);
+			pstmt.setString(12, date);
+			pstmt.setInt(13, order);
+			pstmt.setInt(14, day_orders);
+			pstmt.setString(15, memo);
+			
+			result=pstmt.executeUpdate();
+
+		}catch(Exception ex) {
+			System.out.println("Plans_HashTag_Save_Action ERROR : "+ex);
+		}finally {
+				if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	           if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+	}
 }

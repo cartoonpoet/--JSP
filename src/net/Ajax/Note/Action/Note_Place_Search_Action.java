@@ -30,7 +30,7 @@ public class Note_Place_Search_Action implements Action{
 			json=note_Step2_Ajax_DAO.Search_within_city(keyword, sigungucode, areacode);
 		}
 		else if(search_type.compareTo("all_search")==0) { // 전체 검색 일 시
-			
+			json=note_Step2_Ajax_DAO.Search_within_Do(keyword, sigungucode);
 		}
 		
 		response.setContentType("application/json");

@@ -29,23 +29,29 @@ public class Note_plans_Save_Action implements Action{
 		String day=request.getParameter("day");//day
 		int order=Integer.parseInt(request.getParameter("order"));//order
 		int day_orders=Integer.parseInt(request.getParameter("day_orders"));
-//		System.out.println("노트 아이디 : "+NoteID);
-//		System.out.println("콘텐츠 아이디 : "+Content_ID);
-//		System.out.println("콘텐츠 타입 : "+Content_Type_ID);
-//		System.out.println("제목 : "+Title);
-//		System.out.println("종류1 : "+Kind1);
-//		System.out.println("종류2 : "+Kind2);
-//		System.out.println("시군구 코드 : "+sigungucode);
-//		System.out.println("지역 코드 : "+areacode);
-//		System.out.println("날짜 : "+date);
-//		System.out.println("요일 : "+week);
-//		System.out.println("일차 : "+day);
-//		System.out.println("순번 : "+order);
-		//System.out.println("day_orders : "+day_orders);
+		String memo=request.getParameter("memo");
+		System.out.println("노트 아이디 : "+NoteID);
+		System.out.println("콘텐츠 아이디 : "+Content_ID);
+		System.out.println("콘텐츠 타입 : "+Content_Type_ID);
+		System.out.println("제목 : "+Title);
+		System.out.println("종류1 : "+Kind1);
+		System.out.println("종류2 : "+Kind2);
+		System.out.println("시군구 코드 : "+sigungucode);
+		System.out.println("지역 코드 : "+areacode);
+		System.out.println("날짜 : "+date);
+		System.out.println("요일 : "+week);
+		System.out.println("일차 : "+day);
+		System.out.println("순번 : "+order);
+		System.out.println("day_orders : "+day_orders);
+		System.out.println("메모 : "+memo);
 
 		Note_Step2_Ajax_DAO note_plan_save=new Note_Step2_Ajax_DAO();
-		note_plan_save.Plans_Save_Action(NoteID, Content_ID, Content_Type_ID, Title, Kind1, Kind2, sigungucode, areacode, date, week, day, order, areaname, day_orders);
-
+		if(Content_Type_ID!=0) {//일반 일정 추가 일시
+			note_plan_save.Plans_Save_Action(NoteID, Content_ID, Content_Type_ID, Title, Kind1, Kind2, sigungucode, areacode, date, week, day, order, areaname, day_orders);
+		}
+		else {//해시태그 일정 추가일시
+			note_plan_save.Plans_HashTag_Save_Action(NoteID, Content_ID, Content_Type_ID, Title, Kind1, Kind2, sigungucode, areacode, date, week, day, order, areaname, day_orders, memo);		
+		}
 		return null;
 	}
 }
