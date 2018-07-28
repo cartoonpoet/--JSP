@@ -65,6 +65,7 @@ $(document).ready(function(){
         $(".all").css({display:'none'});
         $(".buk_do").css({display:'block'});
         $(".nam_do").css({display:'none'});
+        $(".Gwangju").css({display:'none'});
         $("#BUK_DO_VIEW").css({backgroundColor:'#1a7ad9'});
         $("#BUK_DO_VIEW").siblings().css({backgroundColor:'transparent'});
     })
@@ -72,8 +73,17 @@ $(document).ready(function(){
         $(".all").css({display:'none'});
         $(".buk_do").css({display:'none'});
         $(".nam_do").css({display:'block'});
+        $(".Gwangju").css({display:'none'});
         $("#NAM_DO_VIEW").css({backgroundColor:'#1a7ad9'});
         $("#NAM_DO_VIEW").siblings().css({backgroundColor:'transparent'});
+    })
+    $(".all .gwangjudo").click(function(){
+        $(".all").css({display:'none'});
+        $(".buk_do").css({display:'none'});
+        $(".nam_do").css({display:'none'});
+        $(".Gwangju").css({display:'block'});
+        $("#Gwangju_VIEW").css({backgroundColor:'#1a7ad9'});
+        $("#Gwangju_VIEW").siblings().css({backgroundColor:'transparent'});
     })
     
     $(".item_box .clear img").click(function(){ //지역추가

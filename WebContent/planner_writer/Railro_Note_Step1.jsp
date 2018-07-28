@@ -127,6 +127,7 @@ if(ID!=null&&PW!=null){
                     <input type="button" value="모두 보기" id="ALL_VIEW">
                     <input type="button" value="전라북도" id="BUK_DO_VIEW">
                     <input type="button" value="전라남도" id="NAM_DO_VIEW">
+                    <input type="button" value="광주광역시" id="Gwangju_VIEW">
                 </span>
                 <span class="left_sub2 all">
                    <h3><span>모두 보기</span></h3>
@@ -151,7 +152,7 @@ if(ID!=null&&PW!=null){
                            </div>
                            <div class="clear"></div>
                       </div>
-                      <div class="item_box" data-no="3" data-ci_name="광주" data-lat="35.153946" data-lng="126.834872">
+                      <div class="item_box gwangjudo" data-no="3" data-ci_name="광주" data-lat="35.153946" data-lng="126.834872">
                              <div class="img_box">
                                <img src="./map_image/%EA%B4%91%EC%A3%BC.jpg" alt="광주" width="62px" height="55px">
                            </div>
@@ -160,7 +161,6 @@ if(ID!=null&&PW!=null){
                                <div class="info_sub_title">Gwangju</div>
                            </div>
                            <div class="clear">
-                               <img src="./map_image/add.png" alt="광주" data-ci_name="광주">
                            </div>
                       </div>
                         
@@ -580,6 +580,71 @@ if(ID!=null&&PW!=null){
                       </div>
                       
                       
+                   </div>
+                </span>
+            	<span class="left_sub2 Gwangju_do">
+                   <h3><span>광주</span></h3>
+                    <div class="item_list Gwangju">
+                      <div class="item_box Gwangju1" data-no="1" data-ci_name="광주 광산구" data-lat="35.1394638" data-lng="126.79371830000002" data-station="버스">
+                             <div class="img_box">
+                               <img src="./map_image/전라남도/강진.jpg" alt="" width="62px" height="55px">
+                           </div>
+                           <div class="info_box">
+                               <div class="info_title">광주 광산구</div>
+                               <div class="info_sub_title">Gwangju</div>
+                           </div>
+                           <div class="clear">
+                               <img src="./map_image/add.png" alt="" data-ci_name="광주 광산구">
+                           </div>
+                      </div>
+                      <div class="item_box Gwangju2" data-no="2" data-ci_name="광주 남구" data-lat="35.1221068" data-lng="126.90795789999993" data-station="버스">
+                             <div class="img_box">
+                               <img src="./map_image/전라남도/고흥.jpg" alt="" width="62px" height="55px">
+                           </div>
+                           <div class="info_box">
+                               <div class="info_title">광주 남구</div>
+                               <div class="info_sub_title">Gwangju</div>
+                           </div>
+                           <div class="clear">
+                               <img src="./map_image/add.png" alt="" data-ci_name="광주 남구">
+                           </div>
+                      </div>
+                      <div class="item_box Gwangju3" data-no="3" data-ci_name="광주 동구" data-lat="35.1461042" data-lng="126.92312279999999" data-station="기차">
+                             <div class="img_box">
+                               <img src="./map_image/전라남도/곡성.jpg" alt="" width="62px" height="55px">
+                           </div>
+                           <div class="info_box">
+                               <div class="info_title">광주 동구</div>
+                               <div class="info_sub_title">Gwangju</div>
+                           </div>
+                           <div class="clear">
+                               <img src="./map_image/add.png" alt="" data-ci_name="광주 동구">
+                           </div>
+                      </div>
+                      <div class="item_box Gwangju4" data-no="4" data-ci_name="광주 북구" data-lat="35.1740167" data-lng="126.9119842" data-station="기차">
+                             <div class="img_box">
+                               <img src="./map_image/전라남도/광양.jpg" alt="" width="62px" height="55px">
+                           </div>
+                           <div class="info_box">
+                               <div class="info_title">광주 북구</div>
+                               <div class="info_sub_title">Gwangju</div>
+                           </div>
+                           <div class="clear">
+                               <img src="./map_image/add.png" alt="" data-ci_name="광주 북구">
+                           </div>
+                      </div>
+                      <div class="item_box Gwangju5" data-no="5" data-ci_name="광주 서구" data-lat="35.1528248" data-lng="126.89109770000005" data-station="기차">
+                             <div class="img_box">
+                               <img src="./map_image/전라남도/구례.jpg" alt="" width="62px" height="55px">
+                           </div>
+                           <div class="info_box">
+                               <div class="info_title">광주 서구</div>
+                               <div class="info_sub_title">Gwangju</div>
+                           </div>
+                           <div class="clear">
+                               <img src="./map_image/add.png" alt="" data-ci_name="광주 서구">
+                           </div>
+                      </div>
                    </div>
                 </span>
             </div>

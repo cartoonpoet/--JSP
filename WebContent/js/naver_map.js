@@ -147,6 +147,7 @@
                     $(".all").css({display:'block'});
                     $(".buk_do").css({display:'none'});
                     $(".nam_do").css({display:'none'});
+                    $(".Gwangju_do").css({display:'none'});
                     $("#ALL_VIEW").css({backgroundColor:'#1a7ad9'});
                     $("#ALL_VIEW").siblings().css({backgroundColor:'transparent'});
                     e.preventDefault();
@@ -168,6 +169,7 @@
                     $(".all").css({display:'none'});
                     $(".buk_do").css({display:'block'});
                     $(".nam_do").css({display:'none'});
+                    $(".Gwangju_do").css({display:'none'});
                     $("#BUK_DO_VIEW").css({backgroundColor:'#1a7ad9'});
                     $("#BUK_DO_VIEW").siblings().css({backgroundColor:'transparent'});
                     e.preventDefault();
@@ -188,6 +190,7 @@
                     $(".all").css({display:'none'});
                     $(".buk_do").css({display:'none'});
                     $(".nam_do").css({display:'block'});
+                    $(".Gwangju_do").css({display:'none'});
                     $("#NAM_DO_VIEW").css({backgroundColor:'#1a7ad9'});
                     $("#NAM_DO_VIEW").siblings().css({backgroundColor:'transparent'});
                     e.preventDefault();
@@ -204,7 +207,27 @@
                     }
 
                 })
-
+                
+                $("#Gwangju_VIEW").on("click", function(e){
+                    $(".all").css({display:'none'});
+                    $(".buk_do").css({display:'none'});
+                    $(".nam_do").css({display:'none'});
+                    $(".Gwangju_do").css({display:'block'});
+                    $("#Gwangju_VIEW").css({backgroundColor:'#1a7ad9'});
+                    $("#Gwangju_VIEW").siblings().css({backgroundColor:'transparent'});
+//                    e.preventDefault();
+//                    map.setCenter(nam_do_view);
+//                    map.setZoom(5, true);
+//                    for(var i=0; i<nam_do_array.length; i++){ //전라남도 모든 지역 마커 찍기
+//                        Small_markers2[i]=new naver.maps.Marker(nam_do_array[i]);
+//                    }
+//                    for(var i=0; i<marker.length; i++){ //큰 도 지역 마커 삭제
+//                        marker[i].setMap(null);
+//                    }
+//                    for(var i=0; i<buk_do_array.length; i++){ //전라북도 모든 지역 마커 삭제
+//                        Small_markers1[i].setMap(null);
+//                    }
+                })
                 /*
                 * 소분류 눌렀을때
                 */

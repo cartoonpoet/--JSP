@@ -234,11 +234,11 @@ public class Note_Step2_Select_DAO {
 	}
 	public int do_code_Action(String area) {
 		switch(area) {
-			case "광산구": return 5;
-			case "남구": return 5;
-			case "북구": return 5;
-			case "동구": return 5;
-			case "서구": return 5;
+			case "광주 광산구": return 5;
+			case "광주 남구": return 5;
+			case "광주 북구": return 5;
+			case "광주 동구": return 5;
+			case "광주 서구": return 5;
 			case "고창군": return 37;
 			case "군산시": return 37;
 			case "김제시": return 37;
@@ -280,11 +280,11 @@ public class Note_Step2_Select_DAO {
 	}
 	public int area_code_Action(String area) {
 		switch(area) {
-		case "광산구": return 1;
-		case "남구": return 2;
-		case "북구": return 4;
-		case "동구": return 3;
-		case "서구": return 5;
+		case "광주 광산구": return 1;
+		case "광주 남구": return 2;
+		case "광주 북구": return 4;
+		case "광주 동구": return 3;
+		case "광주 서구": return 5;
 		case "고창군": return 1;
 		case "군산시": return 2;
 		case "김제시": return 3;
