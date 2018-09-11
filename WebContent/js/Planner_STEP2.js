@@ -552,7 +552,8 @@ $(document).ready(function(){
 	        			map:map,
 	        			position: new daum.maps.LatLng(day_array[num][i].lat, day_array[num][i].lng), 
 	            		image: markerImage,
-	            		title:day_array[num][i].Title
+	            		title:day_array[num][i].Title,
+	            		zIndex:9999
 	        		}))
     	        }
     	        
@@ -830,6 +831,10 @@ $(document).ready(function(){
                 break;
             }
         }
+        
+        
+        
+        
         
         document.getElementById('search_data').innerHTML='';
         
