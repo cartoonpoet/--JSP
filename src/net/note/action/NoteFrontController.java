@@ -16,6 +16,7 @@ import net.Ajax.Note.Action.Note_More_Info_SelectAction;
 import net.Ajax.Note.Action.Note_Name_UpdateAction;
 import net.Ajax.Note.Action.Note_Place_Search_Action;
 import net.Ajax.Note.Action.Note_Plans_Delete_Action;
+import net.Ajax.Note.Action.Note_Plans_Info2_Import_Action;
 import net.Ajax.Note.Action.Note_Plans_RESET_Action;
 import net.Ajax.Note.Action.Note_Plans_Update_Action;
 import net.Ajax.Note.Action.Note_plans_Save_Action;
@@ -127,6 +128,14 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         }
         else if(command.equals("/Note_Plans_Delete.pl")) {
         	action=new Note_Plans_Delete_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Note_Plans_Info2_Import.pl")) { //노트 파트2 수정 하기위해 데이터 가져오는 액션
+        	action=new Note_Plans_Info2_Import_Action();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {

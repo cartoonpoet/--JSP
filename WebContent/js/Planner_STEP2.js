@@ -13,6 +13,91 @@ for(var i=0; i<$('.day_arrange>button').length; i++){
 $('.area_name .area').text($('.day_arrange button:first-child .date_area').text());
 var markerNum;
 $(document).ready(function(){
+	
+	//초기 데이터 가져오는 부분
+	$.ajax({
+		type:'POST',
+		url:'./Note_Plans_Info2_Import.pl',
+		data: {
+			NoteID: NoteID,
+		},
+		async: false,
+		dataType:"json",
+		success:function(data){
+			for(var i=0; i<data.items.length; i++){
+				day_array[data.items[i].day_orders].push({
+					Content_ID:data.items[i].content_id,
+					Content_Type_ID:data.items[i].content_type_id,
+					sigungucode:data.items[i].sigungu_code,
+					areacode:data.items[i].area_code,
+					Title:data.items[i].route_name,
+					Kind1:data.items[i].kinds_1,
+					Kind2:data.items[i].kinds_2,
+					img:data.items[i].img_src,
+					latlng:new daum.maps.LatLng(data.items[i].mapx, data.items[i].mapy),
+					lat:data.items[i].mapx,
+					lng:data.items[i].mapy
+				})
+			}
+			 //일정 추가시 해당 위치 표시 마커 처리
+	        var Food_marker_Src="./daum_map/marker_img/Food_Select.png";
+	        var Tour_marker_Src="./daum_map/marker_img/Tour_Select.png";
+	        var Start_marker_Src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/red_b.png";
+	        var End_marker_Src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/blue_b.png";
+	        
+	        var imageSize = new daum.maps.Size(42, 43);
+	        
+
+	        for(var i=0; i<day_array[0].length; i++){
+	        	var markerImage;
+	        	if(i==0){ //출발지
+	        		markerImage=new daum.maps.MarkerImage(Start_marker_Src, imageSize);
+	        	}
+	        	else if(i==(day_array[0].length-1)){//도착지
+	        		markerImage=new daum.maps.MarkerImage(End_marker_Src, imageSize);
+	        	}
+	        	else if(day_array[0][i].Content_Type_ID==12){//관광지 이면
+	        		markerImage=new daum.maps.MarkerImage(Tour_marker_Src, imageSize);
+	        	}
+	        	else if(day_array[0][i].Content_Type_ID==39){//음식점 이면
+	        		markerImage=new daum.maps.MarkerImage(Food_marker_Src, imageSize);
+	        	}
+	        	else if(day_array[0][i].Content_Type_ID==0){//해시태그 이면
+	        		markerImage=new daum.maps.MarkerImage(Food_marker_Src, imageSize);
+	        	}
+	        	day_marker_array.push(new daum.maps.Marker({
+	    			map:map,
+	    			position: new daum.maps.LatLng(day_array[0][i].lat, day_array[0][i].lng), 
+	        		image: markerImage,
+	        		title:day_array[0][i].Title
+	    		}))
+	        }
+	        for (var i = 0; i < day_array[0].length; i++) {
+	            if (i != 0) {
+	                linePath = [ day_array[0][i - 1].latlng, day_array[0][i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+	            }
+	            
+	            lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+	            if(i>0){
+	            polyline.push(new daum.maps.Polyline({
+	            	endArrow:true,
+	                map : map, // 선을 표시할 지도입니다 
+	                path : linePath,
+	                strokeWeight : 3, // 선의 두께입니다 
+	                strokeColor : '#db4040', // 선의 색깔입니다
+	                strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+	                strokeStyle : 'solid' // 선의 스타일입니다
+	            }));
+	            }
+	        }
+			display(day_array[0]);
+		},
+		error:function(data){
+			alert('데이터를 가져오는데에 실패하였습니다.');
+		}
+	})
+	
+	
 	$(document).on('mouseover', '.search_data', function(){ //검색된 데이터들 마우스 오버시 이벤트
 		
 		type_id=$(this).data('contenttypeid');

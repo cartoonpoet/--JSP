@@ -13,12 +13,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-
-import net.note.db.Note_Step2_ALL_INFO_Bean;
 
 public class Note_Step2_Ajax_DAO{
 	Connection con = null;
@@ -1368,5 +1365,103 @@ public class Note_Step2_Ajax_DAO{
 				if(rs!=null) try{rs.close();}catch(SQLException ex){}
 	           if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
 		}
+	}
+	
+	public JSONObject NoteInfo2_Select(int NoteID) {
+		JSONObject result=new JSONObject();
+		String sql="select * from note_info2 where travel_id=? order by day_orders asc, orders asc";
+		ArrayList<Note_Info2_Bean> Info2_List=new ArrayList<Note_Info2_Bean>();
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, NoteID);
+			rs=pstmt.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				int size=Info2_List.size();
+				Info2_List.add(new Note_Info2_Bean());
+				Info2_List.get(size).setKinds_1(rs.getString("kinds_1"));
+				Info2_List.get(size).setKinds_2(rs.getString("kinds_2"));
+				Info2_List.get(size).setRoute_name(rs.getString("route_name"));
+				Info2_List.get(size).setContent_id(rs.getInt("content_id"));
+				Info2_List.get(size).setContent_type_id(rs.getInt("content_type_id"));
+				Info2_List.get(size).setSigungu_code(rs.getInt("sigungu_code"));
+				Info2_List.get(size).setArea_code(rs.getInt("area_code"));
+				Info2_List.get(size).setDay_orders(rs.getInt("day_orders"));
+				Info2_List.get(size).setOrders(rs.getInt("orders"));
+			}
+			
+			URL url;
+			
+			InputStreamReader isr;
+			JSONObject item, All_Data;
+			
+			JSONArray jsonarray=new JSONArray();
+			
+			
+			for(int i=0; i<Info2_List.size(); i++) {
+				All_Data=new JSONObject();
+				
+				if(Info2_List.get(i).getKinds_1().compareTo("해시")!=0) { //해시장소가 아니면
+					url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey="+Key+"&contentId="+Info2_List.get(i).content_id+"&defaultYN=N&firstImageYN=Y&areacodeYN=N&catcodeYN=N&addrinfoYN=N&mapinfoYN=Y&overviewYN=N&MobileOS=ETC&MobileApp=AppTest&_type=json");
+					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+					item=(JSONObject) JSONValue.parseWithException(isr); 
+					item = (JSONObject) item.get("response");
+					item = (JSONObject) item.get("body");
+					item = (JSONObject) item.get("items");
+					item = (JSONObject) item.get("item");
+
+					if(item.get("firstimage")!=null) {
+						Info2_List.get(i).setImgSrc(item.get("firstimage").toString());
+					}
+					else {
+						Info2_List.get(i).setImgSrc("./jpg/no_image.gif");
+					}
+				
+					Info2_List.get(i).setMapx(Double.parseDouble(item.get("mapy").toString()));
+					Info2_List.get(i).setMapy(Double.parseDouble(item.get("mapx").toString()));
+					
+				}
+				else { //해시장소 이면
+					sql="select * from area_locate where sigungu_code=? and area_code=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, Info2_List.get(i).getSigungu_code());
+					pstmt.setInt(2, Info2_List.get(i).getArea_code());
+					rs=pstmt.executeQuery();
+					
+					while(rs.next()) {
+						Info2_List.get(i).setMapx(rs.getDouble("mapx"));
+						Info2_List.get(i).setMapy(rs.getDouble("mapy"));
+					}
+					Info2_List.get(i).setImgSrc("./planner_Step2_JPG/hashtag.png");
+					
+				}
+				
+				All_Data.put("kinds_1", Info2_List.get(i).getKinds_1());
+				All_Data.put("kinds_2", Info2_List.get(i).getKinds_2());
+				All_Data.put("route_name", Info2_List.get(i).getRoute_name());
+				All_Data.put("content_id", Info2_List.get(i).getContent_id());
+				All_Data.put("content_type_id", Info2_List.get(i).getContent_type_id());
+				All_Data.put("sigungu_code", Info2_List.get(i).getSigungu_code());
+				All_Data.put("area_code", Info2_List.get(i).getArea_code());
+				All_Data.put("day_orders", Info2_List.get(i).getDay_orders());
+				All_Data.put("orders", Info2_List.get(i).getOrders());
+				All_Data.put("mapx", Info2_List.get(i).getMapx());
+				All_Data.put("mapy", Info2_List.get(i).getMapy());
+				All_Data.put("img_src", Info2_List.get(i).getImgSrc());
+				
+				jsonarray.add(All_Data);
+				
+			}
+			result.put("items", jsonarray);
+		}catch(Exception ex) {
+			System.out.println("select_travel_id 에러 : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		
+		return result;
 	}
 }
