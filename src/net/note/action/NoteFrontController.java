@@ -142,6 +142,33 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/Note_Plans_List.pl")) { //노트 목록 가져오는 액션
+        	if(id == null){
+    			response.setContentType("text/html;charset=UTF-8");
+    			PrintWriter out = response.getWriter();
+    			out.println("<script>");
+    			out.println("alert('로그인 후 이용해주세요.');");
+    			out.println("history.back();");
+    			out.println("</script>");
+    			out.close();
+    			return;
+    		}
+        	
+        	action=new Note_Plans_List_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Note_Remove.pl")) { //노트 삭제
+        	action=new Note_Remove_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         
         if(forward!=null){ 
             if(forward.isRedirect()){ 

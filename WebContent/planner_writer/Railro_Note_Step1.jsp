@@ -118,7 +118,7 @@ if(ID!=null&&PW!=null){
                     <img src="./jpg/arrow.png" alt="">
                     <li>2. 상세 일정 만들기</li>
                 </ul>
-                <a href="./Main.me"><input type="button" value="닫기" class="close"></a>
+                <a href="javascript:history.back()"><input type="button" value="닫기" class="close"></a>
         </header>
 
         <section>

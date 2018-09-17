@@ -176,7 +176,7 @@ if(cookies!=null) {
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
                                 <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
-                                <dd><a href="#">내 플래너 목록</a></dd>
+                                <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
                             </dl>
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 

@@ -26,8 +26,8 @@ public class Note_Step1_DAO {
 		}
 	}
 	public boolean insert_Note(Note_Step1_Bean note_Step) {
-		String sql="INSERT INTO note_info1(email_id, note_name, travel_start_day, travel_day, travel_tema, travel_people)"
-				+ " VALUES(?, ?, ?, ?, ?, ?)";
+		String sql="INSERT INTO note_info1(email_id, note_name, travel_start_day, travel_day, travel_tema, travel_people, note_view)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, 0)";
 		int result=0;
 		
 		try {
