@@ -26,8 +26,8 @@ public class Note_Step1_DAO {
 		}
 	}
 	public boolean insert_Note(Note_Step1_Bean note_Step) {
-		String sql="INSERT INTO note_info1(email_id, note_name, travel_start_day, travel_day, travel_tema, travel_people, note_view)"
-				+ " VALUES(?, ?, ?, ?, ?, ?, 0)";
+		String sql="INSERT INTO note_info1(email_id, note_name, travel_start_day, travel_day, travel_tema, travel_people, note_view, img)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, 0, ?)";
 		int result=0;
 		
 		try {
@@ -44,6 +44,18 @@ public class Note_Step1_DAO {
 
 			pstmt.setInt(6, Integer.parseInt(note_Step.getTravel_people()));
 			
+			if(note_Step.getTema().compareTo("관광")==0) {
+				pstmt.setString(7, "./note_plans_list/seoul.jpg");
+			}
+			else if(note_Step.getTema().compareTo("체험")==0) {
+				pstmt.setString(7, "./note_plans_list/try.jpg");
+			}
+			else if(note_Step.getTema().compareTo("식사")==0) {
+				pstmt.setString(7, "./note_plans_list/food.jpg");
+			}
+			else if(note_Step.getTema().compareTo("휴식")==0) {
+				pstmt.setString(7, "./note_plans_list/rest.png");
+			}
 			result=pstmt.executeUpdate();
 			System.out.println("내일로 노트 스탭 1 입력 완료");
 			if(result!=0) {

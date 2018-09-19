@@ -30,7 +30,7 @@ public class Note_Step1_InsertAction implements Action{
 		note_step1_Bean.setNote_name(request.getParameter("title")); //노트명
 		note_step1_Bean.setTravel_start_day(request.getParameter("calendar")); //출발일
 		note_step1_Bean.setTravel_day(request.getParameter("travel_day")); //여행 일수
-		note_step1_Bean.setTema(request.getParameter("tema_select")); //여행 테마
+		note_step1_Bean.setTema(request.getParameter("tema_select")); //여행 테마 관광, 체험 , 식사, 휴식
 		note_step1_Bean.setTravel_people(request.getParameter("person")); //여행 인원
 		
 		System.out.println(note_step1_Bean.toString());

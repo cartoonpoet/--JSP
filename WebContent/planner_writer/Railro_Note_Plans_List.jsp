@@ -208,9 +208,9 @@ if(cookies!=null) {
                        		for(int i=0; i<Plans_List.size(); i++){
                        			
                        %>
-                        <a href="./NoticeDetailAction.no?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
+                        <a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
                             <li>
-                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <img src="<%=Plans_List.get(i).getImg() %>" alt="" width="346px" height="200px">
                                 <div class="note_info">
                                     <h1><%=Plans_List.get(i).getTravel_Day()%> (<%=Plans_List.get(i).getDay()%>일)</h1>
                                     <h1><%=Plans_List.get(i).getNote_Name() %></h1>
@@ -250,9 +250,9 @@ if(cookies!=null) {
                        	else{
                        		for(int i=0; i<9; i++){
                         %>
-                        	<a href="./NoticeDetailAction.no?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
+                        	<a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
                             <li>
-                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <img src="<%=Plans_List.get(i).getImg() %>" alt="" width="346px" height="200px">
                                 <div class="note_info">
                                     <h1><%=Plans_List.get(i).getTravel_Day()%> (<%=Plans_List.get(i).getDay()%>일)</h1>
                                     <h1><%=Plans_List.get(i).getNote_Name() %></h1>
@@ -328,7 +328,7 @@ if(cookies!=null) {
                     <div id="f_logo">
                         <h2>
                             <a href="#">
-                            <img src="../jpg/RailroTour%20LOGO.png" alt="">
+                            <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
                     </div>
@@ -365,19 +365,66 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
             $(window).scroll(function() {
 
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                    
+                	if($('.plans_list_rows a').length%9==0){
+                	$.ajax({
+                		type:'POST',
+                		url:'./Note_add_List.pl',
+                		data: {
+    						Note_Count:$('.plans_list_rows a').length
+                		},
+                		dataType:"json",
+                		async: true,
+                		success:function(data){
+                			for(var i=0; i<data.items.length; i++){
+                				var add='<a href="./NoteDetail.pl?num='+data.items[i].Note_ID+'"><ul class="list_item">'
+                           			+'<li>'
+                            		+'<img src="'+data.items[i].Img+'" alt="" width="346px" height="200px">'
+                               		+'<div class="note_info">'
+                                    +'<h1>'+data.items[i].Date+' ('+data.items[i].day+'일)</h1>'
+                                    +'<h1>'+data.items[i].Note_Name+'</h1>'
+                                	+'</div>'
+                            		+'</li>'
+                            		+'<li>'
+                                	+'<div class="like">'
+                                 	+'<span class="tema">'+data.items[i].Tema+'여행</span>'
+                                  +'<span>'+data.items[i].View+'</span>'
+                                   +'<img src="./note_plans_list_jpg/eye.png" alt="" width="20px">'
+                                    +'<span>'+data.items[i].Like+'</span>'
+                                    +'<img src="./note_plans_list_jpg/foot.png" alt="" width="20px">'
+                                	+'</div>'
+                                +'<div class="route">'+data.items[i].Area+'</div>'
+                                +'<div class="person">'
+                                    +'<img src="./note_plans_list_jpg/user.png" alt="" width="20px">'
+                                    +'<span>&nbsp;'+data.items[i].Name+'</span>'
+                                    +'<div class="btn">'
+                                        +'<span class="revise" data-num="'+data.items[i].Note_ID+'">수정</span>'
+                                        +' <span style="color: black">|</span> '
+                                        +'<span class="remove">삭제</span>'
+                                    +'</div>'
+                                	+'</div>'
+                            	+'</li>'                    
+                       			+'</ul></a>';
+                       			
+                				$('.plans_list_rows a:last').after(add);
+                			}
+                		},
+                		error:function(data){
+                			alert('추가 노트 정보를 불러오는데 실패하였습니다.');
+                		}
+                	})
+                }
                 }
             });
             
             
 
-            $('.person .btn .revise').on('click', function(e){
+            $(document).on('click', '.person .btn .revise',function(e){
                 e.preventDefault();  
                 var url = "./Note_Step2_SelectAction.pl?num="+$(this).data("num");  
                 window.open(url, "_blank"); 
 
             })
-            $('.person .btn .remove').on('click', function(e){
+            $(document).on('click', '.person .btn .remove',function(e){
             	e.preventDefault(); 
             	$(this).closest('a').remove();
             	$.ajax({
