@@ -333,7 +333,7 @@ if(cookies!=null) {
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규, 이슬기, 김동기<br>
+제작자 : 권재인, 손준호, 사공수기, 김희규<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
@@ -352,6 +352,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     
     <script src="./js/script.js"></script>
     <script>
+    var remaining=1;
         $(document).ready(function () {
         	
         	
@@ -366,6 +367,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 
                 if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 	if($('.plans_list_rows a').length%9==0){
+                		if(remaining!=0){
                 	$.ajax({
                 		type:'POST',
                 		url:'./Note_add_List.pl',
@@ -375,6 +377,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
                 		dataType:"json",
                 		async: true,
                 		success:function(data){
+                			remaining=data.remaining; //잔여 개수 등록, 다음 남은개수가 0개이면 ajax요청을 하지 않음
                 			for(var i=0; i<data.items.length; i++){
                 				var add='<a href="./NoteDetail.pl?num='+data.items[i].Note_ID+'"><ul class="list_item">'
                            			+'<li>'
@@ -412,6 +415,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
                 			alert('추가 노트 정보를 불러오는데 실패하였습니다.');
                 		}
                 	})
+                		}
                 }
                 }
             });

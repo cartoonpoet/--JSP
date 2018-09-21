@@ -3,6 +3,7 @@ package net.note.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -216,8 +217,6 @@ public class Note_Plans_List_DAO {
 
 			rs=pstmt.executeQuery();
 			
-			System.out.println("SQL : "+sql);
-			
 			while(rs.next()) {
 				int size=TravelDay_List.size();
 				
@@ -298,6 +297,20 @@ public class Note_Plans_List_DAO {
 			
 			result.put("items", jsonarray);
 			
+			sql="select COUNT(*) AS cnt from note_info1 where rownum>"+(10+note_cnt-1)+" and email_id LIKE ? order by travel_start_day desc";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			
+			int cnt=0;
+			
+			while(rs.next()) {
+				cnt=rs.getInt("cnt");
+			}
+			System.out.println("현재 노트 개수 : "+note_cnt+" 다음 노트 잔여 개수 cnt : "+cnt);
+			
+			result.put("remaining", cnt);
 		}catch(Exception ex) {
 			System.out.println("Note_Add_List 에러 : "+ex);
 		}finally {
