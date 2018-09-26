@@ -31,7 +31,7 @@ if(ID!=null&&PW!=null){
     <link rel="stylesheet" href="./css/Planner_STEP1.css?ver=1">
     <link rel="stylesheet" href="./datepicker/jquery-ui.css?ver=1">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=im6orZEZ1htrK1ka94EI&submodules=geocoder"></script>
-    <script type="text/javascript" src="./js/Planner_STEP1.js?ver=6"></script>
+    <script type="text/javascript" src="./js/Planner_STEP1.js?ver=7"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="./datepicker/jquery-ui.js?ver=1"></script>
 	
@@ -678,6 +678,6 @@ if(ID!=null&&PW!=null){
             </div>
 
         </section>
-<script src="./js/naver_map.js"></script>
+<script src="./js/naver_map.js?ver=5"></script>
 </body>
 </html>

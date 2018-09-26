@@ -61,27 +61,27 @@ $(document).ready(function(){
         display();
     })
 
-    $(".all .bukdo").click(function(){
+    $(".all .bukdo").on('click', function(){
         $(".all").css({display:'none'});
         $(".buk_do").css({display:'block'});
         $(".nam_do").css({display:'none'});
-        $(".Gwangju").css({display:'none'});
+        $(".Gwangju_do").css({display:'none'});
         $("#BUK_DO_VIEW").css({backgroundColor:'#1a7ad9'});
         $("#BUK_DO_VIEW").siblings().css({backgroundColor:'transparent'});
     })
-    $(".all .namdo").click(function(){
+    $(".all .namdo").on('click', function(){
         $(".all").css({display:'none'});
         $(".buk_do").css({display:'none'});
         $(".nam_do").css({display:'block'});
-        $(".Gwangju").css({display:'none'});
+        $(".Gwangju_do").css({display:'none'});
         $("#NAM_DO_VIEW").css({backgroundColor:'#1a7ad9'});
         $("#NAM_DO_VIEW").siblings().css({backgroundColor:'transparent'});
     })
-    $(".all .gwangjudo").click(function(){
+    $(".all .gwangjudo").on('click', function(){
         $(".all").css({display:'none'});
         $(".buk_do").css({display:'none'});
         $(".nam_do").css({display:'none'});
-        $(".Gwangju").css({display:'block'});
+        $(".Gwangju_do").css({display:'block'});
         $("#Gwangju_VIEW").css({backgroundColor:'#1a7ad9'});
         $("#Gwangju_VIEW").siblings().css({backgroundColor:'transparent'});
     })
