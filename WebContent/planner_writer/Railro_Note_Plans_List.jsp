@@ -208,7 +208,7 @@ if(cookies!=null) {
                        		for(int i=0; i<Plans_List.size(); i++){
                        			
                        %>
-                        <a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
+                        <a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>" target="_blank"><ul class="list_item">
                             <li>
                                 <img src="<%=Plans_List.get(i).getImg() %>" alt="" width="346px" height="200px">
                                 <div class="note_info">
@@ -379,7 +379,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
                 		success:function(data){
                 			remaining=data.remaining; //잔여 개수 등록, 다음 남은개수가 0개이면 ajax요청을 하지 않음
                 			for(var i=0; i<data.items.length; i++){
-                				var add='<a href="./NoteDetail.pl?num='+data.items[i].Note_ID+'"><ul class="list_item">'
+                				var add='<a href="./NoteDetail.pl?num='+data.items[i].Note_ID+'" target="_blank"><ul class="list_item">'
                            			+'<li>'
                             		+'<img src="'+data.items[i].Img+'" alt="" width="346px" height="200px">'
                                		+'<div class="note_info">'
@@ -445,7 +445,8 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
             			alert('해당 노트 삭제에 실패하였습니다.');
             		}
             	})
-            })
+            })       
+            
         });
   </script>
 </body>

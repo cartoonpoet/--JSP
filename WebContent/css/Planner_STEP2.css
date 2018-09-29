@@ -164,10 +164,10 @@
         float: left;
     }
     section .side_left .edit_day .day_arrange button ul .date div:first-child{
-        margin-left: 10px;
+        margin-left: 2px;
     }
     section .side_left .edit_day .day_arrange button ul .date div:nth-child(2){
-        margin-left: 16px;
+        margin-left: 7px;
     }
 
     /*

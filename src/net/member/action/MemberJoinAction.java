@@ -26,7 +26,7 @@ public class MemberJoinAction implements Action{
 		member.setMEMBER_NIKNAME(request.getParameter("MEMBER_NIKNAME"));
 		member.setMEMBER_GENDER(request.getParameter("MEMBER_GENDER"));
 		member.setPHONE_NUMBER(request.getParameter("MEMBER_PHONE"));
-		member.setIMG_NAME("null");
+		member.setIMG_NAME("./mynote_jpg/man-user.png");
 		member.setSTAMP_CNT(0);
 		
 		

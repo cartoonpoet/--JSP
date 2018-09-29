@@ -178,6 +178,14 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/NoteDetail.pl")) { //추가 노트 목록
+        	action=new Note_Detail_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         
         if(forward!=null){ 
             if(forward.isRedirect()){ 
