@@ -419,6 +419,10 @@ if(cookies!=null) {
                                                 	<img src="jpg/sleep.png" alt="" width="45px">
                                                 	<span class="tema_name">휴식</span>
                                                 </div>
+                                                <div class="tema_slide_group tema4 myS">
+                                                	<img src="jpg/slide_icon2.png" alt="">
+                                                	<span class="tema_name">체험</span>
+                                                </div>
                                             </div>
                                             <img src="jpg/down_icon.jpg" alt="" class="Right_icon" onclick="plus(1)">
                                         </span>

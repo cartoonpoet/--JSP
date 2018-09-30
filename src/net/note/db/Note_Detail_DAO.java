@@ -310,6 +310,8 @@ public class Note_Detail_DAO extends DB_Connection{
 				note_info.get(size).setArea_name(rs.getString("area_name"));//지역명
 				note_info.get(size).setDays(rs.getString("days")); //데이 Day1 day2
 				note_info.get(size).setDate(rs.getString("dates")); //날짜
+				note_info.get(size).setOrders(rs.getInt("orders")); //일정 순서
+				note_info.get(size).setDay_orders(rs.getInt("day_orders")); //지역 순서
 			}
 			
 			URL url;
@@ -365,7 +367,9 @@ public class Note_Detail_DAO extends DB_Connection{
 					items=(JSONObject) JSONValue.parseWithException(isr);
 					items=(JSONObject) items.get("response");
 					items=(JSONObject) items.get("body");
+					System.out.println("기차 정보 : "+items);
 					int count=Integer.parseInt(items.get("totalCount").toString());
+					
 					
 					for(int o=1; o<=count; o++) { //출발역 셋팅
 						url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json&pageNo="+o);
@@ -395,5 +399,27 @@ public class Note_Detail_DAO extends DB_Connection{
 	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
 		}
 		return note_info;
+	}
+	
+	public ArrayList<Note_Travel_Area_Bean> Note_getArea(int NoteID){
+		String sql="select * from note_travel_area where travel_id=? order by travel_area_day asc";
+		ArrayList<Note_Travel_Area_Bean> list=new ArrayList<Note_Travel_Area_Bean>();
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, NoteID);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new Note_Travel_Area_Bean(rs.getString("travel_area_name"), rs.getInt("travel_area_day")));
+			}
+			
+		}catch(Exception ex) {
+			System.out.println("Note_getArea ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		return list;
 	}
 }

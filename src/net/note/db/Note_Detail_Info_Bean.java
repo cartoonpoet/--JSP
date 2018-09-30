@@ -5,16 +5,28 @@ import java.util.ArrayList;
 import net.train.db.Train_Bean;
 
 public class Note_Detail_Info_Bean {
-	int Day_num, Content_ID, Content_Type_ID, Sigungu_code, Area_code, like_cnt;
-	// 일차, 콘텐츠 아이디, 콘텐츠 타입 아이디, 시군구 코드, 지역 코드
+	int Day_num, Content_ID, Content_Type_ID, Sigungu_code, Area_code, like_cnt, orders, day_orders;
+	// 일차, 콘텐츠 아이디, 콘텐츠 타입 아이디, 시군구 코드, 지역 코드, 좋아요 개수, 1번째 전주의 ?번째 장소, 지역 순서
 	String Route_name, Date, Kinds_1, Kinds_2, Memo, Area_name, Days, Img, Node_ID;
-	// 지역명, 날짜, 분류1, 분류2, 메모
+	// 장소명, 날짜, 분류1, 분류2, 메모, 지역명, 몇일차, 이미지 경로, 기차아이디
 	ArrayList<Train_Bean> Start_Station=new ArrayList<Train_Bean>();
 	ArrayList<Train_Bean> End_Station=new ArrayList<Train_Bean>();
 	//출발역 도착역
 	
 	public void add_Start_Station(String nodename, String nodeid) {
 		Start_Station.add(new Train_Bean(nodename, nodeid));
+	}
+	public int getOrders() {
+		return orders;
+	}
+	public void setOrders(int orders) {
+		this.orders = orders;
+	}
+	public int getDay_orders() {
+		return day_orders;
+	}
+	public void setDay_orders(int day_orders) {
+		this.day_orders = day_orders;
 	}
 	public void add_End_Station(String nodename, String nodeid) {
 		End_Station.add(new Train_Bean(nodename, nodeid));

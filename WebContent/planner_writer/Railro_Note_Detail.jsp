@@ -1,3 +1,4 @@
+<%@page import="net.note.db.Note_Travel_Area_Bean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="net.note.db.Note_Detail_Info_Bean"%>
 <%@page import="net.note.db.Note_Basic_Info_Bean"%>
@@ -27,6 +28,7 @@ if(cookies!=null) {
    
    Note_Basic_Info_Bean Basic_Info=(Note_Basic_Info_Bean) request.getAttribute("Basic_Info");
    ArrayList<Note_Detail_Info_Bean> Detail_Info=(ArrayList<Note_Detail_Info_Bean>) request.getAttribute("Detail_Info");
+   ArrayList<Note_Travel_Area_Bean> Navi_Info=(ArrayList<Note_Travel_Area_Bean>) request.getAttribute("Navi_Info");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -192,12 +194,13 @@ if(cookies!=null) {
                                 <img src="<%=Basic_Info.getProfileImg() %>" alt="">
                             </div>
                             <div class="user_name"><%=Basic_Info.getNikname() %></div>
+                            <%if(session.getAttribute("id")!=null) { %>
                             <%if(Basic_Info.getFllow_YN()==0){ %>
                             <div class="follow"  style="background-color: white; border-color:#0076ff; color:#0076ff;">팔로우+</div>
                             <%}
                             else{%>
                             <div class="follow" style="background-color: #0076ff; border-color:white; color:white;">팔로워</div>
-                          <%} %>
+                          <%}} %>
                         </li>
                         <li class="title">
                             <div><%=Basic_Info.getNote_name() %></div>
@@ -251,13 +254,14 @@ if(cookies!=null) {
                 <div class="plan_nav">
                     <div class="top_arrow" onclick="arrow_Move(-1)"></div>
                     <ul class="nav_route">
-                        <li style="color: #0093ff" onclick="fnMove(0)">DAY1 전주<hr></li>
-                        <li onclick="fnMove(1)">DAY2 전주<hr></li>
-                        <li onclick="fnMove(2)">DAY3 전주<hr></li>
-                        <li onclick="fnMove(3)">DAY4 전주<hr></li>
-                        <li onclick="fnMove(4)">DAY5 전주<hr></li>
-                        <li onclick="fnMove(5)">DAY6 전주<hr></li>
-                        <li onclick="fnMove(6)">DAY7 전주</li>
+                    <%for(int i=0; i<Navi_Info.size(); i++) {%>
+                    	<%if(i==0){ %>
+                        <li style="color: #0093ff" onclick="fnMove(0)">DAY1 <%=Navi_Info.get(i).getTravel_area_name()%></li>
+                        <%} 
+                        else{%>
+                        <li onclick="fnMove(<%=i%>)"><hr>DAY<%=Navi_Info.get(i).getTravel_area_day()%> <%=Navi_Info.get(i).getTravel_area_name() %></li>
+                        <%} %>
+                       <%} %>
                     </ul>
                     <div class="bottom_arrow" onclick="arrow_Move(1)"></div>
                 </div>
@@ -267,71 +271,65 @@ if(cookies!=null) {
                         <span>&nbsp;|&nbsp;</span>
                         <li class="view2">표로 보기</li>
                     </ul>
+					<%
+                	String route_name;
+                	int day;
+                	
+					for(int i=0; i<Navi_Info.size(); i++) {
+                        route_name=Navi_Info.get(i).getTravel_area_name();
+                        day=Navi_Info.get(i).getTravel_area_day();
+					%>
                     <div class="plan_info">
                         <ul class="day_info">
-                            <li class="day">DAY1</li>
+                            <li class="day">DAY<%=Navi_Info.get(i).getTravel_area_day() %></li>
                             <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
+                                <!-- <span class="date"><%=Navi_Info.get(i).getDate() %></span> -->
+                                <span class="area"><%=Navi_Info.get(i).getTravel_area_name() %></span>
                             </li>
                         </ul>
                         <ul class="day_route">
+                        <%
+                        	for(int o=0; o<Detail_Info.size(); o++){
+                        	if(route_name.compareTo(Detail_Info.get(o).getArea_name())==0){ //지역명이 같으면
+                        		if(Detail_Info.get(o).getDays().compareTo("DAY"+day)==0){//DAY가 같으면
+                        %>
+									<%if(Detail_Info.get(o).getOrders()==0){//해당 일차의 첫번째 일정(장소)이라면 %>
                             <li class="route">
                                 <div class="number">
-                                    <span>1</span>
+                                    <span><%=Detail_Info.get(o).getOrders()+1 %></span>
                                 </div>
                                 <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/main_hash.png" alt="">
+                                    <a href="#">
+                                    	<%if(Detail_Info.get(o).getKinds_1().compareTo("일반")==0){ %>
+                                        <img src="<%=Detail_Info.get(o).getImg() %>" alt="">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
+                                    	<img src="./mynote_jpg/main_hash.png" alt="">
+                                    	<%} %>
                                     </a>
-                                    <div class="title">
-                                        이동
-                                    </div>
+                                    <div class="title"><%=Detail_Info.get(o).getRoute_name() %></div>
                                     <div class="kinds">
-                                        <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
+                                    <%if(Detail_Info.get(o).getKinds_1().compareTo("일반")==0){ %>
+                                    	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
                                         <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
+                                        <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <%} %>
                                         <h1>|</h1>
                                         <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
+                                        <h2><%=Detail_Info.get(o).getLike_cnt() %></h2>
                                         <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>3</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/main_hash.png" alt="">
-                                    </a>
-                                    <div class="title">
-                                        기차
-                                    </div>
-                                    <div class="kinds">
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        
+                                    <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
+                                    	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
+                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
+                                        <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <%} %>
+                                        <%if(Detail_Info.get(o).getKinds_2().compareTo("이동")==0){ %>
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
                                         <select name="start" id="start_station">
                                             <option value="">출발역 선택</option>
@@ -345,363 +343,93 @@ if(cookies!=null) {
                                             <option value="">도착역 선택</option>
                                         </select>
                                         <button>조회</button>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        
+                                        <%}} %>
                                     </div>
                                     <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
+                                    <%if(session.getAttribute("id")!=null) {%>
+                                    <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
+                                    <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%}
+                                    else{%>
+                                    <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%} %>
+                                    <%} %>
                                 </div>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY2</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
+                            <%} 
+                            else{%>
                             <hr class="line">
                             <li class="route">
                                 <div class="number">
-                                    <span>2</span>
+                                    <span><%=Detail_Info.get(o).getOrders()+1 %></span>
                                 </div>
                                 <div class="info">
                                     <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
+                                        <%if(Detail_Info.get(o).getKinds_1().compareTo("일반")==0){ %>
+                                        <img src="<%=Detail_Info.get(o).getImg() %>" alt="">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
+                                    	<img src="./mynote_jpg/main_hash.png" alt="">
+                                    	<%} %>
                                     </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
+                                    <div class="title"><%=Detail_Info.get(o).getRoute_name() %></div>
+									<div class="kinds">
+                                    <%if(Detail_Info.get(o).getKinds_1().compareTo("일반")==0){ %>
+                                    	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
                                         <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
+                                        <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <%} %>
                                         <h1>|</h1>
                                         <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
+                                        <h2><%=Detail_Info.get(o).getLike_cnt() %></h2>
                                         <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        
+                                    <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
+                                    	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
+                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <%}
+                                    	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
+                                        <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <%} %>
+                                        <%if(Detail_Info.get(o).getKinds_2().compareTo("이동")==0){ %>
+                                        <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
+                                        <select name="start" id="start_station">
+                                            <option value="">출발역 선택</option>
+                                            <option value="">대구</option>
+                                            <option value="">서울</option>
+                                            <option value="">구미</option>
+                                            <option value="">포함</option>
+                                            <option value="">전주</option>
+                                        </select>
+                                        <select name="end" id="end_station">
+                                            <option value="">도착역 선택</option>
+                                        </select>
+                                        <button>조회</button>
+                                        
+                                        <%}} %>
                                     </div>
                                     <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
+                                    <%if(session.getAttribute("id")!=null){ %>
+                                    <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
+                                    <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%}
+                                    else{%>
+                                    <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%} %>
+                                    <%} %>
                                 </div>
                             </li>
+                           <%		}}
+                           		}
+                            } 
+                           %>
                         </ul>
                     </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY3</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY4</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY5</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY6</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="plan_info">
-                        <ul class="day_info">
-                            <li class="day">DAY7</li>
-                            <li class="date_info">
-                                <span class="date">2018-07-22</span>
-                                <span class="area">전주</span>
-                            </li>
-                        </ul>
-                        <ul class="day_route">
-                            <li class="route">
-                                <div class="number">
-                                    <span>1</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                            <hr class="line">
-                            <li class="route">
-                                <div class="number">
-                                    <span>2</span>
-                                </div>
-                                <div class="info">
-                                    <a href="">
-                                        <img src="./mynote_jpg/test.jpg" alt="">
-                                    </a>
-                                    <div class="title">
-                                        갈비집
-                                    </div>
-                                    <div class="kinds">
-                                        <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
-                                        <h1>|</h1>
-                                        <img src="./mynote_jpg/footprint.png" alt="" class="like">
-                                        <h2>123</h2>
-                                        <h2>개 좋아요</h2>
-                                        <a href=""><img src="./mynote_jpg/info.png" alt="" class="info"></a>
-                                    </div>
-                                    <div class="arrow"></div>
-                                    <div contenteditable="true" class="post">메모가 없습니다.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
+                    <%} %>
                     <table>
                         <tr>
                             <th>날짜</th>
@@ -709,146 +437,22 @@ if(cookies!=null) {
                             <th>음식점</th>
                             <th>관광지</th>
                         </tr>
+                        <%for(int i=0; i<Navi_Info.size(); i++){ %>
                         <tr>
-                            <td>DAY1</td>
+                            <td>DAY<%=Navi_Info.get(i).getTravel_area_day() %></td>
+                            <%for(int o=0; i<Detail_Info.size(); i++) {%>
                             <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
                                 <div class="areaname">전주</div>
                             </td>
                             <td>
                                 <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
                             </td>
                             <td>
                                 <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
                             </td>
+                            <%} %>
                         </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>DAY1</td>
-                            <td>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                                <div class="areaname">전주</div>
-                            </td>
-                            <td>
-                                <div class="food">1. 음식점</div>
-                                <div class="food">2. 음식점</div>
-                                <div class="food">3. 음식점</div>
-                                <div class="food">4. 음식점</div>
-                                <div class="food">5. 음식점</div>
-                            </td>
-                            <td>
-                                <div class="tour">1. 관광지</div>
-                                <div class="tour">2. 관광지</div>
-                            </td>
-                        </tr>
+                        <%} %>
                     </table>
                 </div>
                 

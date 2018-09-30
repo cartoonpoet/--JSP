@@ -13,6 +13,7 @@ import net.commons.action.ActionForward;
 import net.note.db.Note_Basic_Info_Bean;
 import net.note.db.Note_Detail_DAO;
 import net.note.db.Note_Detail_Info_Bean;
+import net.note.db.Note_Travel_Area_Bean;
 
 
 public class Note_Detail_Action implements Action{
@@ -73,8 +74,13 @@ public class Note_Detail_Action implements Action{
 		
 		Detail_Info=note_detail.Note_getDetailInfo(Note_ID);
 		
+		ArrayList<Note_Travel_Area_Bean> Travel_Area=new ArrayList<Note_Travel_Area_Bean>();
+		
+		Travel_Area=note_detail.Note_getArea(Note_ID);//네비게이션 정보 등록
+				
 		request.setAttribute("Basic_Info", Basic_Info); //기본 정보 등록
 		request.setAttribute("Detail_Info", Detail_Info); //상세 정보 등록
+		request.setAttribute("Navi_Info", Travel_Area);//네비 정보 등록
         forward.setRedirect(false); //disconnect
         forward.setPath("./planner_writer/Railro_Note_Detail.jsp"); //page forwarding  
 		return forward;
