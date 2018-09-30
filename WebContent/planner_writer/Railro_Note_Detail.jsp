@@ -437,20 +437,35 @@ if(cookies!=null) {
                             <th>음식점</th>
                             <th>관광지</th>
                         </tr>
-                        <%for(int i=0; i<Navi_Info.size(); i++){ %>
+                        <%for(int i=0; i<Basic_Info.getDays(); i++){ %>
                         <tr>
-                            <td>DAY<%=Navi_Info.get(i).getTravel_area_day() %></td>
-                            <%for(int o=0; i<Detail_Info.size(); i++) {%>
+                            <td>DAY<%=i+1 %></td>
+							
                             <td>
-                                <div class="areaname">전주</div>
+                            	<%for(int a=0; a<Navi_Info.size(); a++){ %>
+                            		<%if(Navi_Info.get(a).getTravel_area_day()==(i+1)){ %>
+                                		<div class="areaname"><%=Navi_Info.get(a).getTravel_area_name() %></div>
+                                	<%} %>
+                               	<%} %>
                             </td>
                             <td>
-                                <div class="food">1. 음식점</div>
+                            	<%int foodcnt=1; %>
+                            	<%for(int b=0; b<Detail_Info.size(); b++){ %>
+                            		<%if(Detail_Info.get(b).getContent_Type_ID()==39 && Detail_Info.get(b).getDays().compareTo("DAY"+(i+1))==0){ %>
+                                	<div class="food"><%=foodcnt %>. <%=Detail_Info.get(b).getRoute_name() %></div>
+                                	<%foodcnt++; %>
+                                	<%} %>
+                                <%} %>
                             </td>
                             <td>
-                                <div class="tour">1. 관광지</div>
+                            	<%int tourcnt=1; %>
+                            	<%for(int b=0; b<Detail_Info.size(); b++){ %>
+                            		<%if(Detail_Info.get(b).getContent_Type_ID()==12 && Detail_Info.get(b).getDays().compareTo("DAY"+(i+1))==0){ %>
+                                	<div class="tour"><%=tourcnt %>. <%=Detail_Info.get(b).getRoute_name() %></div>
+                                	<%tourcnt++; %>
+                                	<%} %>
+                                <%} %>
                             </td>
-                            <%} %>
                         </tr>
                         <%} %>
                     </table>
