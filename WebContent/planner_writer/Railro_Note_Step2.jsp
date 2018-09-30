@@ -46,7 +46,7 @@ if(ID!=null&&PW!=null){
     <meta charset="UTF-8">
     <title>내일로 노트 :: 상세일정 만들기</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=11">
+    <link rel="stylesheet" href="./css/Planner_STEP2.css?ver=12">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
 
@@ -109,7 +109,7 @@ if(ID!=null&&PW!=null){
                    <div class="day_group">
                         <span class="day">DAY<%=day_list.get(0).getTravel_Area_Day() %></span>
                         <span class="wall">|</span>
-                        <span class="date"><%=day_list.get(0).getDate().substring(5)%></span>
+                        <span class="date"><%=day_list.get(0).getDate()%></span>
                         <span class="week">(<%=day_list.get(0).getDay() %>)</span>
                         <img src="./planner_Step2_JPG/refresh.png" alt="" width="20px" class="refresh">
                    </div>

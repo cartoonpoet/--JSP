@@ -343,18 +343,17 @@ if(cookies!=null) {
                                             <option value="">도착역 선택</option>
                                         </select>
                                         <button>조회</button>
-                                        
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%}} %>
                                     </div>
                                     <div class="arrow"></div>
                                     <%if(session.getAttribute("id")!=null) {%>
                                     <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
                                     <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%}
+                                    <%}}
                                     else{%>
                                     <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%} %>
-                                    <%} %>
+									<%} %>
                                 </div>
                             </li>
                             <%} 
@@ -409,18 +408,17 @@ if(cookies!=null) {
                                             <option value="">도착역 선택</option>
                                         </select>
                                         <button>조회</button>
-                                        
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%}} %>
                                     </div>
                                     <div class="arrow"></div>
-                                    <%if(session.getAttribute("id")!=null){ %>
+                                    <%if(session.getAttribute("id")!=null) {%>
                                     <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
                                     <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%}
+                                    <%}}
                                     else{%>
                                     <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%} %>
-                                    <%} %>
+									<%} %>
                                 </div>
                             </li>
                            <%		}}
