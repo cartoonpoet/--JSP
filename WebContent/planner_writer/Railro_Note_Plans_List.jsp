@@ -250,7 +250,7 @@ if(cookies!=null) {
                        	else{
                        		for(int i=0; i<9; i++){
                         %>
-                        	<a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>"><ul class="list_item">
+                        	<a href="./NoteDetail.pl?num=<%=Plans_List.get(i).getNote_ID()%>" target="_blank"><ul class="list_item">
                             <li>
                                 <img src="<%=Plans_List.get(i).getImg() %>" alt="" width="346px" height="200px">
                                 <div class="note_info">

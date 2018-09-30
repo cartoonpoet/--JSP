@@ -65,7 +65,7 @@ if(cookies!=null) {
                             </li>
                             <li>
                                 <%if (ID == null) {
-                                   if(session.getAttribute("id")==null){%>
+                                   if(session.getAttribute("ID")==null){%>
                                    		<a href="./MemberLogin.me">로그인</a>
                                    <%} else { %>
                                    		<a href="./MemberLogoutAction.me">로그아웃</a>
@@ -77,7 +77,7 @@ if(cookies!=null) {
                                 </li>
                             <li>
 								<%if(ID == null) {
-                                   if(session.getAttribute("id")==null){%>
+                                   if(session.getAttribute("ID")==null){%>
                                    		<a href="./MemberJoin1.me">회원가입</a>
                         			<%}
                                 else{%>
@@ -173,14 +173,16 @@ if(cookies!=null) {
                         <div class="top">
                            <li class="cover_img">
                                <input type="file" id="img" accept="image/*">
-                               <%if(session.getAttribute("id")!=null){ %>
-                               <%if(Basic_Info.getEmail_ID().compareTo(session.getAttribute("id").toString())==0){ %>
+                               <%if(session.getAttribute("ID")!=null){ %>
+                               <%if(Basic_Info.getEmail_ID().compareTo(session.getAttribute("ID").toString())==0){ %>
                                	<label for="img" class="img_change">커버사진 바꾸기</label>
                                <%} 
                                }%>
                            </li>
-                           <%if(session.getAttribute("id")!=null) {%>
+                           <%if(session.getAttribute("ID")!=null) {%>
+                           		<%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())!=0){ %>
                             	<li class="add_mynote"><img src="./mynote_jpg/add.png" alt=""></li>
+                            	<%} %>
                             	<%if(Basic_Info.getLike_YN()==0) {%>
                             	<li class="like"><img src="./mynote_jpg/footprint.png" alt=""></li>
                             	<%} 
@@ -194,13 +196,14 @@ if(cookies!=null) {
                                 <img src="<%=Basic_Info.getProfileImg() %>" alt="">
                             </div>
                             <div class="user_name"><%=Basic_Info.getNikname() %></div>
-                            <%if(session.getAttribute("id")!=null) { %>
+                            <%if(session.getAttribute("ID")!=null) {
+                            	if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())!=0){%>
                             <%if(Basic_Info.getFllow_YN()==0){ %>
                             <div class="follow"  style="background-color: white; border-color:#0076ff; color:#0076ff;">팔로우+</div>
                             <%}
                             else{%>
                             <div class="follow" style="background-color: #0076ff; border-color:white; color:white;">팔로워</div>
-                          <%}} %>
+                          <%}}} %>
                         </li>
                         <li class="title">
                             <div><%=Basic_Info.getNote_name() %></div>
@@ -347,8 +350,8 @@ if(cookies!=null) {
                                         <%}} %>
                                     </div>
                                     <div class="arrow"></div>
-                                    <%if(session.getAttribute("id")!=null) {%>
-                                    <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
+                                    <%if(session.getAttribute("ID")!=null) {%>
+                                    <%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
                                     <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
                                     <%}}
                                     else{%>
@@ -398,11 +401,10 @@ if(cookies!=null) {
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
                                         <select name="start" id="start_station">
                                             <option value="">출발역 선택</option>
-                                            <option value="">대구</option>
-                                            <option value="">서울</option>
-                                            <option value="">구미</option>
-                                            <option value="">포함</option>
-                                            <option value="">전주</option>
+                                            <%for(int b=0; b<Detail_Info.get(o).getStart_Station().size(); b++) {%>
+                                            <option value="<%=Detail_Info.get(o).getStart_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getStart_Station().get(b).getNodeName() %></option>
+                                            <%} %>
+
                                         </select>
                                         <select name="end" id="end_station">
                                             <option value="">도착역 선택</option>
@@ -412,8 +414,8 @@ if(cookies!=null) {
                                         <%}} %>
                                     </div>
                                     <div class="arrow"></div>
-                                    <%if(session.getAttribute("id")!=null) {%>
-                                    <%if(session.getAttribute("id").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
+                                    <%if(session.getAttribute("ID")!=null) {%>
+                                    <%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
                                     <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
                                     <%}}
                                     else{%>

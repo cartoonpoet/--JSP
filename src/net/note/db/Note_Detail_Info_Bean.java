@@ -16,6 +16,12 @@ public class Note_Detail_Info_Bean {
 	public void add_Start_Station(String nodename, String nodeid) {
 		Start_Station.add(new Train_Bean(nodename, nodeid));
 	}
+	public ArrayList<Train_Bean> getStart_Station() {
+		return Start_Station;
+	}
+	public void setStart_Station(ArrayList<Train_Bean> start_Station) {
+		Start_Station = start_Station;
+	}
 	public int getOrders() {
 		return orders;
 	}
