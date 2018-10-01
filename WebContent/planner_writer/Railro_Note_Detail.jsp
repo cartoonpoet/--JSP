@@ -217,9 +217,9 @@ if(cookies!=null) {
                         <li class="add_info">
                             <div class="rectangle">
                                 <img src="./mynote_jpg/foot.png" alt="">
-                                <span><%=Basic_Info.getView() %></span>
-                                <img src="./mynote_jpg/view.png" alt="" class="view">
                                 <span><%=Basic_Info.getLike() %></span>
+                                <img src="./mynote_jpg/view.png" alt="" class="view">
+                                <span><%=Basic_Info.getView() %></span>
                             </div>
                         </li>
                     </ul>
@@ -531,7 +531,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 <div id="dialog" title="알림">
     해당 노트를 내 노트에 담으시겠어요?
 </div>
-    <script src="./js/mynote.js"></script>
+    <script src="./js/mynote.js?ver=2"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {

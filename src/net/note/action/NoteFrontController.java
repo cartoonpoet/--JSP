@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.Ajax.Note.Action.Note_Filter_Search_Action;
+import net.Ajax.Note.Action.Note_Like_Action;
 import net.Ajax.Note.Action.Note_More_Info_SelectAction;
 import net.Ajax.Note.Action.Note_Name_UpdateAction;
 import net.Ajax.Note.Action.Note_Place_Search_Action;
@@ -180,6 +181,14 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         }
         else if(command.equals("/NoteDetail.pl")) { //추가 노트 목록
         	action=new Note_Detail_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/NoteLike.pl")) { //노트 좋아요/좋아요 취소
+        	action=new Note_Like_Action();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {

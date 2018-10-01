@@ -59,12 +59,34 @@ $(document).ready(function(){
     $('.like').on('click', function(){
         var src=$('.like>img').attr('src');
         
-        if(src=='./mynote_jpg/footprint.png'){
+        var Note_ID=getParam('num');
+        
+        var YN;
+        if(src=='./mynote_jpg/footprint.png'){ //좋아요
             $('.like>img').attr('src', './mynote_jpg/footprint2.png');
+            YN=1;
         }
-        else{
+        else{//좋아요 취소
             $('.like>img').attr('src', './mynote_jpg/footprint.png');
+            YN=0;
         }
+        
+        $.ajax({
+    		type:'POST',
+    		url:'./NoteLike.pl',
+    		data: {
+    			Note_ID: Note_ID,
+    			YN:YN
+    		},
+    		async: true,
+    		success:function(data){
+
+    		},
+    		error:function(data){
+    			alert('좋아요 실패');
+    		}
+    	})
+        
     }) 
 
     $('.add_mynote').on('click', function(event){
@@ -131,4 +153,25 @@ function readURL(input) {
 
       reader.readAsDataURL(input.files[0]);
     }
+}
+
+//url 에서 parameter 추출
+function getParam(sname) {
+
+    var params = location.search.substr(location.search.indexOf("?") + 1);
+
+    var sval = "";
+
+    params = params.split("&");
+
+    for (var i = 0; i < params.length; i++) {
+
+        temp = params[i].split("=");
+
+        if ([temp[0]] == sname) { sval = temp[1]; }
+
+    }
+
+    return sval;
+
 }
