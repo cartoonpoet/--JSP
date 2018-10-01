@@ -354,7 +354,7 @@ if(cookies!=null) {
                                     <div class="arrow"></div>
                                     <%if(session.getAttribute("ID")!=null) {%>
                                     <%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
-                                    <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <div contenteditable="true" class="post" data-orders="<%=Detail_Info.get(o).getOrders()%>" data-day_orders="<%=Detail_Info.get(o).getDay_orders()%>"><%=Detail_Info.get(o).getMemo() %></div>
                                     <%}
                                     else{%>
                                     <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
@@ -422,8 +422,12 @@ if(cookies!=null) {
                                     <div class="arrow"></div>
                                     <%if(session.getAttribute("ID")!=null) {%>
                                     <%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
-                                    <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%}}
+                                    <div contenteditable="true" class="post" data-orders="<%=Detail_Info.get(o).getOrders()%>" data-day_orders="<%=Detail_Info.get(o).getDay_orders()%>"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%}
+                                    else{%>
+                                    <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%} %>
+                                    <%}
                                     else{%>
                                     <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
 									<%} %>
@@ -538,7 +542,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=14"></script>
+    <script src="./js/mynote.js?ver=18"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {

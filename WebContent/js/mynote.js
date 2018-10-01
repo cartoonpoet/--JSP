@@ -65,7 +65,7 @@ $(document).ready(function(){
             }
         }
     })
-    var placeholder='메모가 없습니다.';
+    var placeholder='메모가 없습니다';
     $(".post").focus(function() {
         if ($(this).text() == placeholder) {
             $(this).text("");
@@ -74,6 +74,24 @@ $(document).ready(function(){
         if (!$(this).text().length) {
             $(this).text(placeholder);
         }
+        $.ajax({
+    		type:'POST',
+    		url:'./NoteMemo_Save.pl',
+    		data:{
+    			Note_ID:getParam('num'),
+    			orders:$(this).data('orders'),
+    			day_orders:$(this).data('day_orders'),
+    			memo:$(this).html()
+    		},
+    		async: true,
+    		success:function(data){
+    			console.log('메모 저장 성공');
+    		},
+    		error:function(data){
+    			alert('메모 저장 실패');
+    			console.log('메모 저장 실패');
+    		}
+    	})
     });
     $('.like').on('click', function(){
         var src=$('.like>img').attr('src');
