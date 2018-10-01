@@ -21,7 +21,8 @@ $(document).ready(function(){
             }
             
             var formData=new FormData($('#ajaxform')[0]);
-
+            formData.append("note_id", getParam('num'));
+			//readURL(this);
             $.ajax({
         		type:'POST',
         		url:'./NoteImg_Change.pl',
@@ -30,8 +31,8 @@ $(document).ready(function(){
                 processData : false,
                 contentType : false,
         		success:function(data){
-        			console.log('파일 업로드 성공!');
-        			readURL(this);
+        			//alert('잠시 후 새로고침 해주시면 적용됩니다.');
+        			location.reload();
         		},
         		error:function(data){
         			alert('파일 업로드 실패');

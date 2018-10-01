@@ -538,7 +538,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=5"></script>
+    <script src="./js/mynote.js?ver=14"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {
