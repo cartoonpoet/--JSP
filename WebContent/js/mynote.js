@@ -4,7 +4,7 @@ $(document).ready(function(){
     $('#img').on('change', function(e){//파일 업로드 액션
         if($(this).val()!=""){
             var ext=$(this).val().split(".").pop().toLowerCase();
-            
+
             //확장자 체크
             if($.inArray(ext, ["gif", "jpg", "jpeg", "png"])==-1){
                 alert("이미지 파일만 업로드 해주세요.");
@@ -20,7 +20,25 @@ $(document).ready(function(){
                 $(this).val('');
             }
             
-            readURL(this);
+            var formData=new FormData($('#ajaxform')[0]);
+
+            $.ajax({
+        		type:'POST',
+        		url:'./NoteImg_Change.pl',
+        		data: formData,
+        		async: true,
+                processData : false,
+                contentType : false,
+        		success:function(data){
+        			console.log('파일 업로드 성공!');
+        			readURL(this);
+        		},
+        		error:function(data){
+        			alert('파일 업로드 실패');
+        			console.log('파일 업로드 실패');
+        		}
+        	})
+            
         }
     }); 
     $('.select .view1').on('click', function(){

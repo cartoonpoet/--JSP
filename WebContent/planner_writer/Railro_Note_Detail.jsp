@@ -145,8 +145,8 @@ if(cookies!=null) {
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
-                                <dd><a href="#">새 플래너 작성</a></dd>
-                                <dd><a href="#">내 플래너 목록</a></dd>
+                                <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
+                                <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
                             </dl>
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 
@@ -172,7 +172,9 @@ if(cookies!=null) {
                     <ul class="note_info_center">
                         <div class="top">
                            <li class="cover_img">
-                               <input type="file" id="img" accept="image/*">
+								<form id="ajaxform" enctype="multipart/form-data">
+                               <input type="file" id="img" accept="image/*" name="save">
+								</form>
                                <%if(session.getAttribute("ID")!=null){ %>
                                <%if(Basic_Info.getEmail_ID().compareTo(session.getAttribute("ID").toString())==0){ %>
                                	<label for="img" class="img_change">커버사진 바꾸기</label>
@@ -353,7 +355,11 @@ if(cookies!=null) {
                                     <%if(session.getAttribute("ID")!=null) {%>
                                     <%if(session.getAttribute("ID").toString().compareTo(Basic_Info.getEmail_ID())==0){ %>
                                     <div contenteditable="true" class="post"><%=Detail_Info.get(o).getMemo() %></div>
-                                    <%}}
+                                    <%}
+                                    else{%>
+                                    <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
+                                    <%} %>
+                                    <%}
                                     else{%>
                                     <div class="post"><%=Detail_Info.get(o).getMemo() %></div>
 									<%} %>
@@ -531,7 +537,8 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 <div id="dialog" title="알림">
     해당 노트를 내 노트에 담으시겠어요?
 </div>
-    <script src="./js/mynote.js?ver=2"></script>
+
+    <script src="./js/mynote.js?ver=5"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {
@@ -563,7 +570,21 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 
             buttons:{
                 "확인":function(){
-                    $(this).dialog("close");
+                    $.ajax({
+                		type:'POST',
+                		url:'./NoteAdd.pl',
+                		data: {
+                			Note_ID: getParam('num')
+                		},
+                		async: true,
+                		success:function(data){
+                        	
+                		},
+                		error:function(data){
+                			alert('노트 담기 실패');
+                		}
+                	})
+                	$(this).dialog("close");
                 },"취소":function(){
                     $(this).dialog("close");
                 }

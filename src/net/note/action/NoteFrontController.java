@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.Ajax.Note.Action.NoteImg_Change_Action;
 import net.Ajax.Note.Action.Note_Filter_Search_Action;
 import net.Ajax.Note.Action.Note_Like_Action;
 import net.Ajax.Note.Action.Note_More_Info_SelectAction;
@@ -195,8 +196,22 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-
-        
+        else if(command.equals("/NoteAdd.pl")) { //상대 노트 담기
+        	action=new NoteAdd_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/NoteImg_Change.pl")) { //노트 커버사진 변경
+        	action=new NoteImg_Change_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 
