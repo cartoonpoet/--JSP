@@ -72,6 +72,14 @@ public class MemberFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/MemberFollowAction.me")) {//내일러 팔로우
+        	action=new MemberFollowAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         
         if(forward!=null){ 
             if(forward.isRedirect()){ 

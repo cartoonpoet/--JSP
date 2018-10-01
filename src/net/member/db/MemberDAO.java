@@ -24,11 +24,11 @@ public class MemberDAO {
 	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
             con = ds.getConnection();   
 		}catch(Exception ex) {
-			System.out.println("DB Á¢¼Ó¿¡·¯:"+ex);
+			System.out.println("DB ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½:"+ex);
 			return;
 		}
 	}
-	//È¸¿øÀÎÁõ (ID, PW CHECKING)
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ID, PW CHECKING)
 	public int isMember(MemberBean member) {
 		String sql="select password from member where email_id=?";
 		int result=-1;
@@ -40,7 +40,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {
 				if(rs.getString("password").equals(member.getMEMBER_PW())) {
-					result=1; //ÀÏÄ¡
+					result=1; //ï¿½ï¿½Ä¡
 				}
 				else {
 					result=0;
@@ -48,17 +48,17 @@ public class MemberDAO {
 			}
 			else {
 				result=-1;
-				//¾ÆÀÌµð°¡ Á¸ÀçÇÏÁö ¾ÊÀ½.
+				//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			}
 		}catch(Exception ex) {
-			System.out.println("isMember ¿¡·¯ : "+ex);
+			System.out.println("isMember ï¿½ï¿½ï¿½ï¿½ : "+ex);
 		}finally {
 			if(rs!=null) try{rs.close();}catch(SQLException ex){}
 	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
 		}
 		return result;
 	}
-	public boolean joinIDCheck(MemberBean member) { // ¾ÆÀÌµð Ã¼Å©
+	public boolean joinIDCheck(MemberBean member) { // ï¿½ï¿½ï¿½Ìµï¿½ Ã¼Å©
 		String sql="SELECT * FROM MEMBER WHERE EMAIL_ID=?";
 		
 		try {
@@ -79,7 +79,7 @@ public class MemberDAO {
 		}
 		return false;
 	}
-	public boolean joinNickNameCheck(MemberBean member) { //´Ð³×ÀÓ Ã¼Å©
+	public boolean joinNickNameCheck(MemberBean member) { //ï¿½Ð³ï¿½ï¿½ï¿½ Ã¼Å©
 		String sql="SELECT * FROM MEMBER WHERE NIKNAME=?";
 		
 		try {
@@ -128,5 +128,59 @@ public class MemberDAO {
 		}
 		
 		return false;
+	}
+	public void FollowMember(String email_id, int note_id) {
+		String sql="SELECT * FROM note_info1 WHERE travel_id=?";
+		
+		String follow_id = null;
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, note_id);
+			rs=pstmt.executeQuery();
+
+			while(rs.next()) {
+				follow_id=rs.getString("email_id");
+			}
+			
+			sql="insert into member_follow values(?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email_id);
+			pstmt.setString(2, follow_id);
+			int result=0;
+			result=pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("FollowMember Error : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+	}
+	public void unFollowMember(String email_id, int note_id) {
+		String sql="SELECT * FROM note_info1 WHERE travel_id=?";
+		
+		String follow_id = null;
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, note_id);
+			rs=pstmt.executeQuery();
+
+			while(rs.next()) {
+				follow_id=rs.getString("email_id");
+			}
+			
+			sql="delete from member_follow where email_id=? and follow_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email_id);
+			pstmt.setString(2, follow_id);
+			int result=0;
+			result=pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println("unFollowMember Error : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
 	}
 }

@@ -94,23 +94,42 @@ $(document).ready(function(){
     })
     $('.follow').on('click', function(){
         var text=$(this).text();
-        
-        if(text=='팔로우+'){
+        var Note_ID=getParam("num");
+        var follow_YN;
+        if(text=='팔로우+'){ //추가
             $(this).text('팔로워');
             $(this).css({
                 'background-color':'#0076ff',
                 'border-color':'white',
                 'color':'white'
             });
+            follow_YN=1;
         }
-        else if(text=='팔로워'){
+        else if(text=='팔로워'){ //취소
             $(this).text('팔로우+');
             $(this).css({
                 'background-color':'white',
                 'border-color':'#0076ff',
                 'color':'#0076ff'
             });
+            follow_YN=0;
         }
+        
+        $.ajax({
+    		type:'POST',
+    		url:'./MemberFollowAction.me',
+    		data: {
+    			Note_ID: Note_ID,
+    			follow_YN:follow_YN
+    		},
+    		async: true,
+    		success:function(data){
+
+    		},
+    		error:function(data){
+    			alert('팔로우 실패');
+    		}
+    	})
     })
 });
 

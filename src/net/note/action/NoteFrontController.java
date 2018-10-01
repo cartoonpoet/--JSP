@@ -195,6 +195,7 @@ public class NoteFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+
         
         if(forward!=null){ 
             if(forward.isRedirect()){ 
