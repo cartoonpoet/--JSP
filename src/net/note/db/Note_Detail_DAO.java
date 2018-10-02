@@ -353,55 +353,71 @@ public class Note_Detail_DAO extends DB_Connection{
 					// 기차 API
 					// 24 = 광주, 35 = 전북, 36 = 전남
 					
-					int sigungu_code=0;
-					switch(note_info.get(i).getSigungu_code()) {
-						case 5: sigungu_code=24;
-							break; //광주
-						case 37: sigungu_code=35;
-							break; //전북
-						case 38: sigungu_code=36;
-							break; //전남
-					}
-					url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json");
-					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-					items=(JSONObject) JSONValue.parseWithException(isr);
-					items=(JSONObject) items.get("response");
-					items=(JSONObject) items.get("body");
-					System.out.println("출발역 기차 정보 : "+items);
-					int count=Integer.parseInt(items.get("totalCount").toString());
-					
-					
-					for(int o=1; o<=count; o++) { //출발역 셋팅
-						url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json&pageNo="+o);
-						isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-						items=(JSONObject) JSONValue.parseWithException(isr);
-						items=(JSONObject) items.get("response");
-						items=(JSONObject) items.get("body");
-						items=(JSONObject) items.get("items");
-						items=(JSONObject) items.get("item");
-						
-						note_info.get(i).add_Start_Station(items.get("nodename").toString(), items.get("nodeid").toString());
-					}
-					
-					//도착역 셋팅
-					url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json");
-					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-					items=(JSONObject) JSONValue.parseWithException(isr);
-					items=(JSONObject) items.get("response");
-					items=(JSONObject) items.get("body");
-					System.out.println("도착역 기차 정보 : "+items);
-					
-					count=Integer.parseInt(items.get("totalCount").toString());
-					for(int o=1; o<=count; o++) { //도착역 셋팅
-						url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json&pageNo="+o);
-						isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-						items=(JSONObject) JSONValue.parseWithException(isr);
-						items=(JSONObject) items.get("response");
-						items=(JSONObject) items.get("body");
-						items=(JSONObject) items.get("items");
-						items=(JSONObject) items.get("item");
-						
-						note_info.get(i).add_End_Station(items.get("nodename").toString(), items.get("nodeid").toString());
+					if (note_info.get(i).getKinds_2().compareTo("이동") == 0) {// 기차 이동시
+						int sigungu_code = 0;
+						switch (note_info.get(i).getSigungu_code()) {
+						case 5:
+							sigungu_code = 24;
+							break; // 광주
+						case 37:
+							sigungu_code = 35;
+							break; // 전북
+						case 38:
+							sigungu_code = 36;
+							break; // 전남
+						}
+						url = new URL(
+								"http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="
+										+ Train_Key + "&cityCode=" + sigungu_code + "&numOfRows=1&_type=json");
+						isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+						items = (JSONObject) JSONValue.parseWithException(isr);
+						items = (JSONObject) items.get("response");
+						items = (JSONObject) items.get("body");
+						System.out.println("출발역 기차 정보 : " + items);
+						int count = Integer.parseInt(items.get("totalCount").toString());
+
+						for (int o = 1; o <= count; o++) { // 출발역 셋팅
+							url = new URL(
+									"http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="
+											+ Train_Key + "&cityCode=" + sigungu_code
+											+ "&numOfRows=1&_type=json&pageNo=" + o);
+							isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+							items = (JSONObject) JSONValue.parseWithException(isr);
+							items = (JSONObject) items.get("response");
+							items = (JSONObject) items.get("body");
+							items = (JSONObject) items.get("items");
+							items = (JSONObject) items.get("item");
+
+							note_info.get(i).add_Start_Station(items.get("nodename").toString(),
+									items.get("nodeid").toString());
+						}
+
+						// 도착역 셋팅
+						url = new URL(
+								"http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="
+										+ Train_Key + "&cityCode=" + sigungu_code + "&numOfRows=1&_type=json");
+						isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+						items = (JSONObject) JSONValue.parseWithException(isr);
+						items = (JSONObject) items.get("response");
+						items = (JSONObject) items.get("body");
+						System.out.println("도착역 기차 정보 : " + items);
+
+						count = Integer.parseInt(items.get("totalCount").toString());
+						for (int o = 1; o <= count; o++) { // 도착역 셋팅
+							url = new URL(
+									"http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="
+											+ Train_Key + "&cityCode=" + sigungu_code
+											+ "&numOfRows=1&_type=json&pageNo=" + o);
+							isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+							items = (JSONObject) JSONValue.parseWithException(isr);
+							items = (JSONObject) items.get("response");
+							items = (JSONObject) items.get("body");
+							items = (JSONObject) items.get("items");
+							items = (JSONObject) items.get("item");
+
+							note_info.get(i).add_End_Station(items.get("nodename").toString(),
+									items.get("nodeid").toString());
+						}
 					}
 				}
 			}

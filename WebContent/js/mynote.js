@@ -1,6 +1,8 @@
 var scroll_position=0;
 $(document).ready(function(){
-    
+    $('.kinds button').on('click', function(e){
+    	alert('1');
+    })
     $('#img').on('change', function(e){//파일 업로드 액션
         if($(this).val()!=""){
             var ext=$(this).val().split(".").pop().toLowerCase();

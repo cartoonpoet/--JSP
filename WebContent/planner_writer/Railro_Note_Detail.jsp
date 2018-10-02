@@ -330,9 +330,11 @@ if(cookies!=null) {
                                     <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
                                     	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
                                         <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%}
                                     	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
                                         <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%} %>
                                         <%if(Detail_Info.get(o).getKinds_2().compareTo("이동")==0){ %>
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
@@ -401,9 +403,11 @@ if(cookies!=null) {
                                     <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
                                     	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
                                         <img src="./mynote_jpg/spoon.png" alt="" class="food_tour_hash">
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%}
                                     	else if(Detail_Info.get(o).getKinds_2().compareTo("관광지")==0){%>
                                         <img src="./mynote_jpg/photo-camera.png" alt="" class="food_tour_hash">
+                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%} %>
                                         <%if(Detail_Info.get(o).getKinds_2().compareTo("이동")==0){ %>
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
@@ -547,7 +551,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=19"></script>
+    <script src="./js/mynote.js?ver=20"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {
