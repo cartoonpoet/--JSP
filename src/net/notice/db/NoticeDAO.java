@@ -12,22 +12,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class NoticeDAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
+import etc.function.DB_Connection;
 
-	public NoticeDAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB 연결실패:"+ex);
-			return;
-		}
-	}
+public class NoticeDAO extends DB_Connection{
+
 	/*글의 개수 구하기(전체 글의 개수)*/
 	public int getListCount(){
 		int x = 0;

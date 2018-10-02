@@ -11,23 +11,11 @@ import javax.sql.DataSource;
 
 import com.sun.media.jfxmedia.MediaManager;
 
+import etc.function.DB_Connection;
 
-public class MemberDAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
 
-	public MemberDAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB ���ӿ���:"+ex);
-			return;
-		}
-	}
+public class MemberDAO extends DB_Connection{
+
 	//ȸ������ (ID, PW CHECKING)
 	public int isMember(MemberBean member) {
 		String sql="select password from member where email_id=?";

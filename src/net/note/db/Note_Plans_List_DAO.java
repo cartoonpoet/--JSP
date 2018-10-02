@@ -14,21 +14,10 @@ import javax.sql.DataSource;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class Note_Plans_List_DAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	public Note_Plans_List_DAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB 접속에러:"+ex);
-			return;
-		}
-	}
+import etc.function.DB_Connection;
+
+public class Note_Plans_List_DAO extends DB_Connection{
+
 	
 	public ArrayList<Note_Plans_List_Bean> Select_Note_List(String id){ //내일로 노트 목록 보기
 		ArrayList<Note_Plans_List_Bean> TravelDay_List=new ArrayList<Note_Plans_List_Bean>();

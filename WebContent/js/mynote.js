@@ -26,7 +26,7 @@ $(document).ready(function(){
             $.ajax({
         		type:'POST',
         		url:'./NoteImg_Change.pl',
-        		data: formData,
+        		data:formData,
         		async: true,
                 processData : false,
                 contentType : false,

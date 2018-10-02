@@ -21,23 +21,10 @@ import org.json.simple.JSONValue;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
-public class Note_Step2_Select_DAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	String Key="JXL40bCK2WGOu%2FE1WOGjuALpADt64Wb2mQVwNpxiA0bre%2FV8GozZggM2O01%2FPaTTyNm0A2JahebDf%2FPGwW8jbg%3D%3D";
-	URL url;
-	
-	public Note_Step2_Select_DAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB 접속에러:"+ex);
-			return;
-		}
-	}
+import etc.function.DB_Connection;
+
+public class Note_Step2_Select_DAO extends DB_Connection{
+
 	public double Search_mapX(int sigungucode, int areacode) {
 		String sql="select * from area_locate where sigungu_code=? and area_code=?";
 		double mapX=0;
@@ -328,6 +315,7 @@ public class Note_Step2_Select_DAO {
 	public ArrayList<Note_Step2_ALL_INFO_Bean> Area_Info_Select_Action(int areacode, int sigungucode){
 		ArrayList<Note_Step2_ALL_INFO_Bean> Info_List=new ArrayList<Note_Step2_ALL_INFO_Bean>();
 		JSONObject Part_Item;
+		URL url;
 		try {
 			url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?serviceKey="+Key+"&pageNo=1&startPage=1&numOfRows=1&pageSize=1&MobileApp=RailroTour&MobileOS=ETC&arrange=O&contentTypeId=12&areaCode="+sigungucode+"&sigunguCode="+areacode+"&listYN=Y&_type=json");
 			InputStreamReader isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");

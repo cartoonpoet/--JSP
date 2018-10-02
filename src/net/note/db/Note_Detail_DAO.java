@@ -367,7 +367,7 @@ public class Note_Detail_DAO extends DB_Connection{
 					items=(JSONObject) JSONValue.parseWithException(isr);
 					items=(JSONObject) items.get("response");
 					items=(JSONObject) items.get("body");
-					System.out.println("기차 정보 : "+items);
+					System.out.println("출발역 기차 정보 : "+items);
 					int count=Integer.parseInt(items.get("totalCount").toString());
 					
 					
@@ -384,12 +384,25 @@ public class Note_Detail_DAO extends DB_Connection{
 					}
 					
 					//도착역 셋팅
-//					url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json");
-//					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
-//					items=(JSONObject) JSONValue.parseWithException(isr);
-//					items=(JSONObject) items.get("response");
-//					items=(JSONObject) items.get("body");
+					url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json");
+					isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+					items=(JSONObject) JSONValue.parseWithException(isr);
+					items=(JSONObject) items.get("response");
+					items=(JSONObject) items.get("body");
+					System.out.println("도착역 기차 정보 : "+items);
 					
+					count=Integer.parseInt(items.get("totalCount").toString());
+					for(int o=1; o<=count; o++) { //도착역 셋팅
+						url=new URL("http://openapi.tago.go.kr/openapi/service/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey="+Train_Key+"&cityCode="+sigungu_code+"&numOfRows=1&_type=json&pageNo="+o);
+						isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+						items=(JSONObject) JSONValue.parseWithException(isr);
+						items=(JSONObject) items.get("response");
+						items=(JSONObject) items.get("body");
+						items=(JSONObject) items.get("items");
+						items=(JSONObject) items.get("item");
+						
+						note_info.get(i).add_End_Station(items.get("nodename").toString(), items.get("nodeid").toString());
+					}
 				}
 			}
 		}catch(Exception ex) {

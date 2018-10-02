@@ -17,23 +17,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class Note_Step2_Ajax_DAO{
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String Key="JXL40bCK2WGOu%2FE1WOGjuALpADt64Wb2mQVwNpxiA0bre%2FV8GozZggM2O01%2FPaTTyNm0A2JahebDf%2FPGwW8jbg%3D%3D";
+import etc.function.DB_Connection;
 
-	public Note_Step2_Ajax_DAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB Connect Error :"+ex);
-			return;
-		}
-	}
+public class Note_Step2_Ajax_DAO extends DB_Connection{
 	
 	public void Note_Name_Update(int Travel_ID, String Change_Name) {
 		String sql="update note_info1 set note_name=? where travel_id=?";

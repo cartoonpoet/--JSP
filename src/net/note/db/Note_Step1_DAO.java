@@ -10,21 +10,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class Note_Step1_DAO {
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	public Note_Step1_DAO() {
-		try {
-			Context init=new InitialContext();
-	        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-            con = ds.getConnection();   
-		}catch(Exception ex) {
-			System.out.println("DB 접속에러:"+ex);
-			return;
-		}
-	}
+import etc.function.DB_Connection;
+
+public class Note_Step1_DAO extends DB_Connection{
+
 	public boolean insert_Note(Note_Step1_Bean note_Step) {
 		String sql="INSERT INTO note_info1(email_id, note_name, travel_start_day, travel_day, travel_tema, travel_people, note_view, img)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, 0, ?)";

@@ -16,6 +16,12 @@ public class Note_Detail_Info_Bean {
 	public void add_Start_Station(String nodename, String nodeid) {
 		Start_Station.add(new Train_Bean(nodename, nodeid));
 	}
+	public ArrayList<Train_Bean> getEnd_Station() {
+		return End_Station;
+	}
+	public void setEnd_Station(ArrayList<Train_Bean> end_Station) {
+		End_Station = end_Station;
+	}
 	public ArrayList<Train_Bean> getStart_Station() {
 		return Start_Station;
 	}

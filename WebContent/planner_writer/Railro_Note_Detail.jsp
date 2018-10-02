@@ -338,14 +338,16 @@ if(cookies!=null) {
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
                                         <select name="start" id="start_station">
                                             <option value="">출발역 선택</option>
-                                            <option value="">대구</option>
-                                            <option value="">서울</option>
-                                            <option value="">구미</option>
-                                            <option value="">포함</option>
-                                            <option value="">전주</option>
+                                            <%for(int b=0; b<Detail_Info.get(o).getStart_Station().size(); b++) {%>
+                                            <option value="<%=Detail_Info.get(o).getStart_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getStart_Station().get(b).getNodeName() %></option>
+                                            <%} %>
+
                                         </select>
                                         <select name="end" id="end_station">
                                             <option value="">도착역 선택</option>
+                                             <%for(int b=0; b<Detail_Info.get(o).getEnd_Station().size(); b++) {%>
+                                            <option value="<%=Detail_Info.get(o).getEnd_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getEnd_Station().get(b).getNodeName() %></option>
+                                            <%} %>
                                         </select>
                                         <button>조회</button>
                                         <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
@@ -414,6 +416,9 @@ if(cookies!=null) {
                                         </select>
                                         <select name="end" id="end_station">
                                             <option value="">도착역 선택</option>
+                                             <%for(int b=0; b<Detail_Info.get(o).getEnd_Station().size(); b++) {%>
+                                            <option value="<%=Detail_Info.get(o).getEnd_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getEnd_Station().get(b).getNodeName() %></option>
+                                            <%} %>
                                         </select>
                                         <button>조회</button>
                                         <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
@@ -542,7 +547,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=18"></script>
+    <script src="./js/mynote.js?ver=19"></script>
     <script src="./js/script.js"></script>
     <script>
     $(function () {
