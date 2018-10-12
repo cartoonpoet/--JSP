@@ -42,9 +42,30 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         	forward.setRedirect(false);
         	forward.setPath("./Search/Search_Form.jsp");
         }
-       
-        
-        
+        else if(command.equals("/Detail_Info.se")){ //음식점/관광지 상세보기 이동
+        	action=new Detail_Info_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Review_Add.se")){ //리뷰 추가
+        	action=new Review_Add_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Review_Remove.se")){ //리뷰 삭제
+        	action=new Review_Remove_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

@@ -985,7 +985,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
         </footer>
     </div>
     
-    <script src="js/script.js"></script>
+    <script src="js/script.js?ver=4"></script>
     <script>
      $(function() {
       var count = $('#rank-list li').length;

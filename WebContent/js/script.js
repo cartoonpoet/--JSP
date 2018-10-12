@@ -1,7 +1,22 @@
 $(document).ready(function(){ //서브메뉴 애니메이션 부분
+	$('.float .hoverbg dd a').on('click', function(){
+		var text=$(this).text();
+		if(text=='새 플래너 작성'){
+			$(this).attr('href', './Railro_Note_Step1.pl')
+		}
+		else if(text=='내 플래너 목록'){
+			$(this).attr('href', './Note_Plans_List.pl');
+		}
+		else if(text=='공지사항'){
+			$(this).attr('href', './NoticeList.no');
+		}
+	})
     $('.m-menu>li, .s-menu').hover(function(){
-        $('.s-menu').stop().slideToggle(300)
+       // $('.s-menu').stop().slideToggle(300);
+        $('.s-menu').stop().slideDown(300);
         //$(this).find('.s-menu').stop().slideToggle('fast') 개별로 내려오게 할때
+    }, function(){
+        $('.s-menu').stop().slideUp();
     });
     
     $('.listmenu').focusin(function(){

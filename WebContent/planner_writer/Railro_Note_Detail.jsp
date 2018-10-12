@@ -95,6 +95,10 @@ if(cookies!=null) {
                     </div>
                     
                     <div class="snsicon"> <!-- 상단아이콘 -->
+                       <form action="./SearchAction.se" method="get" id="search_form">
+                           <input type="text" id="search_input" placeholder="통합검색" name="SEARCH_WORD">
+                           <input type="submit" id="search_btn" value="검색">
+                       </form>
                         <a href="#" class="sns1">안드로이드</a>
                         <a href="#" class="sns2">카페</a>
                         <a href="#" class="sns3">코레일</a>
@@ -134,7 +138,7 @@ if(cookies!=null) {
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="../index.html">내일로 소개</a></dd>
+                                <dd><a href="#">내일로 소개</a></dd>
                                 <dd><a href="#">발권지 혜택</a></dd>
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
@@ -155,7 +159,7 @@ if(cookies!=null) {
                             </dl>
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
 
-                                <dd><a href="sub02.html">공지사항</a></dd>
+                                <dd><a href="#">공지사항</a></dd>
                                 <dd><a href="#">자주묻는질문</a></dd>
                                 <dd><a href="#">불량사용자 신고</a></dd>
                             </dl>
@@ -325,7 +329,7 @@ if(cookies!=null) {
                                         <img src="./mynote_jpg/footprint.png" alt="" class="like">
                                         <h2><%=Detail_Info.get(o).getLike_cnt() %></h2>
                                         <h2>개 좋아요</h2>
-                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        <a href="./Detail_Info.se?contentid=<%=Detail_Info.get(o).getContent_ID()%>&contenttypeid=<%=Detail_Info.get(o).getContent_Type_ID()%>" target="_blank"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         
                                     <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
                                     	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
@@ -398,7 +402,7 @@ if(cookies!=null) {
                                         <img src="./mynote_jpg/footprint.png" alt="" class="like">
                                         <h2><%=Detail_Info.get(o).getLike_cnt() %></h2>
                                         <h2>개 좋아요</h2>
-                                        <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
+                                        <a href="./Detail_Info.se?contentid=<%=Detail_Info.get(o).getContent_ID()%>&contenttypeid=<%=Detail_Info.get(o).getContent_Type_ID()%>" target="_blank"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         
                                     <%}else if(Detail_Info.get(o).getKinds_1().compareTo("해시")==0){%>
                                     	<%if(Detail_Info.get(o).getKinds_2().compareTo("음식점")==0){ %>
@@ -552,7 +556,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 </div>
 
     <script src="./js/mynote.js?ver=20"></script>
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js?ver=3"></script>
     <script>
     $(function () {
 

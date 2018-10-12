@@ -308,7 +308,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
             </div>
         </footer>
     </div>
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js?ver=1"></script>
     <script src="./js/edit.js?ver=1"></script>
     <script>
         
