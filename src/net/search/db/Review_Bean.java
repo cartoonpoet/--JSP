@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 public class Review_Bean {
 	int contentid, contenttypeid, like_yn, review_num;
-	String memo, datetime;
+	String memo, datetime, profile_img;
 	ArrayList<String> tags=new ArrayList<String>();
 	ArrayList<String> filesPath=new ArrayList<String>();
 	
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 	public int getReview_num() {
 		return review_num;
 	}

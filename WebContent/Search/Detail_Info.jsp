@@ -468,10 +468,10 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                             <div class="text"><%=review_analysis.getTotal_review() %>개 리뷰<br>좋아요</div>
                         </li>
                         <div class="zt-span6 last">
-                            <div class="zt-skill-bar"><div data-width="<%=review_analysis.getLike_percent() %>" style="">좋아요<span><%=review_analysis.getLike_percent() %>%</span></div></div>
-                            <div class="zt-skill-bar"><div data-width="<%=100-review_analysis.getLike_percent() %>" style="">싫어요<span><%=100-review_analysis.getLike_percent() %>%</span></div></div>
+                            <div class="zt-skill-bar"><div data-width="<%=(double)review_analysis.getTotal_like()/(double)review_analysis.getTotal_review()*100.0 %>" style="">좋아요<span><%=(double)review_analysis.getTotal_like()/(double)review_analysis.getTotal_review()*100.0 %>%</span></div></div>
+                            <div class="zt-skill-bar"><div data-width="<%=100-(double)review_analysis.getTotal_like()/(double)review_analysis.getTotal_review()*100.0 %>" style="">싫어요<span><%=100-(double)review_analysis.getTotal_like()/(double)review_analysis.getTotal_review()*100.0 %>%</span></div></div>
                         </div>
-                        <h3><strong><%=review_analysis.getLike_percent()%>% 의 내일러들이 이 관광지를 좋아합니다.</strong></h3>
+                        <h3><strong><%=(double)review_analysis.getTotal_like()/(double)review_analysis.getTotal_review()*100.0 %>% 의 내일러들이 이 관광지를 좋아합니다.</strong></h3>
                     </ul>
                     <div class="latest_review">
                         <span>최신순</span> 리뷰 (<%=review_analysis.getTotal_review() %>)
@@ -482,7 +482,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     	for(int i=0; i<5; i++){ %>
 						<li class="review">
                             <div class="date">
-                               <img src="./detail_info_img/1.jpg" alt="">
+                               <img src="<%=reviews.get(i).getProfile_img() %>" alt="">
                                <span class="nikname"><%=reviews.get(i).getNikname() %></span>
                                 <span class="datetime"><%=reviews.get(i).getDate().substring(0, 19) %></span>
                                 <%if(session.getAttribute("ID").toString().compareTo(reviews.get(i).getEmail_id())==0){ %>
@@ -520,7 +520,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     		for(int i=0; i<reviews.size(); i++){%>
                     		<li class="review">
                             <div class="date">
-                               <img src="./detail_info_img/1.jpg" alt="">
+                               <img src="<%=reviews.get(i).getProfile_img() %>" alt="">
                                <span class="nikname"><%=reviews.get(i).getNikname() %></span>
                                 <span class="datetime"><%=reviews.get(i).getDate().substring(0, 19) %></span>
                                 <%if(session.getAttribute("ID").toString().compareTo(reviews.get(i).getEmail_id())==0){ %>
@@ -557,14 +557,18 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     		} %>
                     </ul>
                     <div class="page_num_group">
+                    <%for(int i=1; i<=review_analysis.getTotal_review()/5; i++){ %>
+                    <%if(i==1){ %>
                     <a href="#" class="selected">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">7</a>
-                    <a href="#">8</a>
+                    <%}
+                    else{%>
+                    <a href="#"><%=i %></a>
+                    <%if(i==review_analysis.getTotal_review()/5){ %>
+                    <%if(review_analysis.getTotal_review()%5!=0){ %>
+                    <a href="#"><%=i+1 %></a>
+                    <%}} %>
+                    <%} %>
+                    <%} %>
                 </div>
                 </div>
             </div>
@@ -624,7 +628,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
     <script src="./js/script.js?ver=1"></script>
-    <script src="./js/detail_info.js?ver=9"></script>
+    <script src="./js/detail_info.js?ver=11"></script>
 
     
     <script>
@@ -691,7 +695,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
         .words(words)
         .start();
         
-        var ID=<%=session.getAttribute("ID")%>
+        var ID='<%=session.getAttribute("ID")%>'
   </script>
 </body>
 </html>

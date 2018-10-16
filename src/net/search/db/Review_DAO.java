@@ -95,6 +95,27 @@ public class Review_DAO extends DB_Connection{
 		
 		return review; //넣기 성공!
 	}
+	public String getProfile(String email_id) {
+		String sql="select * from member where email_id=?";
+		String name=null;
+		try {
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, email_id);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				name=rs.getString("imgfile");
+			}
+	
+		}catch(Exception ex) {
+			System.out.println("getNikname ERROR : "+ex);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		return name;
+	}
 	public String getNikname(String email_id) {
 		String sql="select * from member where email_id=?";
 		String name=null;

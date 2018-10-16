@@ -23,6 +23,32 @@ $(document).ready(function(){
         }
     });
 }(jQuery));
+    $(document).on('click', '.page_num_group a',function(e){
+    	e.preventDefault();
+    	var num=$(this).text();
+    	var contentid=getParameterByName('contentid');
+    	var contenttypeid=getParameterByName('contenttypeid');
+    	$('.reviews .review').remove();
+    	$(this).addClass('selected');
+    	$(this).siblings().removeClass('selected');
+    	$.ajax({
+    		type:'POST',
+    		url:'./Review_Additional.se',
+    		data:{
+    			num:num,
+    			contentid:contentid,
+    			contenttypeid:contenttypeid
+    		},
+    		dataType:'json',
+    		async:true,
+    		success:function(data){
+    			
+    		},
+    		error:function(data){
+    			
+    		}
+    	})
+    })
     
     $(document).on('click', '.review .date .remove', function(){
     	var num=$(this).data('num');
@@ -94,7 +120,7 @@ $(document).ready(function(){
     			}
     			var review='<li class="review">';
     			review+='<div class="date">';
-    			review+='<img src="./detail_info_img/1.jpg" alt="">';
+    			review+='<img src="'+data.profile+'" alt="">';
     			review+='<span class="nikname">'+data.nikname+'</span>';
     			review+='<span class="datetime">'+data.date+'</span>';
     			review+='<button class="remove" data-num="'+data.review_num+'">삭제</button>';

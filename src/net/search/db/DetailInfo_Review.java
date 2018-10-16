@@ -6,8 +6,14 @@ public class DetailInfo_Review {
 	ArrayList<String> imgfile=new ArrayList<String>();
 	ArrayList<String> hashtag=new ArrayList<String>();
 	int contentid, contenttypeid, like_yn, review_num;
-	String memo, nikname, date, email_id;
+	String memo, nikname, date, email_id, profile_img;
 	
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 	public String getEmail_id() {
 		return email_id;
 	}

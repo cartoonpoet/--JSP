@@ -66,6 +66,14 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/Review_Additional.se")){ //리뷰 추가로 불러오기
+        	action=new Review_Additional_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

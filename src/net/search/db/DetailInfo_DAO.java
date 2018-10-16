@@ -283,6 +283,7 @@ public class DetailInfo_DAO extends DB_Connection {
 				
 				while(rs.next()) {
 					review.get(i).setNikname(rs.getString("nikname"));
+					review.get(i).setProfile_img(rs.getString("imgfile"));
 				}
 				
 				sql="select * from review_hashtag where content_id=? and content_type_id=? and review_num=?";
@@ -340,7 +341,7 @@ public class DetailInfo_DAO extends DB_Connection {
 				analysis.setTotal_review(rs.getInt("cnt"));
 			}
 			
-			analysis.setLike_percent((analysis.getTotal_like()/analysis.getTotal_review()*100));
+			analysis.setLike_percent((analysis.getTotal_like()/analysis.getTotal_review())*100);
 		}catch(Exception ex) {
 			System.out.println("getAnalysis_Result ERROR : "+ex);
 		}finally {

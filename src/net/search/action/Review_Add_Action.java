@@ -74,6 +74,7 @@ public class Review_Add_Action implements Action {
 		json.put("like_yn", review_data.getLike_yn());
 		json.put("nikname", review_insert.getNikname(session.getAttribute("ID").toString()));
 		json.put("review_num", review_data.getReview_num());
+		json.put("profile", review_insert.getProfile(session.getAttribute("ID").toString()));
 		JSONArray array=new JSONArray();
 		for(int i=0; i<review_data.getFilesPath().size(); i++) {
 			array.add(review_data.getFilesPath().get(i));
