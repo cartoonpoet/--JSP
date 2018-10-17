@@ -1,4 +1,6 @@
 var formData=new FormData();
+var words=new Array(); //워드클라우드 배열
+
 $(document).ready(function(){
 
     (function( $ ) {
@@ -23,7 +25,38 @@ $(document).ready(function(){
         }
     });
 }(jQuery));
-    $(document).on('click', '.page_num_group a',function(e){
+    
+    $.ajax({
+    	type:'POST',
+    	url:'./Wordcloud.se',
+    	data:{
+    		contentid:getParameterByName('contentid'),
+    		contenttypeid:getParameterByName('contenttypeid')
+    	},
+    	success:function(data){
+    		for(var i=0; i<data.words.length; i++){
+    			words.push({
+    				text:data.words[i].word,
+    				weight:Number(data.words[i].size)
+    			});
+    		}
+    		if(data.words.length==0){
+    			words.push({
+    				text:'없음',
+    				weight:50
+    			});
+    		}
+    	     $(function() {
+    	         $("#wordcloud").jQCloud(words);
+    	     });
+    	},
+		error:function(request,status,error){
+			console.log('워드 클라우드 완료');
+			 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+    })
+    
+    $(document).on('click', '.page_num_group a', function(e){
     	e.preventDefault();
     	var num=$(this).text();
     	var contentid=getParameterByName('contentid');
@@ -39,13 +72,57 @@ $(document).ready(function(){
     			contentid:contentid,
     			contenttypeid:contenttypeid
     		},
-    		dataType:'json',
-    		async:true,
+    		async:false,
+    		dataType:"json",
     		success:function(data){
+    			console.log('리뷰 가져옴');
     			
+    			for(var i=0; i<data.reviews.length; i++){
+    				var review='<li class="review">';
+        			review+='<div class="date">';
+        			review+='<img src="'+data.reviews[i].profileimg+'" alt="">';
+        			review+='<span class="nikname">'+data.reviews[i].nikname+'</span>';
+        			review+='<span class="datetime">'+data.reviews[i].datetime+'</span>';
+        			review+='<button class="remove" data-num="'+data.reviews[i].review_num+'">삭제</button>';
+        			if(Number(data.reviews[i].like_yn)!=0){
+        				review+='<img src="./detail_info_img/like2.png" alt="" class="likeimg">';
+        				review+='<span class="like"> - 좋아해요</span>';
+        			}
+        			else{
+        				review+='<img src="./detail_info_img/like1.png" alt="" class="likeimg">';
+        				review+='<span class="like"> - 싫어해요</span>';
+        			}
+        			review+='</div>';
+        			review+='<div class="contents">';
+        			review+=data.reviews[i].memo;
+        			review+='</div>';
+        			if(data.reviews[i].files.length!=0){
+        			review+='<div class="imgs">';
+        				for(var o=0; o<data.reviews[i].files.length; o++){
+        					$.each(data.reviews[i].tags[p], function(key, value){
+        						review+='<img src="'+value+'" alt="" onclick="pop(this)">';
+        					});
+        				}
+        			review+='</div>';
+        			}
+        			if(data.reviews[i].tags.length!=0){
+        			review+='<div class="tags">';
+        				for(var p=0; p<data.reviews[i].tags.length; p++){
+        					$.each(data.reviews[i].tags[p], function(key, value){
+        					    review+='<span class="tag">#'+value+'</span>';
+        					});
+        				}
+        			review+='</div>';
+        			}
+        			review+='</li>';
+        			
+        			$('.reviews').append(review);
+                    //console.log(review);
+    			}
     		},
-    		error:function(data){
-    			
+    		error:function(request,status,error){
+    			console.log('리뷰 가져오기 실패');
+    			 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     		}
     	})
     })

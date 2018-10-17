@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
-import net.member.action.MemberJoinAction;
-import net.member.action.MemberLoginAction;
-import net.member.action.MemberLogoutAction;
 
 public class SearchFrontController extends HttpServlet implements Servlet{
 	static final long serialVersionUID=1L;
@@ -68,6 +65,14 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         }
         else if(command.equals("/Review_Additional.se")){ //리뷰 추가로 불러오기
         	action=new Review_Additional_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Wordcloud.se")){//워드 클라우드 생성
+        	action=new Wordcloud_Action();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {

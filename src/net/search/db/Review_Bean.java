@@ -4,10 +4,22 @@ import java.util.ArrayList;
 
 public class Review_Bean {
 	int contentid, contenttypeid, like_yn, review_num;
-	String memo, datetime, profile_img;
+	String memo, datetime, profile_img, email_id, nikname;
 	ArrayList<String> tags=new ArrayList<String>();
 	ArrayList<String> filesPath=new ArrayList<String>();
 	
+	public String getNikname() {
+		return nikname;
+	}
+	public void setNikname(String nikname) {
+		this.nikname = nikname;
+	}
+	public String getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
 	public String getProfile_img() {
 		return profile_img;
 	}

@@ -37,11 +37,10 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
     <link rel="stylesheet" href="./css/commen.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/detail_info.css?ver=1">
+    <link rel="stylesheet" href="./jqcloud/jqcloud.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
-     <script src="./jqcloud/d3.js"></script>
-    <script src="./jqcloud/d3.layout.cloud.js"></script>
-    <script src="./jqcloud/d3.wordcloud.js"></script>
+     
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
@@ -83,11 +82,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                                 }else {%>
                                 	<a href="#">마이페이지</a>
                                    <%}%>
-                                <span></span>
                                 </li>
-                            <li>
-                                <a href="#">여행바구니</a>
-                            </li>
                         </ul>
                     </div>
                     
@@ -417,7 +412,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     </li>
                     <%} %>
                     <li class="location">
-                        <div id="wordcloud"><!--워드클라우드--></div>
+                        <div id="wordcloud" style="width: 500px; height: 300px; border: none;"><!--워드클라우드--></div>
                         <div id="map"></div>
                     </li>
                 </ul>
@@ -563,11 +558,10 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     <%}
                     else{%>
                     <a href="#"><%=i %></a>
-                    <%if(i==review_analysis.getTotal_review()/5){ %>
-                    <%if(review_analysis.getTotal_review()%5!=0){ %>
-                    <a href="#"><%=i+1 %></a>
-                    <%}} %>
                     <%} %>
+                    <%} %>
+                    <%if(review_analysis.getTotal_review()%5!=0){ %>
+                    <a href="#"><%=review_analysis.getTotal_review()/5+1 %></a>
                     <%} %>
                 </div>
                 </div>
@@ -627,8 +621,9 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     </div>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c75ebef98aa832875a335d779a7dc27a"></script>
+    <script src="./jqcloud/jqcloud-1.0.4.js"></script>
     <script src="./js/script.js?ver=1"></script>
-    <script src="./js/detail_info.js?ver=11"></script>
+    <script src="./js/detail_info.js?ver=14"></script>
 
     
     <script>
@@ -676,6 +671,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
         
         
                 // word frequencies of first two chapters of Oliver Twist
+        /*
         var words = [
           {text: '장어탕', size: 50},
           {text: '맛집', size: 47},
@@ -688,13 +684,13 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
           {text: 'ㅋㅋㅋㅋ', size: 27},
           {text: '우와', size: 26},
         ];
-
+		
         d3.wordcloud()
         .size([500, 300])
         .fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
         .words(words)
         .start();
-        
+        */
         var ID='<%=session.getAttribute("ID")%>'
   </script>
 </body>
