@@ -118,7 +118,8 @@ header{}
 nav{
     float: right;
 }
-ul.m-menu{}
+ul.m-menu{
+}
 ul.m-menu li{
     float: left;
     width: 90px;
@@ -516,51 +517,51 @@ input{
     width: 100%;
 }
 #ban02-2 .CustomSearch .Left_icon{
-   float: left;
+	float: left;
     transform: rotate(90deg);
-   width: 15px;
-   margin-top: 24px;
-   margin-left: 40px;
-   cursor: pointer;
+	width: 15px;
+	margin-top: 24px;
+	margin-left: 40px;
+	cursor: pointer;
 }
 #ban02-2 .CustomSearch .Right_icon{
     transform: rotate(-90deg);
-   float: right;
-   width: 15px;
-   margin-top: 24px;
-   margin-right: 40px;
-   cursor: pointer;
+	float: right;
+	width: 15px;
+	margin-top: 24px;
+	margin-right: 40px;
+	cursor: pointer;
 }
 .tema_slide{
-   float: left;
-   position: relative;
+	float: left;
+	position: relative;
 }
 .tema_slide img{
-   display: block;
+	display: block;
 }
 .tema_slide .tema_name{
-   display: block;
-   margin: 5px 12px;
+	display: block;
+	margin: 5px 12px;
 }
 .tema_slide .tema_slide_group{
-   overflow: hidden;
-   width: 50px;
-   position: absolute;
-   left: 48px;
+	overflow: hidden;
+	width: 50px;
+	position: absolute;
+	left: 48px;
 }
 .tema3{
-   padding-top: 15px;
+	padding-top: 15px;
 }
 
 .search{
-   width: 135px;
-   background: #0078ff;
-   color: white;
-   display: block;
-   text-align: center;
-   padding: 10px 20px;
-   cursor: pointer;
-   margin: 25px 40px;
+	width: 135px;
+	background: #0078ff;
+	color: white;
+	display: block;
+	text-align: center;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin: 25px 40px;
 }
 
 #ban03{
@@ -601,8 +602,8 @@ input{
     float: left;
     width: 509px;
     height: 255px;
-   border-right: 1px solid #ccc;
-   border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 
@@ -615,8 +616,8 @@ input{
     margin-right: 10px;
 }
 #timeline-title .real_time{
-   margin-top: 18px;
-   margin-left: 10px;
+	margin-top: 18px;
+	margin-left: 10px;
 }
 #timeline-title .real_time>span{
     float: left;
@@ -631,7 +632,7 @@ input{
 }
 #timeline-title .real_time>a{
     float: right;
-   margin-right: 10px;
+	margin-right: 10px;
 }
 #timeline-title .line{
     background: #000;
@@ -642,13 +643,13 @@ input{
     margin-bottom: 18px;
 }
 #timeline-title .timeline1{
-   overflow: hidden;
-   width: 100%;
-   margin-bottom: 1rem;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 1rem;
     margin-left: 10px;
 }
 #timeline-title .timeline1>a{
-   float: left;
+	float: left;
 }
 #timeline-title .resettext{
     font-size: 12px;
@@ -692,16 +693,16 @@ input{
 }
 
 #timeline-title .stamp_comment_cnt img{
-   float: right;
+	float: right;
 }
 #timeline-title .stamp_comment_cnt input{
-   float: right;
-   width: 20px;
-   padding-left: 5px;
+	float: right;
+	width: 20px;
+	padding-left: 5px;
 }
 
 .area{
-   margin-top: 75px;
+	margin-top: 75px;
 }
 
 
@@ -741,27 +742,6 @@ input{
 #intro-banner{
     margin-top: 5rem;
 }
-#intro-banner .planner_view_group{
-    overflow: hidden;
-    width: 1080px;
-    margin: 80px auto;
-}
-#intro-banner .planner_view{
-    width: 245px;
-    border: 1px solid #ccc;
-    overflow: hidden;
-    float: left;
-    margin-right: 30px;
-}
-
-#intro-banner .planner_view:hover{
-   border: 1px solid #375dff;
-}
-
-#intro-banner .planner_view:last-Child{
-    margin-right: 0;
-}
-
 
 #intro-banner .content-center{
     position: relative;
@@ -791,77 +771,118 @@ input{
     background: blue;
     margin-right: 10px;
 }
-#intro-banner .planner_view .title{
-    margin: 14px;
+
+.plans_list_rows{
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+.plans_list_rows .list_item{
+    float: left;
+    width: 310px;
+    height: 295px;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+}
+.plans_list_rows a{
+    overflow: hidden;
+    border: 1px solid #ccc;
+    float: left;
+    margin-left: 20px;
+}
+.list_item li:first-child{
     overflow: hidden;
 }
-#intro-banner .planner_view .title img{
-    float: left;
-}
-#intro-banner .planner_view .traveler{
-    float: left;
-    margin-left: 5px;
-    color: #b5b5b5;
-    line-height: 1.1rem;
-}
-#intro-banner .planner_view .date{
-    color: #b5b5b5;
-    float: right;
-}
-#intro-banner .planner_view .name{
-    float: left;
-    color: #111;
-}
-
-#intro-banner .planner_view .cover_bg{
+.list_item li:first-child img{
+    width: 346px;
+    height: 200px;
     display: block;
-    margin: 5px auto;
+    transform: scale(1.0);
+    transition: all 0.5s ease-in-out;
 }
-#intro-banner .planner_view .travel_title{
-    width: 90%;
-    border-bottom: 1px solid #ccc;
-    color: #006cff;
-    font-weight: bold;
-    font-size: 1.1rem;
-    letter-spacing: -1px;
-    margin: 10px auto;
-    padding-bottom: 8px;
+.list_item:hover li:first-child img{
+    width: 346px;
+    height: 200px;
+    transform: scale(1.3);
+    transition: all 2.5s ease-in-out;
 }
-#intro-banner .planner_view .content-center{
-    margin: 0 auto;
-    overflow: hidden;
-    width: 90%;
-    padding-bottom: 20px;
+.list_item li:first-child{
+    position: relative;
 }
-#intro-banner .planner_view .travel_content{
-    float: left;
-    font-size: 0.8rem;
-    margin-top: 9px;
-}
-#intro-banner .planner_view .travel_content:nth-child(2){
-    margin-left: 8px;
-    margin-right: 8px;
-}
-#intro-banner .planner_view .travel_content>span{
-    font-size: 1rem;
-    display: block;
-    margin-bottom: 5px;
-}
-
-#intro-banner .planner_view .bottom_title{
-    border-top: 1px solid #ccc;
-    padding-top: 5px;
-    width: 90%;
-    margin: 0 auto;
-}
-#intro-banner .planner_view .bottom_title .tag{
-    float: left;
-}
-#intro-banner .planner_view .bottom_title .shopping{
-    float: right;
+.plans_list_rows .list_item .note_info{
+    background-color: rgba(0, 0, 0, 0.49);
+    position: absolute;
+    z-index: 20;
+    top: 140px;
+    width: 100%;
+    font-size: 1.2rem;
+    font-family: 'NanumSquare', sans-serif;
+    height: 45px;
+    color: white;
+    padding-top: 10px;
     padding-bottom: 5px;
 }
-
+.list_item .note_info h1{
+    width: 100%;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.list_item .note_info h1:first-child{
+    font-size: 1.2rem;
+    color: #009dff;
+}
+.list_item .note_info h1:nth-child(2){
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+.list_item li:nth-child(2){
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+.list_item li:nth-child(2) div:first-child{
+    width: 100%;
+    height: 30px;
+}
+.list_item li:nth-child(2) .like{
+    margin-top: 5px;
+}
+.list_item li:nth-child(2) .like .tema{
+    float: left;
+    font-size: 1.1rem;
+    margin-left: 10px;
+}
+.list_item li:nth-child(2) .like img{
+    float: right;
+    margin-top: 5px;
+    margin-right: 3px;
+}
+.list_item li:nth-child(2) .like span{
+    float: right;
+    font-size: 1.5rem;
+    padding: 5px 5px 5px 5px;
+    font-size: 1.1rem;
+    color: #5c5c5c;
+}
+.list_item .route{
+    font-size: 1.2rem;
+    padding: 13px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: #5c5c5c;
+}
+.list_item .person{
+    padding: 10px;
+    padding-top: 5px;
+    overflow: hidden;
+    color: #5c5c5c;
+}
+.list_item .person span{
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.2rem;
+}
 
 #intro-banner .view{
     width: 200px;
@@ -1019,83 +1040,85 @@ footer{
 
 /* 서브페이지 2 공지사항 */
 .cover-search{
-   overflow: hidden;
-   margin-bottom: 2rem;
+	overflow: hidden;
+	margin-bottom: 2rem;
 }
 
 .cover-search p{
-   float: left;
+	float: left;
 }
 .cover-search .search-right{
-   float: right;
+	float: right;
 
 }
 .search-right>*{
-   float: left;
+	float: left;
 }
 .cover-search select{
-   width: 100px;
-   padding-left: 20px;
-   height: 30px;
-   color: #999;
-   border: 1px solid #ccc;
-   margin-right: 10px;
+	width: 100px;
+	padding-left: 20px;
+	height: 30px;
+	color: #999;
+	border: 1px solid #ccc;
+	margin-right: 10px;
 }
 .cover-search input{
-   height: 28px;
-   border: 1px solid #ccc;
+	height: 28px;
+	border: 1px solid #ccc;
 }
 .cover-search a{
-   width: 40px;
-   height: 30px;
-   background: #0080ff;
-   font-size: 1rem;
-   line-height: 26px;
+	width: 40px;
+	height: 30px;
+	background: #0080ff;
+	font-size: 1rem;
+	line-height: 26px;
     text-align:center;
     color: white;
 }
 
 .cover-table{}
 .cover-table table{
-   width: 100%;
-   border-top: 2px solid #0080ff;
+	width: 100%;
+	border-top: 2px solid #0080ff;
 }
 .cover-table thead{}
 .cover-table tbody{}
 /*
 .cover-table tr.tdbgcolor td{
-   background: #fbfff5;
-   font-weight: bold;
+	background: #fbfff5;
+	font-weight: bold;
 }
 */
 .cover-table th{
-   font-size: 1.2rem;
-   height: 40px;
-   background: #eee;
-   border-bottom: 1px solid #ccc;
+	font-size: 1.2rem;
+	height: 40px;
+	background: #eee;
+	border-bottom: 1px solid #ccc;
 }
 .cover-table td:nth-child(2){
-   text-align: left;
+	text-align: left;
 }
 .cover-table td{
-   text-align: center;
-   font-size: 1.2rem;
-   height: 35px;
-   border-bottom: 1px solid #ccc;
+	text-align: center;
+	font-size: 1.2rem;
+	height: 35px;
+	border-bottom: 1px solid #ccc;
 }
 .cover-table td a:hover{
-   text-decoration: underline;
+	text-decoration: underline;
 }
 
 .cover-btn{
-   overflow: hidden;
-   margin: 2rem auto;
-   width: 100%;
+	overflow: hidden;
+	margin: 2rem auto;
+	width: 100%;
 }
 .cover-btn .bt_group{
-    width: 224px;
     margin: 0 auto;
+    display: block;
+    width: 400px;
 }
+
 .cover-btn .bt_group button{
     margin-left: 2px;
     padding: 5px 2px;
@@ -1111,9 +1134,9 @@ footer{
     width: 70px;
 }
 .cover-btn>button a{
-   display: block;
-   line-height: 30px;
-   height: 30px;
+	display: block;
+	line-height: 30px;
+	height: 30px;
 }
 
 .view_form{
@@ -1219,6 +1242,7 @@ footer{
     color: white;
     background-color: #00acff;
     font-family: "Nanum Gothic", sans-serif;
+    float: left;
     cursor: pointer;
     border: none;
 }

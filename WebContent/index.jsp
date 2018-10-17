@@ -31,7 +31,7 @@ if(cookies!=null) {
     <meta charset="UTF-8">
     <title>Railro Tour - 전라도편</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css?ver=1">
+    <link rel="stylesheet" href="./css/style.css?ver=2">
     <link rel="stylesheet" href="./bxslide/dist/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -464,10 +464,10 @@ if(cookies!=null) {
                            <div class="real_time">
                            		<span class="time">실시간</span>
                             	<span>&nbsp;여행기</span>
-                            	<a href="#">
+                            	<!-- <a href="#">
                                 	<img src="jpg/reset.png" alt="" class="reset">
                                 	<span class="resettext">&nbsp;새로고침</span>
-                            	</a>
+                            	</a>-->
                             	<span class="line"></span>
                            </div>
                             
@@ -484,16 +484,6 @@ if(cookies!=null) {
                                        <span class="traveler">
                                            &nbsp;권재인
                                        </span>
-                                       <div class="stamp_comment_cnt">
-                                       	<input type="text" value="20" readonly> 
-                                       	<a href="">
-                                       		<img src="jpg/comment.png" 	alt="">
-                                       	</a>
-                                       	<input type="text" value="50" readonly>
-                                       	<a href="">
-                                       	<img src="jpg/stamp.png" alt="">
-                                       	</a>
-                                       </div>
                                    </span>
                                 </div>
                             </div>
@@ -510,16 +500,6 @@ if(cookies!=null) {
                                        <span class="traveler">
                                            &nbsp;권재인
                                        </span>
-                                       <div class="stamp_comment_cnt">
-                                       	<input type="text" value="20" readonly> 
-                                       	<a href="">
-                                       		<img src="jpg/comment.png" 	alt="">
-                                       	</a>
-                                       	<input type="text" value="50" readonly>
-                                       	<a href="">
-                                       	<img src="jpg/stamp.png" alt="">
-                                       	</a>
-                                       </div>
                                    </span>
                                 </div>
                             </div>
@@ -541,385 +521,101 @@ if(cookies!=null) {
                     </div>
                 </div>
                 <div id="intro-banner" class="section">
-                       <div class="planner_view_group">
-                           <ul class="planner_view">
-                               <li class="title">
-                                   <a href="">
-                                       <img src="jpg/profil.jpg" alt="">
-                                    </a>
-                                   <span class="traveler">
-                                       <i>traveler<br></i>
-                                       <a href=""><span class="name">손준호</span></a>
-                                   </span>
-                                   
-                                   <span class="date">2018-03-02</span>
-                               </li>
-                               <li>
-                                   <a href="">
-                                       <img src="jpg/travel.jpg" alt="" class="cover_bg">
-                                   </a>
-                               </li>
-                               <li class="travel_title">
-                                   겨울 내일로 여행 - 5일
-                               </li>
-                               <li class="content-center">
-                                  <div class="group1 group">
-                                      <div class="travel_content">
-                                       <span>1일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>2일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>3일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                  </div>
-                                   <div class="group2 group">
-                                        <div class="travel_content">
-                                       <span>4일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>5일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>6일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   </div>
-                               </li>
-                               <li class="round_cover">
-                                   <span class="round bu1 click1" onclick="plannerbtn(1)"></span>
-                                   <span class="round bu2 click2" onclick="plannerbtn(2)"></span>
-                               </li>
-                               <li class="bottom_title">
-                                   <div class="tag">#개춥다 #케이블카 #겨울바다</div>
-                                   <div class="shopping">
-                                       <a href="">
-                                          <br>
-                                           <img src="jpg/장바구니.jpg" alt="">
-                                       </a>
-                                   </div>
-                               </li>
-                           </ul>
-                           <ul class="planner_view">
-                               <li class="title">
-                                   <a href="">
-                                       <img src="jpg/profil.jpg" alt="">
-                                    </a>
-                                   <span class="traveler">
-                                       <i>traveler<br></i>
-                                       <a href=""><span class="name">손준호</span></a>
-                                   </span>
-                                   
-                                   <span class="date">2018-03-02</span>
-                               </li>
-                               <li>
-                                   <a href="">
-                                       <img src="jpg/travel.jpg" alt="" class="cover_bg">
-                                   </a>
-                               </li>
-                               <li class="travel_title">
-                                   겨울 내일로 여행 - 5일
-                               </li>
-                               <li class="content-center">
-                                  <div class="group3 group">
-                                      <div class="travel_content">
-                                       <span>1일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>2일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>3일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                  </div>
-                                   <div class="group4 group">
-                                        <div class="travel_content">
-                                       <span>4일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>5일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>6일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   </div>
-                               </li>
-                               <li class="round_cover">
-                                   <span class="round bu1 click3" onclick="plannerbtn(3)"></span>
-                                   <span class="round bu2 click4" onclick="plannerbtn(4)"></span>
-                               </li>
-                               <li class="bottom_title">
-                                   <div class="tag">#개춥다 #케이블카 #겨울바다</div>
-                                   <div class="shopping">
-                                       <a href="">
-                                          <br>
-                                           <img src="jpg/장바구니.jpg" alt="">
-                                       </a>
-                                   </div>
-                               </li>
-                           </ul>
-                           <ul class="planner_view">
-                               <li class="title">
-                                   <a href="">
-                                       <img src="jpg/profil.jpg" alt="">
-                                    </a>
-                                   <span class="traveler">
-                                       <i>traveler<br></i>
-                                       <a href=""><span class="name">손준호</span></a>
-                                   </span>
-                                   
-                                   <span class="date">2018-03-02</span>
-                               </li>
-                               <li>
-                                   <a href="">
-                                       <img src="jpg/travel.jpg" alt="" class="cover_bg">
-                                   </a>
-                               </li>
-                               <li class="travel_title">
-                                   겨울 내일로 여행 - 5일
-                               </li>
-                               <li class="content-center">
-                                  <div class="group5 group">
-                                      <div class="travel_content">
-                                       <span>1일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>2일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>3일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                  </div>
-                                   <div class="group6 group">
-                                        <div class="travel_content">
-                                       <span>4일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>5일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>6일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   </div>
-                               </li>
-                               <li class="round_cover">
-                                   <span class="round bu1 click5" onclick="plannerbtn(5)"></span>
-                                   <span class="round bu2 click6" onclick="plannerbtn(6)"></span>
-                               </li>
-                               <li class="bottom_title">
-                                   <div class="tag">#개춥다 #케이블카 #겨울바다</div>
-                                   <div class="shopping">
-                                       <a href="">
-                                          <br>
-                                           <img src="jpg/장바구니.jpg" alt="">
-                                       </a>
-                                   </div>
-                               </li>
-                           </ul>
-                           <ul class="planner_view">
-                               <li class="title">
-                                   <a href="">
-                                       <img src="jpg/profil.jpg" alt="">
-                                    </a>
-                                   <span class="traveler">
-                                       <i>traveler<br></i>
-                                       <a href=""><span class="name">손준호</span></a>
-                                   </span>
-                                   
-                                   <span class="date">2018-03-02</span>
-                               </li>
-                               <li>
-                                   <a href="">
-                                       <img src="jpg/travel.jpg" alt="" class="cover_bg">
-                                   </a>
-                               </li>
-                               <li class="travel_title">
-                                   겨울 내일로 여행 - 5일
-                               </li>
-                               <li class="content-center">
-                                  <div class="group7 group">
-                                      <div class="travel_content">
-                                       <span>1일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>2일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>3일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                  </div>
-                                   <div class="group8 group">
-                                        <div class="travel_content">
-                                       <span>4일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                       <span>5일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   <div class="travel_content">
-                                    <span>6일차-여수<br></span>
-                                       1.빅오쇼<br>
-                                       2.케이블카<br>
-                                       3.레일 바이크<br>
-                                       4.엑스포<br>
-                                       5.아쿠아리움<br>
-                                       6.검은모래해변<br>
-                                   </div>
-                                   </div>
-                               </li>
-                               <li class="round_cover">
-                                   <span class="round bu1 click7" onclick="plannerbtn(7)"></span>
-                                   <span class="round bu2 click8" onclick="plannerbtn(8)"></span>
-                               </li>
-                               <li class="bottom_title">
-                                   <div class="tag">#개춥다 #케이블카 #겨울바다</div>
-                                   <div class="shopping">
-                                       <a href="">
-                                          <br>
-                                           <img src="jpg/장바구니.jpg" alt="">
-                                       </a>
-                                   </div>
-                               </li>
-                           </ul>
-                       </div>
-                       
+                       <div class="plans_list_rows">
+                       <a href=""><ul class="list_item">
+                            <li>
+                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <div class="note_info">
+                                    <h1>2018-07-23 (7일)</h1>
+                                    <h1>수기수기한 여행</h1>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="like">
+                                 <span class="tema">
+                                     체험여행
+                                 </span>
+                                  <span>
+                                      500
+                                  </span>
+                                   <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
+                                    <span>
+                                        11
+                                    </span>
+                                    <img src="./mynote_jpg/footprint.png" alt="" width="20px">
+                                </div>
+                                <div class="route">
+                                    여수-전주-담양-고창-순창-보성
+                                </div>
+                                <div class="person">
+                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
+                                    <span>사공수기</span>
+                                </div>
+                            </li>                    
+                        </ul></a>
+                        <a href=""><ul class="list_item">
+                            <li>
+                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <div class="note_info">
+                                    <h1>2018-07-23 (7일)</h1>
+                                    <h1>수기수기한 여행</h1>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="like">
+                                 <span class="tema">
+                                     체험여행
+                                 </span>
+                                  <span>
+                                      500
+                                  </span>
+                                   <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
+                                    <span>
+                                        11
+                                    </span>
+                                    <img src="./mynote_jpg/footprint.png" alt="" width="20px">
+                                </div>
+                                <div class="route">
+                                    여수-전주-담양-고창-순창-보성
+                                </div>
+                                <div class="person">
+                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
+                                    <span>사공수기</span>
+                                </div>
+                            </li>                    
+                        </ul></a>
+                        <a href=""><ul class="list_item">
+                            <li>
+                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <div class="note_info">
+                                    <h1>2018-07-23 (7일)</h1>
+                                    <h1>수기수기한 여행</h1>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="like">
+                                 <span class="tema">
+                                     체험여행
+                                 </span>
+                                  <span>
+                                      500
+                                  </span>
+                                   <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
+                                    <span>
+                                        11
+                                    </span>
+                                    <img src="./mynote_jpg/footprint.png" alt="" width="20px">
+                                </div>
+                                <div class="route">
+                                    여수-전주-담양-고창-순창-보성
+                                </div>
+                                <div class="person">
+                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
+                                    <span>사공수기</span>
+                                </div>
+                            </li>                    
+                        </ul></a>
+                    </div>
                     <div class="view">
                        <a href="#">
                         View More
