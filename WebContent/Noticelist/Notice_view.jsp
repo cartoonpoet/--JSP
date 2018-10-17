@@ -149,11 +149,7 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                                 }else {%>
                                 	<a href="#">마이페이지</a>
                                    <%}%>
-                                <span></span>
                                 </li>
-                            <li>
-                                <a href="#">여행바구니</a>
-                            </li>
                         </ul>
                     </div>
                     

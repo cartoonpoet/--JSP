@@ -96,7 +96,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
             <section id="head-bot">
                        <div class="section">
                     <div id="logo"> <!-- 로고 -->
-                        <h1><a href="./index.html">
+                        <h1><a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h1>
@@ -480,9 +480,10 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                                <img src="<%=reviews.get(i).getProfile_img() %>" alt="">
                                <span class="nikname"><%=reviews.get(i).getNikname() %></span>
                                 <span class="datetime"><%=reviews.get(i).getDate().substring(0, 19) %></span>
+                                <%if(session.getAttribute("ID")!=null){ %>
                                 <%if(session.getAttribute("ID").toString().compareTo(reviews.get(i).getEmail_id())==0){ %>
                                 <button class="remove" data-num="<%=reviews.get(i).getReview_num()%>">삭제</button>
-                                <%} %>
+                                <%}} %>
                                 <%if(reviews.get(i).getLike_yn()==1){ %>
                                 <img src="./detail_info_img/like2.png" alt="" class="likeimg">
                                 <span class="like"> - 좋아해요</span>
@@ -518,9 +519,10 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                                <img src="<%=reviews.get(i).getProfile_img() %>" alt="">
                                <span class="nikname"><%=reviews.get(i).getNikname() %></span>
                                 <span class="datetime"><%=reviews.get(i).getDate().substring(0, 19) %></span>
+                                <%if(session.getAttribute("ID")!=null){ %>
                                 <%if(session.getAttribute("ID").toString().compareTo(reviews.get(i).getEmail_id())==0){ %>
                                 <button class="remove" data-num="<%=reviews.get(i).getReview_num()%>">삭제</button>
-                                <%} %>
+                                <%}} %>
                                 <%if(reviews.get(i).getLike_yn()==1){ %>
                                 <img src="./detail_info_img/like2.png" alt="" class="likeimg">
                                 <span class="like"> - 좋아해요</span>
