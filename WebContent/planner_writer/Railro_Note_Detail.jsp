@@ -91,8 +91,8 @@ if(cookies!=null) {
                     </div>
                     
                     <div class="snsicon"> <!-- 상단아이콘 -->
-                       <form action="./SearchAction.se" method="get" id="search_form">
-                           <input type="text" id="search_input" placeholder="통합검색" name="SEARCH_WORD">
+                       <form action="./All_Search.se" method="get" id="search_form">
+                           <input type="text" id="search_input" placeholder="통합검색" name="search_word">
                            <input type="submit" id="search_btn" value="검색">
                        </form>
                         <a href="#" class="sns1">안드로이드</a>

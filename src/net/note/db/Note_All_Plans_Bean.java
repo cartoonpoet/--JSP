@@ -18,7 +18,14 @@ public class Note_All_Plans_Bean {
     String memo;//DB
     int day_orders;//DB
     int orders;//DB
+    String email_id;
     
+	public String getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
 	public int getContent_ID() {
 		return Content_ID;
 	}

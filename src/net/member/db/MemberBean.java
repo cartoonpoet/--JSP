@@ -1,7 +1,7 @@
 package net.member.db;
 
 
-//È¸¿øÁ¤º¸ µ¥ÀÌÅÍ ÀúÀå¼Ò
+//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 public class MemberBean {
     private String MEMBER_ID;
     private String MEMBER_PW;
@@ -11,7 +11,20 @@ public class MemberBean {
     private String MEMBER_GENDER; 
     private String IMG_NAME;
     private int STAMP_CNT;
+    int Note_Count, Following_YN;
     
+	public int getNote_Count() {
+		return Note_Count;
+	}
+	public void setNote_Count(int note_Count) {
+		Note_Count = note_Count;
+	}
+	public int getFollowing_YN() {
+		return Following_YN;
+	}
+	public void setFollowing_YN(int following_YN) {
+		Following_YN = following_YN;
+	}
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
 	}

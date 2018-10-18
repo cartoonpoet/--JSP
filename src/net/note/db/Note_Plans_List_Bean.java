@@ -2,8 +2,20 @@ package net.note.db;
 
 public class Note_Plans_List_Bean {
 	int Note_ID, View, Like, day; //노트 번호, 조회수, 좋아요 수, 일 수
-	String Travel_Day, Note_Name, Tema_Name, Area, Name, img; //출발일, 노트명, 테마명, 지역, 작성자명, 썸네일
+	String Travel_Day, Note_Name, Tema_Name, Area, Name, img, email_id, profileimg; //출발일, 노트명, 테마명, 지역, 작성자명, 썸네일
 	
+	public String getProfileimg() {
+		return profileimg;
+	}
+	public void setProfileimg(String profileimg) {
+		this.profileimg = profileimg;
+	}
+	public String getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
 	public String getImg() {
 		return img;
 	}

@@ -26,7 +26,7 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         /*
          * 페이지 이동부분
          */
-        if(command.equals("/SearchAction.se")) { //검색 액션
+        if(command.equals("/SearchAction.se")) { //검색 액션(망작)
         	action=new SearchAction();
         	try {
         		forward=action.execute(request, response);
@@ -79,6 +79,46 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
+        else if(command.equals("/All_Search.se")){//통합검색
+        	action=new All_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Tour_Search.se")){//관광지 필터 검색
+        	action=new Tour_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+//        else if(command.equals("/Food_Search.se")){//음식점 필터 검색
+//        	action=new Food_Search_Action();
+//        	try {
+//        		forward=action.execute(request, response);
+//        	}catch(Exception e) {
+//        		e.printStackTrace();
+//        	}
+//        }
+//        else if(command.equals("/RailroNote_Search.se")){//노트 필터 검색
+//        	action=new RailroNote_Search_Action();
+//        	try {
+//        		forward=action.execute(request, response);
+//        	}catch(Exception e) {
+//        		e.printStackTrace();
+//        	}
+//        }
+//        else if(command.equals("/Member_Search.se")){//내일러 필터 검색
+//        	action=new Member_Search_Action();
+//        	try {
+//        		forward=action.execute(request, response);
+//        	}catch(Exception e) {
+//        		e.printStackTrace();
+//        	}
+//        }
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

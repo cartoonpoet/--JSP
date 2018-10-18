@@ -99,7 +99,7 @@ $(document).ready(function(){
         			if(data.reviews[i].files.length!=0){
         			review+='<div class="imgs">';
         				for(var o=0; o<data.reviews[i].files.length; o++){
-        					$.each(data.reviews[i].tags[p], function(key, value){
+        					$.each(data.reviews[i].files[o], function(key, value){
         						review+='<img src="'+value+'" alt="" onclick="pop(this)">';
         					});
         				}

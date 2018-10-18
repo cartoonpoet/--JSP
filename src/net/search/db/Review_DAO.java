@@ -174,7 +174,7 @@ public class Review_DAO extends DB_Connection{
 	}
 	public JSONObject getAdditional_Review(int contentid, int contenttypeid, int rownum) {
 		JSONObject result=new JSONObject();
-		String sql="SELECT * FROM review WHERE ROWNUM>"+(rownum-5)+" AND ROWNUM<="+rownum+" and content_id=? and content_type_id=? ORDER BY date_time desc";
+		String sql="SELECT * FROM review WHERE content_id=? and content_type_id=? ORDER BY date_time desc limit "+(rownum-5)+",5";
 		ArrayList<Review_Bean> review_list=new ArrayList<Review_Bean>();
 		
 		try {

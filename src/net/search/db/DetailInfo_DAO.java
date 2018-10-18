@@ -341,7 +341,7 @@ public class DetailInfo_DAO extends DB_Connection {
 				analysis.setTotal_review(rs.getInt("cnt"));
 			}
 			
-			analysis.setLike_percent((analysis.getTotal_like()/analysis.getTotal_review())*100);
+			//analysis.setLike_percent((analysis.getTotal_like()/analysis.getTotal_review())*100);
 		}catch(Exception ex) {
 			System.out.println("getAnalysis_Result ERROR : "+ex);
 		}finally {
