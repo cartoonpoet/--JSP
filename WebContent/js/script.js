@@ -1,4 +1,11 @@
 $(document).ready(function(){ //서브메뉴 애니메이션 부분
+	$('#search_form').submit(function(){
+		if($('#search_input').val().length==0){
+			alert('검색어를 입력해주세요.');
+			return false;
+		}
+		return true;
+	})
 	$('.float .hoverbg dd a').on('click', function(){
 		var text=$(this).text();
 		if(text=='새 플래너 작성'){

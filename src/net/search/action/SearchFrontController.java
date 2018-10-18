@@ -95,30 +95,31 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-//        else if(command.equals("/Food_Search.se")){//음식점 필터 검색
-//        	action=new Food_Search_Action();
-//        	try {
-//        		forward=action.execute(request, response);
-//        	}catch(Exception e) {
-//        		e.printStackTrace();
-//        	}
-//        }
-//        else if(command.equals("/RailroNote_Search.se")){//노트 필터 검색
-//        	action=new RailroNote_Search_Action();
-//        	try {
-//        		forward=action.execute(request, response);
-//        	}catch(Exception e) {
-//        		e.printStackTrace();
-//        	}
-//        }
-//        else if(command.equals("/Member_Search.se")){//내일러 필터 검색
-//        	action=new Member_Search_Action();
-//        	try {
-//        		forward=action.execute(request, response);
-//        	}catch(Exception e) {
-//        		e.printStackTrace();
-//        	}
-//        }
+        else if(command.equals("/Food_Search.se")){//음식점 필터 검색
+        	action=new Food_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/RailroNote_Search.se")){//노트 필터 검색
+        	action=new RailroNote_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Member_Search.se")){//내일러 필터 검색
+        	action=new Member_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

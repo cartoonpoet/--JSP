@@ -2,8 +2,14 @@ package net.note.db;
 
 public class Note_Plans_List_Bean {
 	int Note_ID, View, Like, day; //노트 번호, 조회수, 좋아요 수, 일 수
-	String Travel_Day, Note_Name, Tema_Name, Area, Name, img, email_id, profileimg; //출발일, 노트명, 테마명, 지역, 작성자명, 썸네일
+	String Travel_Day, Note_Name, Tema_Name, Area, Name, img, email_id, profileimg, totalcount; //출발일, 노트명, 테마명, 지역, 작성자명, 썸네일
 	
+	public String getTotalcount() {
+		return totalcount;
+	}
+	public void setTotalcount(String totalcount) {
+		this.totalcount = totalcount;
+	}
 	public String getProfileimg() {
 		return profileimg;
 	}

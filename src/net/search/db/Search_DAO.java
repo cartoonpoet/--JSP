@@ -594,4 +594,173 @@ public class Search_DAO extends DB_Connection{
 		}
 		return data;
 	}
+	public int Filter_Note_Count(String keyword) {
+		int totalcount = 0;
+		try {
+			String sql = "select count(*) as note_cnt from note_info1 where note_name LIKE ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				totalcount = rs.getInt("note_cnt");
+			}
+		} catch (Exception e) {
+			System.out.println("Filter_RailroNote_Search ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return totalcount;
+	}
+	public ArrayList<Note_Plans_List_Bean> Filter_RailroNote_Search(String keyword, int page_num, int count){
+		ArrayList<Note_Plans_List_Bean> data=new ArrayList<Note_Plans_List_Bean>();
+		try {
+			
+			String sql="select * from note_info1 where note_name LIKE ? limit "+(page_num-1)*9+",9";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				data.add(new Note_Plans_List_Bean());
+				data.get(data.size()-1).setNote_ID(rs.getInt("travel_id")); //노트 고유 번호 
+				data.get(data.size()-1).setTravel_Day(rs.getString("travel_start_day")); //출발일
+				data.get(data.size()-1).setNote_Name(rs.getString("note_name")); //노트명
+				data.get(data.size()-1).setTema_Name(rs.getString("travel_tema")); //테마명
+				data.get(data.size()-1).setView(rs.getInt("note_view")); //조회수
+				data.get(data.size()-1).setDay(rs.getInt("travel_day")); //일수
+				data.get(data.size()-1).setImg(rs.getString("img")); //이미지
+				data.get(data.size()-1).setEmail_id(rs.getString("email_id"));
+			}
+			
+			for(int i=0; i<data.size(); i++) {
+				sql="select * from member where email_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, data.get(i).getEmail_id());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data.get(i).setName(rs.getString("nikname"));
+					data.get(i).setProfileimg(rs.getString("imgfile"));
+				}
+			}
+			
+			for(int i=0; i<data.size(); i++) {
+				
+				sql="select * from note_travel_area where travel_id=? order by travel_area_day asc";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, data.get(i).getNote_ID());
+				rs=pstmt.executeQuery();
+				
+				int cnt=0; 
+				while(rs.next()) {
+					if(cnt==0) {
+						data.get(i).setArea(rs.getString("travel_area_name"));
+					}
+					else {
+						data.get(i).PlusArea("-"+rs.getString("travel_area_name"));
+					}
+					cnt++;
+				}
+			}
+			
+			for(int i=0; i<data.size(); i++) {
+				sql="select count(*) AS total from note_like_cnt where travel_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, data.get(i).getNote_ID());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data.get(i).setLike(rs.getInt("total"));
+				}
+			}
+		}catch(Exception e) {
+			System.out.println("Filter_RailroNote_Search ERROR : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		return data;
+	}
+	public int getMemberSize(String keyword) {
+		int totalcount=0;
+		try {
+			String sql="select count(*) as cnt from member where nikname LIKE ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				totalcount=rs.getInt("cnt");
+			}
+		}catch(Exception e) {
+			System.out.println("getMemberSize ERROR : "+e);
+		}finally {
+			if(rs!=null) try{rs.close();}catch(SQLException ex){}
+	        if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		}
+		return totalcount;
+	}
+
+	public ArrayList<MemberBean> getMemberList(String keyword, int totalcount, int page_num) {
+		ArrayList<MemberBean> Member = new ArrayList<MemberBean>();
+		try {
+
+			String sql = "select * from member where nikname LIKE ? limit " +(page_num - 1)*12 + ",12";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Member.add(new MemberBean());
+				Member.get(Member.size() - 1).setMEMBER_NIKNAME(rs.getString("nikname"));
+				Member.get(Member.size() - 1).setIMG_NAME(rs.getString("imgfile"));
+				Member.get(Member.size() - 1).setMEMBER_ID(rs.getString("email_id"));
+			}
+
+			for (int i = 0; i < Member.size(); i++) {
+				sql = "select count(*) as note_cnt from note_info1 where email_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, Member.get(i).getMEMBER_ID());
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					Member.get(i).setNote_Count(rs.getInt("note_cnt"));
+				}
+
+				sql = "select count(*) as follow_cnt from member_follow where email_id=? and follow_id=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, Member.get(i).getMEMBER_ID());
+				pstmt.setString(2, Member.get(i).getMEMBER_ID());
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					Member.get(i).setFollowing_YN(rs.getInt("follow_cnt"));
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getMemberList ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return Member;
+	}
 }

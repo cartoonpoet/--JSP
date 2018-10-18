@@ -101,7 +101,7 @@ if(cookies!=null) {
             <section id="head-bot">
                        <div class="section">
                     <div id="logo"> <!-- 로고 -->
-                        <h1><a href="index.html">
+                        <h1><a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h1>
@@ -169,11 +169,11 @@ if(cookies!=null) {
                 </div>
             </div>
             <ul class="itemlist">
-                <li class="itembox selected"><a href="#">전체</a></li>
+                <li class="itembox selected"><a href="./All_Search.se?search_word=<%=keyword%>">전체</a></li>
                 <li class="itembox"><a href="./Tour_Search.se?search_word=<%=keyword%>&page_num=1">관광지</a></li>
-                <li class="itembox"><a href="#">음식점</a></li>
-                <li class="itembox"><a href="#">내일로 노트</a></li>
-                <li class="itembox"><a href="#">내일러</a></li>
+                <li class="itembox"><a href="./Food_Search.se?search_word=<%=keyword%>&page_num=1">음식점</a></li>
+                <li class="itembox"><a href="./RailroNote_Search.se?search_word=<%=keyword%>&page_num=1">내일로 노트</a></li>
+                <li class="itembox"><a href="./Member_Search.se?search_word=<%=keyword%>&page_num=1">내일러</a></li>
             </ul>
             <div class="Contents">
                 <div class="Tourist">
@@ -202,14 +202,14 @@ if(cookies!=null) {
                     </a>
                     <%} %>
                     <%if(Tour.size()==0){ %>
-                   	 관광지 정보가 없습니다.
+                   	 <h1>관광지 정보가 없습니다.</h1>
                     <%} %>
                 </div>
                 <div class="Tourist Restaurant">
                     <div class="Tourist_Title">
                         <h1>음식점</h1>
                         <%if(Food.size()!=0){ %>
-                        <a href="#"><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
+                        <a href="./Food_Search.se?search_word=<%=keyword%>&page_num=1"><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
                         <%} %>
                    </div>
                    <%for(int i=0; i<Food.size(); i++){ %>
@@ -231,14 +231,14 @@ if(cookies!=null) {
                     </a>
                     <%} %>
                     <%if(Food.size()==0){ %>
-                    	음식점 정보가 없습니다.
+                    	<h1>음식점 정보가 없습니다.</h1>
                     <%} %>
                 </div>
                 <div class="Travel_Course Tourist">
                     <div class="Tourist_Title">
                         <h1>내일로 노트</h1>
                         <%if(Railro_Note.size()!=0){ %>
-                        <a href=""><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
+                        <a href="./RailroNote_Search.se?search_word=<%=keyword%>&page_num=1"><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
                         <%} %>
                    </div>
                    
@@ -277,7 +277,7 @@ if(cookies!=null) {
                         </ul></a>
                         <%} %>
                         <%if(Railro_Note.size()==0){ %>
-                        	내일로 노트 정보가 없습니다.
+                        	<h1>내일로 노트 정보가 없습니다.</h1>
                         <%} %>
                     </div>
                     </div>
@@ -285,7 +285,7 @@ if(cookies!=null) {
                    <div class="Tourist_Title">
                         <h1>내일러</h1>
                         <%if(Member.size()!=0){ %>
-                        <a href="#"><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
+                        <a href="./Member_Search.se?search_word=<%=keyword%>&page_num=1"><h2>더보기<img src="./jpg/plus.png" alt=""></h2></a>
                         <%} %>
                    </div>
                    <%for(int i=0; i<Member.size(); i++){ %>
@@ -318,7 +318,7 @@ if(cookies!=null) {
                     </a>
 					<%} %>
 					<%if(Member.size()==0){ %>
-					내일러 정보가 없습니다.
+					<h1>내일러 정보가 없습니다.</h1>
 					<%} %>
                 </div>
             </div>
@@ -351,13 +351,12 @@ if(cookies!=null) {
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
-                            <img src="jpg/RailroTour%20LOGO.png" alt="">
+                            <a href="./Main.me">
+                            <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규, 이슬기, 김동기<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.

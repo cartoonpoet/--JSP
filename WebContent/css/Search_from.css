@@ -373,6 +373,7 @@
     border: 1px solid #ccc;
     float: left;
     margin-left: 20px;
+    margin-bottom:30px;
 }
 .list_item li:first-child{
     overflow: hidden;

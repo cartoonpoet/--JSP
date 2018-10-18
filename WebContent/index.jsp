@@ -617,9 +617,9 @@ if(cookies!=null) {
                         </ul></a>
                     </div>
                     <div class="view">
-                       <a href="#">
+                       <!-- <a href="#">
                         View More
-                        </a>
+                        </a> -->
                     </div>
                 </div>
 
@@ -654,13 +654,12 @@ if(cookies!=null) {
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
+                            <a href="./Main.me">
                             <img src="jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규, 이슬기, 김동기<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
@@ -677,7 +676,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
         </footer>
     </div>
     
-    <script src="js/script.js?ver=4"></script>
+    <script src="js/script.js?ver=5"></script>
     <script>
      $(function() {
       var count = $('#rank-list li').length;

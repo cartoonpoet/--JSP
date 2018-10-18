@@ -23,7 +23,8 @@ if(cookies!=null) {
    }
    ArrayList<Tour_Food_Bean> Tour=(ArrayList<Tour_Food_Bean>) request.getAttribute("data");
    String keyword=(String)request.getAttribute("keyword");
-   int page_num=(int)request.getAttribute("page_num");
+   //int page_num=(int)request.getAttribute("page_num");
+   int page_num=(request.getParameter("page_num") == null) ? 0 : Integer.parseInt(request.getParameter("page_num"));
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@ if(cookies!=null) {
                     <div class="topnavi"> <!-- 메뉴명 -->
                         <ul>
                             <li>
-                                <a href="#">홈으로</a>
+                                <a href="./Main.me">홈으로</a>
                                 <span></span>
                             </li>
                             <li>
@@ -57,16 +58,29 @@ if(cookies!=null) {
                                 <span></span>
                             </li>
                             <li>
-                                <a href="./html/loginform.html">로그인</a>
+                                <%if (ID == null) {
+                                   if(session.getAttribute("id")==null){%>
+                                   		<a href="./MemberLogin.me">로그인</a>
+                                   <%} else { %>
+                                   		<a href="./MemberLogoutAction.me">로그아웃</a>
+                        		<%} 
+                                }else {%>
+                                   		<a href="./MemberLogoutAction.me">로그아웃</a>
+                                  <%}%>
                                 <span></span>
                                 </li>
                             <li>
-                                <a href="./html/sign_up_from.html">회원가입</a>
-                                <span></span>
+								<%if(ID == null) {
+                                   if(session.getAttribute("id")==null){%>
+                                   		<a href="./MemberJoin1.me">회원가입</a>
+                        			<%}
+                                else{%>
+                                   <a href="#">마이페이지</a>
+                                <%}
+                                }else {%>
+                                	<a href="#">마이페이지</a>
+                                   <%}%>
                                 </li>
-                            <li>
-                                <a href="#">여행바구니</a>
-                            </li>
                         </ul>
                     </div>
                     
@@ -85,7 +99,7 @@ if(cookies!=null) {
             <section id="head-bot">
                        <div class="section">
                     <div id="logo"> <!-- 로고 -->
-                        <h1><a href="index.html">
+                        <h1><a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h1>
@@ -154,10 +168,10 @@ if(cookies!=null) {
             </div>
             <ul class="itemlist">
                 <li class="itembox"><a href="./All_Search.se?search_word=<%=keyword%>">전체</a></li>
-                <li class="itembox selected"><a href="./Tour_Search.se?search_word=<%=keyword%>">관광지</a></li>
-                <li class="itembox"><a href="#">음식점</a></li>
-                <li class="itembox"><a href="#">내일로 노트</a></li>
-                <li class="itembox"><a href="#">내일러</a></li>
+                <li class="itembox selected"><a href="./Tour_Search.se?search_word=<%=keyword%>&page_num=1">관광지</a></li>
+                <li class="itembox"><a href="./Food_Search.se?search_word=<%=keyword%>&page_num=1">음식점</a></li>
+                <li class="itembox"><a href="./RailroNote_Search.se?search_word=<%=keyword%>&page_num=1">내일로 노트</a></li>
+                <li class="itembox"><a href="./Member_Search.se?search_word=<%=keyword%>&page_num=1">내일러</a></li>
             </ul>
             <div class="Contents">
                 <div class="Tourist">
@@ -183,10 +197,13 @@ if(cookies!=null) {
                     </ul>
                     </a>
                     <%} %>
-                    
+                    <%if(Tour.size()==0){ %>
+                    <h1>관광지 정보가 없습니다.</h1>
+                    <%} %>
                 </div>
                 
                 <div class="page_num_group">
+                <%if(Tour.size()!=0){ %>
                 	<%if(page_num-1<1){ %>
                 	<a href="#" style="display: none">이전</a>
                 	<%}
@@ -224,7 +241,7 @@ if(cookies!=null) {
 						<a href="./Tour_Search.se?search_word=<%=keyword %>&page_num=<%=page_num+1%>" style="display: none">다음</a>
 						<%} %>
                     <%} %>
-
+				<%} %>
                 </div>
             </div>
         </section>
@@ -256,13 +273,12 @@ if(cookies!=null) {
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
-                            <img src="jpg/RailroTour%20LOGO.png" alt="">
+                            <a href="./Main.me">
+                            <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규, 이슬기, 김동기<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
