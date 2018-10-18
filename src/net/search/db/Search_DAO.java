@@ -763,4 +763,49 @@ public class Search_DAO extends DB_Connection{
 		}
 		return Member;
 	}
+	
+	public void Popular_keyword(String keyword) {
+		try {
+
+			String sql = "select count(*) as cnt from popular_searches where keyword=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, keyword);
+			rs = pstmt.executeQuery();
+			
+			int count=0;
+			
+			while (rs.next()) {
+				count=rs.getInt("cnt");
+			}
+			
+			if(count!=0) {
+				int change=0;
+				sql="update popular_searches set cnt=cnt+1 where keyword=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				change=pstmt.executeUpdate();
+			}
+			else {
+				int insert=0;
+				sql="insert into popular_searches values(?, 1)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				insert=pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Popular_keyword ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+	}
 }

@@ -93,4 +93,7 @@
 
 </security-constraint>
 -->
+<welcome-file-list>
+    <welcome-file>forwarding.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

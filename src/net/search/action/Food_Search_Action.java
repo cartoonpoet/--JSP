@@ -23,7 +23,7 @@ public class Food_Search_Action implements Action {
 		System.out.println("음식점 검색어 : "+SearchWord);
 		
 		Search_DAO search_dao=new Search_DAO();
-		
+		search_dao.Popular_keyword(SearchWord);
 		ArrayList<Tour_Food_Bean> Food=new ArrayList<Tour_Food_Bean>();
 
 		Food=search_dao.Filter_Search(page_num, SearchWord, 39);

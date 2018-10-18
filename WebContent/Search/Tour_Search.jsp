@@ -54,7 +54,7 @@ if(cookies!=null) {
                                 <span></span>
                             </li>
                             <li>
-                                <a href="#">즐겨찾기</a>
+                                <a href="#" id="favorite">즐겨찾기</a>
                                 <span></span>
                             </li>
                             <li>
@@ -90,9 +90,9 @@ if(cookies!=null) {
                            <input type="hidden" value="1" name="page_num">
                            <input type="submit" id="search_btn" value="검색">
                        </form>
-                        <a href="#" class="sns1">안드로이드</a>
-                        <a href="#" class="sns2">카페</a>
-                        <a href="#" class="sns3">코레일</a>
+                         <!-- <a href="#" class="sns1">안드로이드</a> -->
+                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
+                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>

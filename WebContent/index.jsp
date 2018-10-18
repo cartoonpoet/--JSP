@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="net.note.db.Note_Plans_List_Bean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
@@ -23,7 +27,14 @@ if(cookies!=null) {
       session.setAttribute("ID", ID);
       session.setAttribute("PW", PW);
    }
-   
+	ArrayList<String> keyword=(ArrayList<String>) request.getAttribute("keyword");
+	
+	ArrayList<Note_Plans_List_Bean> RealTime_Railro_Note=(ArrayList<Note_Plans_List_Bean>) request.getAttribute("RealTime_Railro_Note");
+	ArrayList<Note_Plans_List_Bean> Recommend_Railro_Note=(ArrayList<Note_Plans_List_Bean>) request.getAttribute("Recommend_Railro_Note");
+	Date today=new Date();
+	SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
+	SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +42,7 @@ if(cookies!=null) {
     <meta charset="UTF-8">
     <title>Railro Tour - 전라도편</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css?ver=2">
+    <link rel="stylesheet" href="./css/style.css?ver=4">
     <link rel="stylesheet" href="./bxslide/dist/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -86,7 +97,7 @@ if(cookies!=null) {
                                 <span></span>
                             </li>
                             <li>
-                                <a href="#">즐겨찾기</a>
+                                <a href="#" id="favorite">즐겨찾기</a>
                                 <span></span>
                             </li>
                             <li>
@@ -121,9 +132,9 @@ if(cookies!=null) {
                            <input type="text" id="search_input" placeholder="통합검색" name="search_word">
                            <input type="submit" id="search_btn" value="검색">
                        </form>
-                        <a href="#" class="sns1">안드로이드</a>
-                        <a href="#" class="sns2">카페</a>
-                        <a href="#" class="sns3">코레일</a>
+                        <!-- <a href="#" class="sns1">안드로이드</a> -->
+                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
+                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>
@@ -251,107 +262,15 @@ if(cookies!=null) {
                                         <dt>실시간 급상승 검색어</dt>
                                         <dd>
                                             <ol>
+                                            	<%for(int i=0; i<keyword.size(); i++){ %>
                                                 <li>
-                                                   <a href="#">
-                                                        <span class="rank-color">&nbsp;1</span>
+                                                   <a href="./All_Search.se?search_word=<%=keyword.get(i)%>">
+                                                        <span class="rank-color">&nbsp;<%=i+1 %></span>
                                                         &nbsp;
-                                                        <script>
-                                                            var top1='테마여행';
-                                                            document.write(top1);
-                                                       </script>
+                                                        <%=keyword.get(i) %>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;2</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top2='여수 특산물';
-                                                            document.write(top2);
-                                                       </script>
-                                                    </a>
-                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;3</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top3='영화 촬영지';
-                                                            document.write(top3);
-                                                       </script>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;4</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top4='5위';
-                                                            document.write(top4);
-                                                       </script>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;5</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top5='여수 여행지';
-                                                            document.write(top5);
-                                                        </script>
-                                                        
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;6</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top6='6위';
-                                                            document.write(top6);
-                                                       </script>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;7</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top7='7위';
-                                                            document.write(top7);
-                                                       </script>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;8</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top8='8위';
-                                                            document.write(top8);
-                                                       </script>
-                                                     </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">&nbsp;9</span>
-                                                        &nbsp;
-                                                        <script>
-                                                            var top9='9위';
-                                                            document.write(top9);
-                                                       </script>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="rank-color">10</span>
-                                                         &nbsp;
-                                                         <script>
-                                                            var top10='10위';
-                                                            document.write(top10);
-                                                       </script>
-                                                    </a>
-                                                </li>
+                                                <%} %>
                                             </ol>
                                         </dd>
                                     </dl>
@@ -359,17 +278,10 @@ if(cookies!=null) {
                                       <div class="hoverrank-list">
                                         <ol>
                                             <li class="real_time_rank">실시간 인기 검색어</li>
-                                            <li class="top"><a href="#"><b>1</b> <script>document.write(top1);</script></a></li>
-                                            <li class="top"><a href="#"><b>2</b> <script>document.write(top2);</script></a></li>
-                                            <li class="top"><a href="#"><b>3</b> <script>document.write(top3);</script></a></li>
-                                            <li class="top"><a href="#"><b>4</b> <script>document.write(top4);</script></a></li>
-                                            <li class="top"><a href="#"><b>5</b> <script>document.write(top5);</script></a></li>
-                                            <li class="top"><a href="#"><b>6</b> <script>document.write(top6);</script></a></li>
-                                            <li class="top"><a href="#"><b>7</b> <script>document.write(top7);</script></a></li>
-                                            <li class="top"><a href="#"><b>8</b> <script>document.write(top8);</script></a></li>
-                                            <li class="top"><a href="#"><b>9</b> <script>document.write(top9);</script></a></li>
-                                            <li class="top"><a href="#"><b>10</b> <script>document.write(top10);</script></a></li>
-                                            <li class="last_update">2018.05.02. 19:30:00 마지막 업데이트</li>
+                                            <%for (int i=0; i<keyword.size(); i++){ %>
+                                            <li class="top"><a href="./All_Search.se?search_word=<%=keyword.get(i)%>"><b><%=i+1 %></b> <%=keyword.get(i) %></a></li>
+                                            <%} %>
+                                            <li class="last_update"><%=date.format(today) %> <%=time.format(today) %> 마지막 업데이트</li>
                                        </ol>
                                   </div>
                             </div>
@@ -470,39 +382,24 @@ if(cookies!=null) {
                             	</a>-->
                             	<span class="line"></span>
                            </div>
-                            
+                            <%for(int i=0; i<RealTime_Railro_Note.size(); i++){ %>
                             <div class="timeline1">
-                               <a href="#">
-                                   <img src="jpg/timeline1.jpg" alt="">
+                               <a href="./NoteDetail.pl?num=<%=RealTime_Railro_Note.get(i).getNote_ID()%>" target="_blank">
+                                   <img src="<%=RealTime_Railro_Note.get(i).getImg() %>" alt="" width="81px" height="81px">
                                </a>
                                 <div class="bubble">
-                                   <a href="#">
-                                        <div class="text">바다로 가즈아~~!</div>
+                                   <a href="./NoteDetail.pl?num=<%=RealTime_Railro_Note.get(i).getNote_ID()%>" target="_blank">
+                                        <div class="text"><%=RealTime_Railro_Note.get(i).getNote_Name() %></div>
                                    </a>
                                    <span class="travel-bar">
                                        <i>Traveler</i>
                                        <span class="traveler">
-                                           &nbsp;권재인
+                                           &nbsp;<%=RealTime_Railro_Note.get(i).getName() %>
                                        </span>
                                    </span>
                                 </div>
                             </div>
-    						<div class="timeline1">
-                               <a href="#">
-                                   <img src="jpg/timeline1.jpg" alt="">
-                               </a>
-                                <div class="bubble">
-                                   <a href="#">
-                                        <div class="text">바다로 가즈아~~!</div>
-                                   </a>
-                                   <span class="travel-bar">
-                                       <i>Traveler</i>
-                                       <span class="traveler">
-                                           &nbsp;권재인
-                                       </span>
-                                   </span>
-                                </div>
-                            </div>
+    						<%} %>
                         </section>
                         
                     </section>
@@ -522,105 +419,45 @@ if(cookies!=null) {
                 </div>
                 <div id="intro-banner" class="section">
                        <div class="plans_list_rows">
-                       <a href=""><ul class="list_item">
+                       <%for(int i=0; i<Recommend_Railro_Note.size(); i++){ %>
+                       <a href="./NoteDetail.pl?num=<%=Recommend_Railro_Note.get(i).getNote_ID()%>" target="_blank"><ul class="list_item">
                             <li>
-                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
+                                <img src="<%=Recommend_Railro_Note.get(i).getImg() %>" alt="" width="346px" height="200px">
                                 <div class="note_info">
-                                    <h1>2018-07-23 (7일)</h1>
-                                    <h1>수기수기한 여행</h1>
+                                    <h1><%=Recommend_Railro_Note.get(i).getTravel_Day() %> (<%=Recommend_Railro_Note.get(i).getDay() %>일)</h1>
+                                    <h1><%=Recommend_Railro_Note.get(i).getNote_Name() %></h1>
                                 </div>
                             </li>
                             <li>
                                 <div class="like">
                                  <span class="tema">
-                                     체험여행
+                                    	<%=Recommend_Railro_Note.get(i).getTema_Name() %>여행
                                  </span>
                                   <span>
-                                      500
+                                      <%=Recommend_Railro_Note.get(i).getView() %>
                                   </span>
                                    <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
                                     <span>
-                                        11
+                                        <%=Recommend_Railro_Note.get(i).getLike() %>
                                     </span>
                                     <img src="./mynote_jpg/footprint.png" alt="" width="20px">
                                 </div>
                                 <div class="route">
-                                    여수-전주-담양-고창-순창-보성
+                                    <%=Recommend_Railro_Note.get(i).getArea() %>
                                 </div>
                                 <div class="person">
-                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
-                                    <span>사공수기</span>
+                                    <img src="<%=Recommend_Railro_Note.get(i).getProfileimg() %>" alt="" width="20px">
+                                    <span><%=Recommend_Railro_Note.get(i).getName() %></span>
                                 </div>
                             </li>                    
                         </ul></a>
-                        <a href=""><ul class="list_item">
-                            <li>
-                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
-                                <div class="note_info">
-                                    <h1>2018-07-23 (7일)</h1>
-                                    <h1>수기수기한 여행</h1>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="like">
-                                 <span class="tema">
-                                     체험여행
-                                 </span>
-                                  <span>
-                                      500
-                                  </span>
-                                   <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
-                                    <span>
-                                        11
-                                    </span>
-                                    <img src="./mynote_jpg/footprint.png" alt="" width="20px">
-                                </div>
-                                <div class="route">
-                                    여수-전주-담양-고창-순창-보성
-                                </div>
-                                <div class="person">
-                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
-                                    <span>사공수기</span>
-                                </div>
-                            </li>                    
-                        </ul></a>
-                        <a href=""><ul class="list_item">
-                            <li>
-                                <img src="./note_plans_list/seoul.jpg" alt="" width="346px" height="200px">
-                                <div class="note_info">
-                                    <h1>2018-07-23 (7일)</h1>
-                                    <h1>수기수기한 여행</h1>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="like">
-                                 <span class="tema">
-                                     체험여행
-                                 </span>
-                                  <span>
-                                      500
-                                  </span>
-                                   <img src="./note_plans_list_jpg/eye.png" alt="" width="20px">
-                                    <span>
-                                        11
-                                    </span>
-                                    <img src="./mynote_jpg/footprint.png" alt="" width="20px">
-                                </div>
-                                <div class="route">
-                                    여수-전주-담양-고창-순창-보성
-                                </div>
-                                <div class="person">
-                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
-                                    <span>사공수기</span>
-                                </div>
-                            </li>                    
-                        </ul></a>
+                        <%} %>
                     </div>
-                    <div class="view">
-                       <!-- <a href="#">
+                      <!-- <div class="view">
+                     <a href="#">
                         View More
-                        </a> -->
-                    </div>
+                        </a> 
+                    </div>-->
                 </div>
 
             </section>

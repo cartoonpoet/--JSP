@@ -25,6 +25,8 @@ public class All_Search_Action implements Action {
 		
 		Search_DAO search_dao=new Search_DAO();
 		
+		search_dao.Popular_keyword(SearchWord);
+		
 		ArrayList<Tour_Food_Bean> Tour=new ArrayList<Tour_Food_Bean>();
 		ArrayList<Tour_Food_Bean> Food=new ArrayList<Tour_Food_Bean>();
 		ArrayList<Note_Plans_List_Bean> Railro_Note=new ArrayList<Note_Plans_List_Bean>();

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
+import net.search.action.Detail_Info_Search_Action;
 
 
 public class MemberFrontController extends HttpServlet implements Servlet{
@@ -36,10 +37,21 @@ public class MemberFrontController extends HttpServlet implements Servlet{
         	forward.setPath("./member/sign_up_Form_2.jsp");
         }
         else if(command.equals("/Main.me")) { //MainPage
-        	forward=new ActionForward();
-        	forward.setRedirect(false);
-        	forward.setPath("./index.jsp");
+        	action=new Main_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
         }
+//        else if(command.equals("/index.me")){ //데이터 가져오기
+//        	action=new Main_Action();
+//        	try {
+//        		forward=action.execute(request, response);
+//        	}catch(Exception e) {
+//        		e.printStackTrace();
+//        	}
+//        }
         else if(command.equals("/MemberLogin.me")) {//LoginPage
         	forward=new ActionForward();
         	forward.setRedirect(false);

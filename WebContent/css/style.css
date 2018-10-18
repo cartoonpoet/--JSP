@@ -872,6 +872,9 @@ input{
     padding-bottom: 5px;
     padding-top: 5px;
     color: #5c5c5c;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 .list_item .person{
     padding: 10px;

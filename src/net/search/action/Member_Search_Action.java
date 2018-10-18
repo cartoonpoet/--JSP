@@ -23,7 +23,7 @@ public class Member_Search_Action implements Action {
 		System.out.println("내일로 노트 검색어 : "+SearchWord);
 		
 		Search_DAO search_dao=new Search_DAO();
-		
+		search_dao.Popular_keyword(SearchWord);
 		ArrayList<MemberBean> Member=new ArrayList<MemberBean>();
 		int totalcount=search_dao.getMemberSize(SearchWord);
 		

@@ -25,7 +25,7 @@ public class Tour_Search_Action implements Action {
 		System.out.println("관광지 검색어 : "+SearchWord);
 		
 		Search_DAO search_dao=new Search_DAO();
-		
+		search_dao.Popular_keyword(SearchWord);
 		ArrayList<Tour_Food_Bean> Tour=new ArrayList<Tour_Food_Bean>();
 
 		Tour=search_dao.Filter_Search(page_num, SearchWord, 12);

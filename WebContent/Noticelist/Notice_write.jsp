@@ -91,9 +91,9 @@ if(cookies!=null) {
                            <input type="text" id="search_input" placeholder="통합검색" name="search_word">
                            <input type="submit" id="search_btn" value="검색">
                        </form>
-                        <a href="#" class="sns1">안드로이드</a>
-                        <a href="#" class="sns2">카페</a>
-                        <a href="#" class="sns3">코레일</a>
+                         <!-- <a href="#" class="sns1">안드로이드</a> -->
+                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
+                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>

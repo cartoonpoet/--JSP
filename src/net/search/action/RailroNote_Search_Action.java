@@ -24,7 +24,7 @@ public class RailroNote_Search_Action implements Action {
 		System.out.println("내일로 노트 검색어 : "+SearchWord);
 		
 		Search_DAO search_dao=new Search_DAO();
-		
+		search_dao.Popular_keyword(SearchWord);
 		ArrayList<Note_Plans_List_Bean> Railro_Note=new ArrayList<Note_Plans_List_Bean>();
 		
 		int totalcount=search_dao.Filter_Note_Count(SearchWord);
