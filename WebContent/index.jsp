@@ -134,8 +134,8 @@ if(cookies!=null) {
                            <input type="submit" id="search_btn" value="검색">
                        </form>
                         <!-- <a href="#" class="sns1">안드로이드</a> -->
-                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
-                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
+                        <a href="http://www.letskorail.com/" class="sns2" target="_blank">카페</a>
+                        <a href="https://cafe.naver.com/hkct" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>
