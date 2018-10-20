@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.MyPage.action.MyPageHomeAction;
+import net.MyPage.action.MyPage_IMG_Change;
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
-import net.search.action.Detail_Info_Search_Action;
 
 
 public class MemberFrontController extends HttpServlet implements Servlet{
@@ -44,14 +45,27 @@ public class MemberFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-//        else if(command.equals("/index.me")){ //데이터 가져오기
-//        	action=new Main_Action();
-//        	try {
-//        		forward=action.execute(request, response);
-//        	}catch(Exception e) {
-//        		e.printStackTrace();
-//        	}
-//        }
+        else if(command.equals("/MyPageManagement.me")){ //마이페이지 관리로 이동
+        	action=new MyPageHomeAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/MyPageIMGChange.me")){ //마이페이지 관리로 이동
+        	action=new MyPage_IMG_Change();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/MyPageHome.me")){ //마이페이지 메인홈 이동
+        	forward=new ActionForward();
+        	forward.setRedirect(false);
+        	forward.setPath("./mypage/MyPage_Home.jsp");
+        }
         else if(command.equals("/MemberLogin.me")) {//LoginPage
         	forward=new ActionForward();
         	forward.setRedirect(false);

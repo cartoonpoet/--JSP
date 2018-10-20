@@ -33,9 +33,9 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>서브페이지</title>
+    <title><%=DetailInfo_bean.getName() %></title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css?ver=2">
     <link rel="stylesheet" href="./css/detail_info.css?ver=1">
     <link rel="stylesheet" href="./jqcloud/jqcloud.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
@@ -56,12 +56,12 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                                 <span></span>
                             </li>
                             <li>
-                                <a href="#">즐겨찾기</a>
+                                <a href="#" id="favorite">즐겨찾기</a>
                                 <span></span>
                             </li>
                             <li>
                                 <%if (ID == null) {
-                                   if(session.getAttribute("ID")==null){%>
+                                   if(session.getAttribute("id")==null){%>
                                    		<a href="./MemberLogin.me">로그인</a>
                                    <%} else { %>
                                    		<a href="./MemberLogoutAction.me">로그아웃</a>
@@ -73,14 +73,14 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                                 </li>
                             <li>
 								<%if(ID == null) {
-                                   if(session.getAttribute("ID")==null){%>
+                                   if(session.getAttribute("id")==null){%>
                                    		<a href="./MemberJoin1.me">회원가입</a>
                         			<%}
                                 else{%>
-                                   <a href="#">마이페이지</a>
+                                   <a href="./MyPageHome.me">마이페이지</a>
                                 <%}
                                 }else {%>
-                                	<a href="#">마이페이지</a>
+                                	<a href="./MyPageHome.me">마이페이지</a>
                                    <%}%>
                                 </li>
                         </ul>
@@ -113,9 +113,11 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
                                 <a href="#" class="list_a3">플래너</a>
                             </li>
+                            <!-- 
                             <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
                                 <a href="#" class="list_a4">내 주변</a>
                             </li>
+                             -->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <a href="#" class="list_a5">고객센터</a>
                             </li>
@@ -126,7 +128,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="./index.html">내일로 소개</a></dd>
+                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
                                 <dd><a href="#">발권지 혜택</a></dd>
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
@@ -137,17 +139,18 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
-                                <dd><a href="#">새 플래너 작성</a></dd>
-                                <dd><a href="#">내 플래너 목록</a></dd>
+                                <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
+                                <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
                             </dl>
+                            <!-- 
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 
                                 <dd><a href="#">지도</a></dd>
                                 <dd><a href="#">타임라인</a></dd>
                             </dl>
+                             -->
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-
-                                <dd><a href="sub02.html">공지사항</a></dd>
+                                <dd><a href="./NoticeList.no">공지사항</a></dd>
                                 <dd><a href="#">자주묻는질문</a></dd>
                                 <dd><a href="#">불량사용자 신고</a></dd>
                             </dl>

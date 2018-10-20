@@ -1,23 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.Calendar" %>
-<%@page import="java.util.List"%>
-<%@page import="net.notice.db.NoticeBean" %>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="javax.naming.Context" %>
-<%@page import="javax.naming.InitialContext" %>
-<%@page import="javax.sql.DataSource" %>
-<%NoticeBean notice = (NoticeBean)request.getAttribute("noticedata");
- 
- %>    
-    <%
-    String id = (String)session.getAttribute("id");
-    request.setCharacterEncoding("UTF-8");
- 
-%>
 <%String ID = null, PW = null;
 
 Cookie cookies[] = request.getCookies();
@@ -27,84 +9,25 @@ if(cookies!=null) {
          String name = cookies[i].getName();
          if(name.equals("ID")){
             ID = cookies[i].getValue();
-         } else if (name.equals("PW")){
+         } 
+         else if (name.equals("PW")){
             PW = cookies[i].getValue();
          }
       }
-   }
+ }
    if(ID!=null&&PW!=null){
       session.setAttribute("ID", ID);
       session.setAttribute("PW", PW);
-   }
-   
-%>
-<%
-Calendar cal = Calendar.getInstance();
-String yStr = "" + cal.get(Calendar.YEAR);
-String mStr = "" + (cal.get(Calendar.MONTH) + 1);
-String dStr = "" + cal.get(Calendar.DATE);
-String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
-%>
-<%
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	try {
-		Context init=new InitialContext();
-        DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/CUBRIDDS");
-        con = ds.getConnection();   
-	}catch(Exception ex) {
-		System.out.println("DB 연결실패:"+ex);
-		return;
-	}
-	int pre = 0;
-	try{
-		pstmt = con.prepareStatement("select * from notice where num = "
-									+ " (select max(num) from notice where num < ?)");
-		pstmt.setInt(1, notice.getNum());
-		
-		rs = pstmt.executeQuery();
-		
-		if(rs.next()){
-			pre = rs.getInt("num");
-		}
-	} catch(Exception e){
-		System.out.println("getDetail 에러: " + e);
-	} finally{
-		if(rs != null) try{rs.close();}catch(SQLException e){}
-		if(pstmt != null)try{pstmt.close();}catch(SQLException e){}
-	}
-	int after = 0;
-	try{
-		pstmt = con.prepareStatement("select * from notice where num = "
-									+ " (select min(num) from notice where num > ?)");
-		pstmt.setInt(1, notice.getNum());
-		
-		rs = pstmt.executeQuery();
-		
-		if(rs.next()){
-			after = rs.getInt("num");
-		}
-	} catch(Exception e){
-		System.out.println("getDetail 에러: " + e);
-	} finally{
-		if(rs != null) try{rs.close();}catch(SQLException e){}
-		if(pstmt != null)try{pstmt.close();}catch(SQLException e){}
-	}
-   int cnt = 0;
-   if((!(notice.getFileName_1()==null))||(!(notice.getFileName_2()==null))||(!(notice.getFileName_3()==null))||(!(notice.getFileName_4()==null))||(!(notice.getFileName_5()==null))){
-	   cnt++;
    }
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
-    <link rel="stylesheet" href="./css/commen.css?ver=1">
-    <link rel="stylesheet" href="./css/style.css?ver=2">
-
+    <title>서브페이지</title>
+    <link rel="stylesheet" href="./css/commen.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/mypage.css?ver=1">
    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -154,13 +77,9 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                     </div>
                     
                     <div class="snsicon"> <!-- 상단아이콘 -->
-                       <form action="./All_Search.se" method="get" id="search_form">
-                           <input type="text" id="search_input" placeholder="통합검색" name="search_word">
-                           <input type="submit" id="search_btn" value="검색">
-                       </form>
-                         <!-- <a href="#" class="sns1">안드로이드</a> -->
-                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
-                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
+<!--                        <a href="#" class="sns1">안드로이드</a>-->
+                        <a href="#" class="sns2">카페</a>
+                        <a href="#" class="sns3">코레일</a>
                     </div>
                 </div>
             </section>
@@ -175,31 +94,32 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                     <nav>
                         <ul class="m-menu"><!--메인메뉴-->
                             <li class="list01 list" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
-                                <a href="#" class="list_a1">내일로 소개</a>
+                                <a href="./MyPageHome.me" class="list_a1 selected">내 정보 홈</a>
                                 
                             </li>
                             <li class="list02 list" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <a href="#" class="list_a2">TOP 100</a>
+                                <a href="./MyPageManagement.me" class="list_a2">내 정보 관리</a>
                             </li>
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
-                                <a href="#" class="list_a3">플래너</a>
+                                <a href="#" class="list_a3">비밀번호 변경</a>
                             </li>
-                            <!-- 
+<!--
                             <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
                                 <a href="#" class="list_a4">내 주변</a>
                             </li>
-                             -->
+-->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-                                <a href="#" class="list_a5">고객센터</a>
+                                <a href="#" class="list_a5">회원탈퇴</a>
                             </li>
                         </ul>
                     </nav>
+                    <!--
                     <div class="s-menu">
                         <div class="section">
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
-<!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
+                                            <dt>지우지 말것</dt>
+                                <dd><a href="./index.html">내일로 소개</a></dd>
                                 <dd><a href="#">발권지 혜택</a></dd>
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
@@ -210,95 +130,75 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
-                                <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
-                                <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
+                                <dd><a href="#">새 플래너 작성</a></dd>
+                                <dd><a href="#">내 플래너 목록</a></dd>
                             </dl>
-                            <!-- 
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 
                                 <dd><a href="#">지도</a></dd>
                                 <dd><a href="#">타임라인</a></dd>
                             </dl>
-                             -->
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-                                <dd><a href="./NoticeList.no">공지사항</a></dd>
+
+                                <dd><a href="sub02.html">공지사항</a></dd>
                                 <dd><a href="#">자주묻는질문</a></dd>
                                 <dd><a href="#">불량사용자 신고</a></dd>
                             </dl>
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
             </section>
         </header>
         
-        <section id="sub-imgbanner1">
+        <section id="sub-imgbanner">
             <div class="section">
                 <div class="sub-img-text">
-                    <h3>자유여행패스 소개</h3>
+                    <h3>My Page</h3>
                     <h2>
-                        <b>무제한 자유기차여행</b>
+                        마이페이지
                     </h2>
                 </div>
             </div>
         </section>
         <section id="sub-content">
-            <div id="sub-con-navi">
-                <div class="section">
-                    <div class="homebtn">
-                        <a href="./Main.me">
-                            <img src="./jpg/home.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="listmenu">
-                        <button>고객센터</button>
-                        <ul class="listbox">
-                            <li><a href="sub01.html">내일로 소개</a></li>
-                            <li><a href="#">TOP 100</a></li>
-                            <li><a href="#">플래너</a></li>
-                            <li><a href="#">내 주변</a></li>
-                        </ul>
-                    </div>
-                    <div class="listmenu">
-                         <button>공지사항</button>
-                        <ul class="listbox">
-                            <li><a href="#">자주묻는 질문</a></li>
-                            <li><a href="#">불량사용자 신고</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            
             <div id="sub-con-body" class="section">
+<!--
                 <div class="s-c-b-title">
-                    <h3>Community</h3>
-                    <h2>공지사항</h2>
+                    <h3>My Page</h3>
+                    <h2>마이페이지</h2>
                 </div>
-
-                <div class="view_form">
-                   <div class="title">
-                       <%=notice.getTitle() %>
-                       <%if(id.compareTo("admin")==0){%>
-                       		<a href="./NoticeModify.no?num=<%=notice.getNum()%>">수정</a>
-                       <%} %>
-                    </div>
-                   <ul class="post_info">
-                       <li>작성자 : <%=notice.getEmailid() %></li>
-                       <li><%=notice.getDates() %></li>
-                       <li>조회 <%=notice.getReadcnt() %>회</li>
-                   </ul>
-                   <%if(cnt > 0){ %>	
-	               <div class="download"><%if(!(notice.getFileName_1()==null)){ %><a href="<%=notice.getFilePath() %>/<%=notice.getFileName_1()%>" download="<%=notice.getFileName_1()%>"><%=notice.getFileName_1() %></a><%} %><%if(!(notice.getFileName_2()==null)){ %><a href="<%=notice.getFilePath() %>/<%=notice.getFileName_2()%>" download="<%=notice.getFileName_2()%>"><%=notice.getFileName_2() %></a><%} %><%if(!(notice.getFileName_3()==null)){ %><a href="<%=notice.getFilePath() %>/<%=notice.getFileName_3()%>" download="<%=notice.getFileName_3()%>"><%=notice.getFileName_3() %></a><%} %><%if(!(notice.getFileName_4()==null)){ %><a href="<%=notice.getFilePath() %>/<%=notice.getFileName_4()%>" download="<%=notice.getFileName_4()%>"><%=notice.getFileName_4() %></a><%} %><%if(!(notice.getFileName_5()==null)){ %><a href="<%=notice.getFilePath() %>/<%=notice.getFileName_5()%>" download="<%=notice.getFileName_5()%>"><%=notice.getFileName_5() %></a><%} %></div>
-	               <%} %>
-                    <div class="content">
-                        <%=notice.getContent() %>
-                    </div>
-                    <div class="bt_group">
-                        <button class="Previous"><a href="./NoticeDetailAction.no?num=<%=pre%>">이전글</a></button>
-                        <button class="next"><a href="./NoticeDetailAction.no?num=<%=after%>">다음글</a></button>
-                        <button class="list"><a href="./NoticeList.no">목록</a></button>
-                        <button class="delete"><a href="./NoticeDelete.no?num=<%=notice.getNum()%>">삭제</a></button>
-                    </div>
-                    
+-->
+                <div class="mypage">
+                   <a href="./MyPageManagement.me">
+                    <ul class="box1">
+                        <div><img src="./mypage_img/notification.png" alt="" width="15px">&nbsp;&nbsp;추천하는 보호설정</div>
+                        <li class="text1">내 개인정보를 항상</li>
+                        <li class="text2">최신 정보로</li>
+                        <li class="text3"><span>관리</span>해주세요!</li>
+                        <li class="text4">ID/PW 분실방지를 위해 최신정보로 유지하세요</li>
+                    </ul>
+                    </a>
+                    <a href="">
+                    <ul class="box1">
+                        <div><img src="./mypage_img/notification.png" alt="" width="15px">&nbsp;&nbsp;안전하게 보호</div>
+                        <li class="text1">주기적인</li>
+                        <li class="text2">비밀번호 변경</li>
+                        <li class="btn">참여</li>
+                        <li class="text5">최소 6개월에 1회이상 비번변경을 권장합니다.</li>
+                    </ul>
+                    </a>
+                    <a href="">
+                    <ul class="box1">
+                        <div><img src="./mypage_img/notification.png" alt="" width="15px">&nbsp;&nbsp;개인정보 파기</div>
+                        <li class="text1">안전하게</li>
+                        <li class="text2">회원탈퇴</li>
+                        <li class="btn">탈퇴</li>
+                        <li class="text6">회원탈퇴시 개인정보는 즉시 파기됩니다.</li>
+                    </ul>
+                    </a>
                 </div>
             </div>
         </section>
@@ -309,7 +209,7 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                 <div id="foot_top">
                     <ul>
                         <li>
-                            <a href="#">내일로 소개</a>
+                            <a href="#">내일로소개</a>
                             <span></span>
                         </li>
                         <li>
@@ -338,7 +238,6 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
@@ -354,22 +253,35 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
             </div>
         </footer>
     </div>
-    <script src="./js/script.js?ver=1"></script>
     <script>
-     $(function() {
-      var count = $('#rank-list li').length;
-      var height = $('#rank-list li').height();
+     $(document).ready(function(){
+   	  $('#favorite').on('click', function(e) {
+		    var bookmarkURL = window.location.href;
+		    var bookmarkTitle = document.title;
+		    var triggerDefault = false;
 
-      function step(index) {
-          $('#rank-list ol').delay(2000).animate({
-              top: -height * index,
-          }, 500, function() {
-              step((index + 1) % count);
-          });
-      }
+		    if (window.sidebar && window.sidebar.addPanel) {
+		        // Firefox version &lt; 23
+		        window.sidebar.addPanel(bookmarkTitle, bookmarkURL, '');
+		    } else if ((window.sidebar && (navigator.userAgent.toLowerCase().indexOf('firefox') < -1)) || (window.opera && window.print)) {
+		        // Firefox version &gt;= 23 and Opera Hotlist
+		        var $this = $(this);
+		        $this.attr('href', bookmarkURL);
+		        $this.attr('title', bookmarkTitle);
+		        $this.attr('rel', 'sidebar');
+		        $this.off(e);
+		        triggerDefault = true;
+		    } else if (window.external && ('AddFavorite' in window.external)) {
+		        // IE Favorite
+		        window.external.AddFavorite(bookmarkURL, bookmarkTitle);
+		    } else {
+		        // WebKit - Safari/Chrome
+		        alert((navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Cmd' : 'Ctrl') + '+D 를 이용해 이 페이지를 즐겨찾기에 추가할 수 있습니다.');
+		    }
 
-      step(1);
-  });
+		    return triggerDefault;
+		});
+     })
   </script>
 </body>
 </html>

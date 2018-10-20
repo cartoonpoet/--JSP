@@ -51,14 +51,15 @@ public class Note_Plans_List_DAO extends DB_Connection{
 			rs=pstmt.executeQuery();
 			
 			String nikname = null;
-			
+			String profile=null;
 			while(rs.next()) {
 				nikname=rs.getString("nikname");
+				profile=rs.getString("imgfile");
 			}
 			
 			for(int i=0; i<TravelDay_List.size(); i++) {
 				TravelDay_List.get(i).setName(nikname);
-				
+				TravelDay_List.get(i).setProfileimg(profile);
 				sql="select * from note_travel_area where travel_id=? order by travel_area_day asc";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, TravelDay_List.get(i).getNote_ID());

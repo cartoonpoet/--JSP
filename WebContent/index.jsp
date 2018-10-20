@@ -28,21 +28,22 @@ if(cookies!=null) {
       session.setAttribute("PW", PW);
    }
 	ArrayList<String> keyword=(ArrayList<String>) request.getAttribute("keyword");
-	
 	ArrayList<Note_Plans_List_Bean> RealTime_Railro_Note=(ArrayList<Note_Plans_List_Bean>) request.getAttribute("RealTime_Railro_Note");
 	ArrayList<Note_Plans_List_Bean> Recommend_Railro_Note=(ArrayList<Note_Plans_List_Bean>) request.getAttribute("Recommend_Railro_Note");
 	Date today=new Date();
 	SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
 	SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
-
 %>
+<%if(keyword==null){ %>
+<jsp:forward page="Main.me"></jsp:forward>
+<%} %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Railro Tour - 전라도편</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css?ver=4">
+    <link rel="stylesheet" href="./css/style.css?ver=6">
     <link rel="stylesheet" href="./bxslide/dist/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -118,10 +119,10 @@ if(cookies!=null) {
                                    		<a href="./MemberJoin1.me">회원가입</a>
                         			<%}
                                 else{%>
-                                   <a href="#">마이페이지</a>
+                                   <a href="./MyPageHome.me">마이페이지</a>
                                 <%}
                                 }else {%>
-                                	<a href="#">마이페이지</a>
+                                	<a href="./MyPageHome.me">마이페이지</a>
                                    <%}%>
                                 </li>
                         </ul>
@@ -158,9 +159,11 @@ if(cookies!=null) {
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
                                 <a href="#" class="list_a3">플래너</a>
                             </li>
+                            <!-- 
                             <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
                                 <a href="#" class="list_a4">내 주변</a>
                             </li>
+                             -->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <a href="#" class="list_a5">고객센터</a>
                             </li>
@@ -185,11 +188,13 @@ if(cookies!=null) {
                                 <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
                                 <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
                             </dl>
+                            <!-- 
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 
                                 <dd><a href="#">지도</a></dd>
                                 <dd><a href="#">타임라인</a></dd>
                             </dl>
+                             -->
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <dd><a href="./NoticeList.no">공지사항</a></dd>
                                 <dd><a href="#">자주묻는질문</a></dd>
@@ -477,10 +482,6 @@ if(cookies!=null) {
                         </li>
                         <li>
                             <a href="#">내일로노트</a>
-                            <span></span>
-                        </li>
-                        <li>
-                            <a href="#">내 주변</a>
                             <span></span>
                         </li>
                         <li>

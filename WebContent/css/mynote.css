@@ -87,6 +87,7 @@
     font-family: "Nanum Gothic", sans-serif;
     margin-top: 130px;
 }
+
 .note_info_center .user .user_img{
     width: 30px;
     height: 30px;
@@ -94,11 +95,14 @@
     border-radius: 30px;
     border: 3px solid #ccc;
     float: left;
+    overflow:hidden;
 }
+
 .note_info_center .user .user_img img{
-    width: 15px;
-    padding: 7.5px;
-    height: 15px;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .note_info_center .user .user_name{
     float: left;

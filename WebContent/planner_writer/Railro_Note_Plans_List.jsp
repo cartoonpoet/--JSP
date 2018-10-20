@@ -28,9 +28,9 @@ if(cookies!=null) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>서브페이지</title>
+    <title>내일로 노트 목록</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css?ver=1">
     <link rel="stylesheet" href="./css/note_plans.css">
    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
@@ -50,7 +50,7 @@ if(cookies!=null) {
                                 <span></span>
                             </li>
                             <li>
-                                <a href="#">즐겨찾기</a>
+                                <a href="#" id="favorite">즐겨찾기</a>
                                 <span></span>
                             </li>
                             <li>
@@ -71,10 +71,10 @@ if(cookies!=null) {
                                    		<a href="./MemberJoin1.me">회원가입</a>
                         			<%}
                                 else{%>
-                                   <a href="#">마이페이지</a>
+                                   <a href="./MyPageHome.me">마이페이지</a>
                                 <%}
                                 }else {%>
-                                	<a href="#">마이페이지</a>
+                                	<a href="./MyPageHome.me">마이페이지</a>
                                    <%}%>
                                 </li>
                         </ul>
@@ -111,9 +111,11 @@ if(cookies!=null) {
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
                                 <a href="#" class="list_a3">플래너</a>
                             </li>
+                            <!-- 
                             <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
                                 <a href="#" class="list_a4">내 주변</a>
                             </li>
+                             -->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <a href="#" class="list_a5">고객센터</a>
                             </li>
@@ -124,30 +126,31 @@ if(cookies!=null) {
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="">내일로 소개</a></dd>
-                                <dd><a href="">발권지 혜택</a></dd>
+                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
+                                <dd><a href="#">발권지 혜택</a></dd>
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <dd><a href="">관광지</a></dd>
-                                <dd><a href="">맛집</a></dd>
-                                <dd><a href="">코스</a></dd>
-                                <dd><a href="">트레버</a></dd>
+                                <dd><a href="#">관광지</a></dd>
+                                <dd><a href="#">맛집</a></dd>
+                                <dd><a href="#">코스</a></dd>
+                                <dd><a href="#">트레버</a></dd>
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
                                 <dd><a href="./Railro_Note_Step1.pl">새 플래너 작성</a></dd>
                                 <dd><a href="./Note_Plans_List.pl">내 플래너 목록</a></dd>
                             </dl>
+                            <!-- 
                             <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
 
-                                <dd><a href="">지도</a></dd>
+                                <dd><a href="#">지도</a></dd>
                                 <dd><a href="#">타임라인</a></dd>
                             </dl>
+                             -->
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-
-                                <dd><a href="">공지사항</a></dd>
-                                <dd><a href="">자주묻는질문</a></dd>
-                                <dd><a href="">불량사용자 신고</a></dd>
+                                <dd><a href="./NoticeList.no">공지사항</a></dd>
+                                <dd><a href="#">자주묻는질문</a></dd>
+                                <dd><a href="#">불량사용자 신고</a></dd>
                             </dl>
                             </div>
                         </div>
@@ -234,7 +237,7 @@ if(cookies!=null) {
                                     <%=Plans_List.get(i).getArea() %>
                                 </div>
                                 <div class="person">
-                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
+                                    <img src="<%=Plans_List.get(i).getProfileimg() %>" alt="" width="20px">
                                     <span><%=Plans_List.get(i).getName() %></span>
                                     <div class="btn">
                                         <span class="revise" data-num=<%=Plans_List.get(i).getNote_ID()%>>수정</span>
@@ -276,7 +279,7 @@ if(cookies!=null) {
                                     <%=Plans_List.get(i).getArea() %>
                                 </div>
                                 <div class="person">
-                                    <img src="./note_plans_list_jpg/user.png" alt="" width="20px">
+                                    <img src="<%=Plans_List.get(i).getProfileimg() %>" alt="" width="20px">
                                     <span><%=Plans_List.get(i).getName() %></span>
                                     <div class="btn">
                                         <span class="revise" data-num=<%=Plans_List.get(i).getNote_ID()%>>수정</span>
