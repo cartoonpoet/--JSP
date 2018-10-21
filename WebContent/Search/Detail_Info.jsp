@@ -36,7 +36,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
     <title><%=DetailInfo_bean.getName() %></title>
     <link rel="stylesheet" href="./css/commen.css">
     <link rel="stylesheet" href="./css/style.css?ver=2">
-    <link rel="stylesheet" href="./css/detail_info.css?ver=1">
+    <link rel="stylesheet" href="./css/detail_info.css?ver=2">
     <link rel="stylesheet" href="./jqcloud/jqcloud.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -87,9 +87,13 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     </div>
                     
                     <div class="snsicon"> <!-- 상단아이콘 -->
-                        <a href="#" class="sns1">안드로이드</a>
-                        <a href="#" class="sns2">카페</a>
-                        <a href="#" class="sns3">코레일</a>
+                       <form action="./All_Search.se" method="get" id="search_form">
+                           <input type="text" id="search_input" placeholder="통합검색" name="search_word">
+                           <input type="submit" id="search_btn" value="검색">
+                       </form>
+                        <!-- <a href="#" class="sns1">안드로이드</a> -->
+                        <a href="http://www.letskorail.com/" class="sns2" target="_blank">카페</a>
+                        <a href="https://cafe.naver.com/hkct" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>
@@ -187,7 +191,7 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                     <ul class="text_group">
                         <li class="title">
                             <span><%=DetailInfo_bean.getName() %></span>
-                            <span>여행바구니</span>
+                           <span style="display:none;">여행바구니</span>
                         </li>
                         <%if(DetailInfo_bean.getAddr()!=null){ %>
                         <li class="rotate">
@@ -222,9 +226,14 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                         <%if(DetailInfo_bean.getHomepage()!=null){ %>
                         <li class="homepage">
                             <div>&#8226; 홈페이지</div>
-                            <div><%=DetailInfo_bean.getHomepage() %></div>
+                            <div><%if(DetailInfo_bean.getContentid()==2553428){ %>
+                        <%=DetailInfo_bean.getHomepage()+"></a>"%>
+                        <%} else{%>
+                        <%=DetailInfo_bean.getHomepage()%>
+                        <%} %></div>
                         </li>
                         <%} %>
+                        
                     </ul>
                 </div>
             </div>
@@ -254,24 +263,24 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
             </div>
             <div id="sub-con-body" class="section">
                 <ul class="more_info">
+
                 	<%if(DetailInfo_bean.getOverview()!=null){ %>
                     <li class="overview">
                         <span>&#8226; 개 요</span>
                         <span><%=DetailInfo_bean.getOverview() %></span>
                     </li>
                     <%} %>
-                    <%if(DetailInfo_bean.getHomepage()!=null){ %>
+					<%if(DetailInfo_bean.getHomepage()!=null){ %>
                     <li class="url">
                         <span>&#8226; 홈페이지 주소</span>
-                        <span><%=DetailInfo_bean.getHomepage() %></span>
+                        <span><%if(DetailInfo_bean.getContentid()==2553428){ %>
+                        <%=DetailInfo_bean.getHomepage()+"></a>"%>
+                        <%} else{%>
+                        <%=DetailInfo_bean.getHomepage()%>
+                        <%} %>
+                        </span>
                     </li>
                     <%} %>
-<!-- 
-                    <li class="post">
-                        <span>&#8226; 문의 및 안내</span>
-                        <span><%=DetailInfo_bean.getContact_Information() %></span>
-                    </li>
--->
                     <%if(DetailInfo_bean.getMax_peo()!=null){ %>
                     <%if(DetailInfo_bean.getMax_peo().compareTo("")!=0){ %>
                     <li class="people">
@@ -408,12 +417,14 @@ DetailInfo_analysis review_analysis=(DetailInfo_analysis) request.getAttribute("
                         <span><%=DetailInfo_bean.getSmoking_Smoking() %></span>
                     </li>
                     <%} %>
+
                     <%if(DetailInfo_bean.getHandling_menu()!=null){ %>
                     <li class="handling_menu">
                         <span>&#8226; 취급 메뉴</span>
                         <span><%=DetailInfo_bean.getHandling_menu() %></span>
                     </li>
                     <%} %>
+
                     <li class="location">
                         <div id="wordcloud" style="width: 500px; height: 300px; border: none;"><!--워드클라우드--></div>
                         <div id="map"></div>

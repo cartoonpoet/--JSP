@@ -174,14 +174,14 @@ if(cookies!=null) {
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
-                                <dd><a href="#">발권지 혜택</a></dd>
+                                <dd><a href="./IntroRailro.me">내일로 소개</a></dd>
+                                <!-- <dd><a href="#">발권지 혜택</a></dd> -->
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <dd><a href="#">관광지</a></dd>
-                                <dd><a href="#">맛집</a></dd>
-                                <dd><a href="#">코스</a></dd>
-                                <dd><a href="#">트레버</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=12&page_num=1">관광지</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=39&page_num=1">맛집</a></dd>
+                                <dd><a href="#">내일로 노트</a></dd>
+                                <dd><a href="#">내일러</a></dd>
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
@@ -234,17 +234,17 @@ if(cookies!=null) {
                         <div id="ban02-1">
                             <div class="ban-iconbox">
                                 <ul>
-                                    <li class="one"><a href="#">
+                                    <li class="one"><a href="./Top100_Search.se?contenttypeid=12&page_num=1">
                                         <span>관광지</span>
                                     </a></li>
-                                    <li class="two"><a href="#">
+                                    <li class="two"><a href="./Top100_Search.se?contenttypeid=39&page_num=1">
                                         <span>맛집</span>
                                     </a></li>
                                     <li class="three"><a href="#">
-                                        <span>코스</span>
+                                        <span>내일로 노트</span>
                                     </a></li>
                                     <li class="four"><a href="#">
-                                        <span>트레버</span>
+                                        <span>내일러</span>
                                     </a></li>
                                 </ul>
                             </div>

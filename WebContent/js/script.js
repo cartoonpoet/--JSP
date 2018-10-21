@@ -44,14 +44,21 @@ $(document).ready(function(){ //서브메뉴 애니메이션 부분
 			$(this).attr('href', './NoticeList.no');
 		}
 	})
+	/*
     $('.m-menu>li, .s-menu').hover(function(){
        // $('.s-menu').stop().slideToggle(300);
         $('.s-menu').stop().slideDown(300);
+        console.log('내려감');
         //$(this).find('.s-menu').stop().slideToggle('fast') 개별로 내려오게 할때
     }, function(){
         $('.s-menu').stop().slideUp();
+        console.log('올라감');
     });
-    
+    */
+    $('.m-menu>li, .s-menu').hover(function(){
+        $('.s-menu').stop().slideToggle(300)
+        //$(this).find('.s-menu').stop().slideToggle('fast') 개별로 내려오게 할때
+    });
     $('.listmenu').focusin(function(){
         $(this).find('ul.listbox').stop().fadeIn();
     });

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -464,7 +465,7 @@ public class Search_DAO extends DB_Connection{
 					//콘텐츠 아이디&타입 설정
 					data.get(data.size()-1).setContentid(Integer.parseInt(items.get("contentid").toString())); 
 					data.get(data.size()-1).setContenttypeid(Integer.parseInt(items.get("contenttypeid").toString()));
-					
+					//System.out.println("검색결과 : "+i+" : "+items.get("contentid").toString());
 					//대표 이미지 설정
 					if(items.get("firstimage")!=null) {
 						data.get(data.size()-1).setImg(items.get("firstimage").toString());
@@ -807,5 +808,80 @@ public class Search_DAO extends DB_Connection{
 				} catch (SQLException ex) {
 				}
 		}
+	}
+	public Top100_Bean[] getTop100(int contenttypeid, int page_num) {
+		Top100_Bean[] top100=new Top100_Bean[20];
+		try {
+			for(int i=0; i<top100.length; i++) {
+				top100[i]=new Top100_Bean();
+			}
+			String sql="SELECT SUM(like_yn) AS like_cnt, COUNT(*) AS review_cnt, content_id, content_type_id FROM review WHERE content_type_id="+contenttypeid+" GROUP BY content_id ORDER by SUM(like_yn) DESC limit "+((page_num-1)*20)+",20";
+			pstmt = con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			int cnt=0;
+			while(rs.next()) {
+				top100[cnt].setContentid(rs.getInt("content_id"));
+				top100[cnt].setContenttypeid(rs.getInt("content_type_id"));
+				top100[cnt].setLike_cnt(rs.getInt("like_cnt")); //좋아요 수
+				top100[cnt].setReview_cnt(rs.getInt("review_cnt")); //리뷰 개수
+				cnt++;
+			}
+			
+			URL url;
+			InputStreamReader isr;
+			JSONObject items; 
+			for(int i=0; i<top100.length; i++) {
+				sql="SELECT COUNT(*) AS tag_cnt, content_id, content_type_id, hashtag FROM review_hashtag WHERE content_id=? and content_type_id=? GROUP BY hashtag ORDER BY COUNT(*) DESC limit 4";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, top100[i].getContentid());
+				pstmt.setInt(2, top100[i].getContenttypeid());
+				rs=pstmt.executeQuery();
+				System.out.println(i);
+				while(rs.next()) {
+					top100[i].getTags().add(new String(rs.getString("hashtag")));
+				}
+				
+				url=new URL("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?serviceKey="+Key+"&numOfRows=1&pageSize=1&pageNo=1&startPage=1&MobileOS=ETC&MobileApp=AppTest&contentId="+top100[i].getContentid()+"&contentTypeId="+top100[i].getContenttypeid()+"&defaultYN=Y&firstImageYN=Y&areacodeYN=N&catcodeYN=N&addrinfoYN=N&mapinfoYN=N&overviewYN=N&_type=json");
+				isr = new InputStreamReader(url.openConnection().getInputStream(),"UTF-8");
+				items=(JSONObject) JSONValue.parseWithException(isr); 
+				items=(JSONObject) items.get("response");
+				items=(JSONObject) items.get("body");
+				items=(JSONObject) items.get("items");
+				items=(JSONObject) items.get("item");
+				
+				top100[i].setName(items.get("title").toString());
+				
+				if(items.get("firstimage")!=null) {
+					top100[i].setImg(items.get("firstimage").toString());
+				}
+				else {
+					if(items.get("firstimage2")!=null) {
+						top100[i].setImg(items.get("firstimage2").toString());
+					}
+					else {
+						top100[i].setImg("./jpg/no_image.gif");
+					}
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println("getTop100 ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+		
+		return top100;
 	}
 }

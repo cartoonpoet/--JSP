@@ -36,7 +36,7 @@ if(cookies!=null) {
     <meta charset="UTF-8">
     <title>내 노트</title>
     <link rel="stylesheet" href="./css/commen.css">
-    <link rel="stylesheet" href="./css/style.css?ver=1">
+    <link rel="stylesheet" href="./css/style.css?ver=2">
     <link rel="stylesheet" href="./css/mynote.css?ver=2">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
@@ -95,9 +95,9 @@ if(cookies!=null) {
                            <input type="text" id="search_input" placeholder="통합검색" name="search_word">
                            <input type="submit" id="search_btn" value="검색">
                        </form>
-                         <!-- <a href="#" class="sns1">안드로이드</a> -->
-                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
-                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
+                        <!-- <a href="#" class="sns1">안드로이드</a> -->
+                        <a href="http://www.letskorail.com/" class="sns2" target="_blank">카페</a>
+                        <a href="https://cafe.naver.com/hkct" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>
@@ -105,7 +105,7 @@ if(cookies!=null) {
                        <div class="section">
                     <div id="logo"> <!-- 로고 -->
                         <h1><a href="./Main.me">
-                            <img src="./jpg/RailroTour%20LOGO.png" alt="">
+                            <img src="jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h1>
                     </div>
@@ -136,14 +136,14 @@ if(cookies!=null) {
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
-                                <dd><a href="#">발권지 혜택</a></dd>
+                                <dd><a href="./IntroRailro.me">내일로 소개</a></dd>
+                                <!-- <dd><a href="#">발권지 혜택</a></dd> -->
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <dd><a href="#">관광지</a></dd>
-                                <dd><a href="#">맛집</a></dd>
-                                <dd><a href="#">코스</a></dd>
-                                <dd><a href="#">트레버</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=12&page_num=1">관광지</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=39&page_num=1">맛집</a></dd>
+                                <dd><a href="#">내일로 노트</a></dd>
+                                <dd><a href="#">내일러</a></dd>
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
@@ -166,7 +166,7 @@ if(cookies!=null) {
                         </div>
                     </div>
                 </div>
-            </section>
+			</section>
         </header>
         
         <section id="sub-content">
@@ -554,8 +554,8 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=20"></script>
-    <script src="./js/script.js?ver=3"></script>
+    <script src="./js/mynote.js?ver=21"></script>
+    <script src="./js/script.js?ver=7"></script>
     <script>
     $(function () {
 

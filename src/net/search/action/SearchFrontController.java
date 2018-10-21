@@ -119,7 +119,14 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-        
+        else if(command.equals("/Top100_Search.se")){//Top 100 관광지 검색
+        	action=new Top100_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
         if(forward!=null){ 
             if(forward.isRedirect()){ 
                 response.sendRedirect(forward.getPath()); 

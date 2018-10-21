@@ -37,6 +37,11 @@ public class MemberFrontController extends HttpServlet implements Servlet{
         	forward.setRedirect(false);
         	forward.setPath("./member/sign_up_Form_2.jsp");
         }
+        else if(command.equals("/IntroRailro.me")){ //Introduce Railro
+        	forward=new ActionForward();
+        	forward.setRedirect(false);
+        	forward.setPath("./member/Introduce.jsp");
+        }
         else if(command.equals("/Main.me")) { //MainPage
         	action=new Main_Action();
         	try {
