@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.jasper.tagplugins.jstl.core.Url;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -883,5 +882,150 @@ public class Search_DAO extends DB_Connection{
 		}
 		
 		return top100;
+	}
+	
+	public Note_Plans_List_Bean[] getTop_Note(int page_num) {
+		Note_Plans_List_Bean[] data=new Note_Plans_List_Bean[20];
+		try {
+			String sql="SELECT travel_id, COUNT(travel_id) FROM note_like_cnt GROUP BY travel_id ORDER BY COUNT(travel_id) DESC limit ?,20";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ((page_num-1)*20));
+			rs=pstmt.executeQuery();
+			
+			for(int i=0; i<data.length; i++) {
+				data[i]=new Note_Plans_List_Bean();
+			}
+			int cnt=0;
+			while(rs.next()) {
+				data[cnt].setNote_ID(rs.getInt("travel_id")); //노트 고유 번호 
+
+				cnt++;
+			}
+
+			
+			for(int i=0; i<data.length; i++) {
+				sql="select * from note_info1 where travel_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, data[i].getNote_ID());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data[i].setTravel_Day(rs.getString("travel_start_day")); //출발일
+					data[i].setNote_Name(rs.getString("note_name")); //노트명
+					data[i].setTema_Name(rs.getString("travel_tema")); //테마명
+					data[i].setView(rs.getInt("note_view")); //조회수
+					data[i].setDay(rs.getInt("travel_day")); //일수
+					data[i].setImg(rs.getString("img")); //이미지
+					data[i].setEmail_id(rs.getString("email_id"));
+				}
+				
+				sql="select * from member where email_id LIKE ?";
+				
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, data[i].getEmail_id());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data[i].setName(rs.getString("nikname"));
+					data[i].setProfileimg(rs.getString("imgfile"));
+				}
+			}
+			
+			for(int i=0; i<data.length; i++) {
+				sql="select * from note_travel_area where travel_id=? order by travel_area_day asc";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, data[i].getNote_ID());
+				rs=pstmt.executeQuery();
+				
+				int cnt1=0; 
+				while(rs.next()) {
+					if(cnt1==0) {
+						data[i].setArea(rs.getString("travel_area_name"));
+					}
+					else {
+						data[i].PlusArea("-"+rs.getString("travel_area_name"));
+					}
+					cnt1++;
+				}
+			}
+			
+			for(int i=0; i<data.length; i++) {
+				sql="select count(*) AS total from note_like_cnt where travel_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, data[i].getNote_ID());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data[i].setLike(rs.getInt("total"));
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("getTop_Note ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+		return data;
+	}
+	public ArrayList<Top100_Member_Bean> getTop_Member(int page_num) {
+		ArrayList<Top100_Member_Bean> data=new ArrayList<Top100_Member_Bean>();
+		
+		try {
+			String sql="SELECT email_id, follow_id, COUNT(follow_id) as follow_cnt FROM member_follow GROUP BY follow_id ORDER BY COUNT(follow_id) DESC limit ?,20";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, ((page_num-1)*20));
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				data.add(new Top100_Member_Bean());
+				data.get(data.size()-1).setFollow_cnt(rs.getInt("follow_cnt"));
+				data.get(data.size()-1).setEmail_id(rs.getString("follow_id"));
+			}
+			
+			for(int i=0; i<data.size(); i++) {
+				sql="select * from member where email_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, data.get(i).getEmail_id());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data.get(i).setNikname(rs.getString("nikname"));
+					data.get(i).setImg(rs.getString("imgfile"));
+				}
+				
+				sql="select count(*) as note_cnt from note_info1 where email_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, data.get(i).getEmail_id());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					data.get(i).setNote_cnt(rs.getInt("note_cnt"));
+				}
+			}
+			
+		} catch (Exception e) {
+			System.out.println("getTop_Member ERROR : " + e);
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+		}
+		
+		return data;
 	}
 }

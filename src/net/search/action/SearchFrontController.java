@@ -119,8 +119,24 @@ public class SearchFrontController extends HttpServlet implements Servlet{
         		e.printStackTrace();
         	}
         }
-        else if(command.equals("/Top100_Search.se")){//Top 100 관광지 검색
+        else if(command.equals("/Top100_Search.se")){//Top 100 관광지/음식점 검색
         	action=new Top100_Search_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Top100_Note.se")){//Top 100 내일로 노트 검색
+        	action=new Top100_Note_Action();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/Top100_Member.se")){//Top 100 내일러 멤버 검색
+        	action=new Top100_Member_Action();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {

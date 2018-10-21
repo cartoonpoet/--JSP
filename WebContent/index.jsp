@@ -180,8 +180,8 @@ if(cookies!=null) {
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
                                 <dd><a href="./Top100_Search.se?contenttypeid=12&page_num=1">관광지</a></dd>
                                 <dd><a href="./Top100_Search.se?contenttypeid=39&page_num=1">맛집</a></dd>
-                                <dd><a href="#">내일로 노트</a></dd>
-                                <dd><a href="#">내일러</a></dd>
+                                <dd><a href="./Top100_Note.se?page_num=1">내일로 노트</a></dd>
+                                <dd><a href="./Top100_Member.se?page_num=1">내일러</a></dd>
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
@@ -240,10 +240,10 @@ if(cookies!=null) {
                                     <li class="two"><a href="./Top100_Search.se?contenttypeid=39&page_num=1">
                                         <span>맛집</span>
                                     </a></li>
-                                    <li class="three"><a href="#">
+                                    <li class="three"><a href="./Top100_Note.se?page_num=1">
                                         <span>내일로 노트</span>
                                     </a></li>
-                                    <li class="four"><a href="#">
+                                    <li class="four"><a href="./Top100_Member.se?page_num=1">
                                         <span>내일러</span>
                                     </a></li>
                                 </ul>
