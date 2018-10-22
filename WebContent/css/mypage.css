@@ -7,7 +7,7 @@
 
 #sub-imgbanner{
     background-image: url(../mypage_img/privacy.png);
-    background-position: 100px;
+    background-position: center;
     font-family: 'NanumSquare', sans-serif;
 }
 .m-menu .selected{

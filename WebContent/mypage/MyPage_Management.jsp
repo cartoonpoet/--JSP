@@ -27,7 +27,7 @@ if(cookies!=null) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>서브페이지</title>
+    <title>마이페이지 : 내정보 관리</title>
     <link rel="stylesheet" href="./css/commen.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/mypage.css?ver=2">
@@ -108,53 +108,13 @@ if(cookies!=null) {
                                 <a href="./MyPageManagement.me" class="list_a2 selected">내 정보 관리</a>
                             </li>
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
-                                <a href="#" class="list_a3 ">비밀번호 변경</a>
+                                <a href="./MyPagePW.me" class="list_a3 ">비밀번호 변경</a>
                             </li>
-<!--
-                            <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
-                                <a href="#" class="list_a4">내 주변</a>
-                            </li>
--->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-                                <a href="#" class="list_a5">회원탈퇴</a>
+                                <a href="./MyPageRemove.me" class="list_a5">회원탈퇴</a>
                             </li>
                         </ul>
                     </nav>
-                    <!--
-                    <div class="s-menu">
-                        <div class="section">
-                           <div class="float">
-                            <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
-                                            <dt>지우지 말것</dt>
-                                <dd><a href="./index.html">내일로 소개</a></dd>
-                                <dd><a href="#">발권지 혜택</a></dd>
-                            </dl>
-                            <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <dd><a href="#">관광지</a></dd>
-                                <dd><a href="#">맛집</a></dd>
-                                <dd><a href="#">코스</a></dd>
-                                <dd><a href="#">트레버</a></dd>
-                            </dl>
-                            <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
-
-                                <dd><a href="#">새 플래너 작성</a></dd>
-                                <dd><a href="#">내 플래너 목록</a></dd>
-                            </dl>
-                            <dl class="hoverbg4 hoverbg" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
-
-                                <dd><a href="#">지도</a></dd>
-                                <dd><a href="#">타임라인</a></dd>
-                            </dl>
-                            <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
-
-                                <dd><a href="sub02.html">공지사항</a></dd>
-                                <dd><a href="#">자주묻는질문</a></dd>
-                                <dd><a href="#">불량사용자 신고</a></dd>
-                            </dl>
-                            </div>
-                        </div>
-                    </div>
-                    -->
                 </div>
             </section>
         </header>
@@ -172,12 +132,6 @@ if(cookies!=null) {
         <section id="sub-content">
             
             <div id="sub-con-body" class="section">
-<!--
-                <div class="s-c-b-title">
-                    <h3>My Page</h3>
-                    <h2>마이페이지</h2>
-                </div>
--->
                 <div class="notify">
                    <img src="./mypage_img/notification.png" alt="" width="30px" style="    padding-top: 25px;
     padding-bottom: 25px; float: left">
@@ -209,12 +163,6 @@ if(cookies!=null) {
                            <div><%=member.getSex() %></div>
                        </li>
                    </ul>
-<!--
-                    <div class="btngroup">
-                        <a href="#" class="previous">이전으로</a>
-                        <input type="submit" value="저장" class="submit">
-                    </div>
--->
                 </form>
             </div>
         </section>
@@ -223,32 +171,28 @@ if(cookies!=null) {
         <footer>
             <div class="section">
                 <div id="foot_top">
-                    <ul>
+                                        <ul>
                         <li>
-                            <a href="#">내일로소개</a>
+                            <a href="./IntroRailro.me">내일로소개</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">TOP 100</a>
+                            <a href="./Top100_Search.se?contenttypeid=12&page_num=1">TOP 100</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내일로노트</a>
+                            <a href="./Note_Plans_List.pl">내일로노트</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내 주변</a>
-                            <span></span>
-                        </li>
-                        <li>
-                            <a href="#">고객센터</a>
+                            <a href="./NoticeList.no">고객센터</a>
                         </li>
                     </ul>
                 </div>
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
+                            <a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
@@ -258,9 +202,6 @@ if(cookies!=null) {
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 </address>
                     <select name="" id="">
-                        <option value="">family site</option>
-                        <option value="">family site</option>
-                        <option value="">family site</option>
                         <option value="">family site</option>
                         <option value="">family site</option>
                     </select>

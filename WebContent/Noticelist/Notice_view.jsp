@@ -104,8 +104,6 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
     <title>공지사항</title>
     <link rel="stylesheet" href="./css/commen.css?ver=1">
     <link rel="stylesheet" href="./css/style.css?ver=2">
-
-   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
  
@@ -159,8 +157,8 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                            <input type="submit" id="search_btn" value="검색">
                        </form>
                          <!-- <a href="#" class="sns1">안드로이드</a> -->
-                        <a href="https://cafe.naver.com/hkct" class="sns2" target="_blank">카페</a>
-                        <a href="http://www.letskorail.com/" class="sns3" target="_blank">코레일</a>
+                        <a href="http://www.letskorail.com/" class="sns2" target="_blank">카페</a>
+                        <a href="https://cafe.naver.com/hkct" class="sns3" target="_blank">코레일</a>
                     </div>
                 </div>
             </section>
@@ -176,7 +174,6 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                         <ul class="m-menu"><!--메인메뉴-->
                             <li class="list01 list" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
                                 <a href="#" class="list_a1">내일로 소개</a>
-                                
                             </li>
                             <li class="list02 list" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
                                 <a href="#" class="list_a2">TOP 100</a>
@@ -184,11 +181,6 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                             <li class="list03 list" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
                                 <a href="#" class="list_a3">플래너</a>
                             </li>
-                            <!-- 
-                            <li class="list04 list" onmouseover="bgcolor(4)" onmouseout="removecolor(4)">
-                                <a href="#" class="list_a4">내 주변</a>
-                            </li>
-                             -->
                             <li class="list05 list" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <a href="#" class="list_a5">고객센터</a>
                             </li>
@@ -199,14 +191,14 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                            <div class="float">
                             <dl class="hoverbg1 hoverbg" onmouseover="bgcolor(1)" onmouseout="removecolor(1)">
 <!--                                            <dt>지우지 말것</dt>-->
-                                <dd><a href="./html/sub01.html">내일로 소개</a></dd>
-                                <dd><a href="#">발권지 혜택</a></dd>
+                                <dd><a href="./IntroRailro.me">내일로 소개</a></dd>
+                                <!-- <dd><a href="#">발권지 혜택</a></dd> -->
                             </dl>
                             <dl class="hoverbg2 hoverbg" onmouseover="bgcolor(2)" onmouseout="removecolor(2)">
-                                <dd><a href="#">관광지</a></dd>
-                                <dd><a href="#">맛집</a></dd>
-                                <dd><a href="#">코스</a></dd>
-                                <dd><a href="#">트레버</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=12&page_num=1">관광지</a></dd>
+                                <dd><a href="./Top100_Search.se?contenttypeid=39&page_num=1">맛집</a></dd>
+                                <dd><a href="./Top100_Note.se?page_num=1">내일로 노트</a></dd>
+                                <dd><a href="./Top100_Member.se?page_num=1">내일러</a></dd>
                             </dl>
                             <dl class="hoverbg3 hoverbg" onmouseover="bgcolor(3)" onmouseout="removecolor(3)">
 
@@ -222,8 +214,6 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                              -->
                             <dl class="hoverbg5 hoverbg" onmouseover="bgcolor(5)" onmouseout="removecolor(5)">
                                 <dd><a href="./NoticeList.no">공지사항</a></dd>
-                                <dd><a href="#">자주묻는질문</a></dd>
-                                <dd><a href="#">불량사용자 신고</a></dd>
                             </dl>
                             </div>
                         </div>
@@ -253,17 +243,14 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                     <div class="listmenu">
                         <button>고객센터</button>
                         <ul class="listbox">
-                            <li><a href="sub01.html">내일로 소개</a></li>
-                            <li><a href="#">TOP 100</a></li>
-                            <li><a href="#">플래너</a></li>
-                            <li><a href="#">내 주변</a></li>
+                            <li><a href="./IntroRailro.me">내일로 소개</a></li>
+                            <li><a href="./Top100_Search.se?contenttypeid=12&page_num=1">TOP 100</a></li>
+                            <li><a href="./Note_Plans_List.pl">플래너</a></li>
                         </ul>
                     </div>
                     <div class="listmenu">
                          <button>공지사항</button>
                         <ul class="listbox">
-                            <li><a href="#">자주묻는 질문</a></li>
-                            <li><a href="#">불량사용자 신고</a></li>
                         </ul>
                     </div>
                 </div>
@@ -309,44 +296,36 @@ String saveFolder = "/" + yStr + "/" + mStr + "/" + dStr;
                 <div id="foot_top">
                     <ul>
                         <li>
-                            <a href="#">내일로 소개</a>
+                            <a href="./IntroRailro.me">내일로소개</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">TOP 100</a>
+                            <a href="./Top100_Search.se?contenttypeid=12&page_num=1">TOP 100</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내일로노트</a>
+                            <a href="./Note_Plans_List.pl">내일로노트</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내 주변</a>
-                            <span></span>
-                        </li>
-                        <li>
-                            <a href="#">고객센터</a>
+                            <a href="./NoticeList.no">고객센터</a>
                         </li>
                     </ul>
                 </div>
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
+                            <a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
                     </div>
                     <address>내일로 통합 시스템<br>
-제작자 : 권재인, 손준호, 사공수기, 김희규<br>
 주소 : 대구광역시 북구 복현동 영진전문대학 컴퓨터정보계열<br>
 대표번호 : 000-0000-0000 팩스번호 : 00-0000-0000<br>
 Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
 </address>
                     <select name="" id="">
-                        <option value="">family site</option>
-                        <option value="">family site</option>
-                        <option value="">family site</option>
                         <option value="">family site</option>
                         <option value="">family site</option>
                     </select>

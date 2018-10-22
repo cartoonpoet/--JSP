@@ -1251,7 +1251,7 @@ footer{
     color: white;
     background-color: #00acff;
     font-family: "Nanum Gothic", sans-serif;
-    float: left;
     cursor: pointer;
     border: none;
+    float:right;
 }

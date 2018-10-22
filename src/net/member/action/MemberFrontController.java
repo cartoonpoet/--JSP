@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.MyPage.action.MyPageChangePwAction;
+import net.MyPage.action.MyPageDeleteAction;
 import net.MyPage.action.MyPageHomeAction;
 import net.MyPage.action.MyPage_IMG_Change;
 import net.commons.action.Action;
@@ -60,6 +62,32 @@ public class MemberFrontController extends HttpServlet implements Servlet{
         }
         else if(command.equals("/MyPageIMGChange.me")){ //마이페이지 관리로 이동
         	action=new MyPage_IMG_Change();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/MyPageRemove.me")){ //마이페이지 회원탈퇴로 이동
+        	forward=new ActionForward();
+        	forward.setRedirect(false);
+        	forward.setPath("./mypage/MyPage_Remove.jsp");
+        }
+        else if(command.equals("/MyPageRemoveAction.me")){ //마이페이지 회원탈퇴 액션
+        	action=new MyPageDeleteAction();
+        	try {
+        		forward=action.execute(request, response);
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+        else if(command.equals("/MyPagePW.me")){ //마이페이지 비밀번호 변경으로 이동
+        	forward=new ActionForward();
+        	forward.setRedirect(false);
+        	forward.setPath("./mypage/MyPage_PW.jsp");
+        }
+        else if(command.equals("/MyPagePWAction.me")){ //마이페이지 비밀번호 변경 액션
+        	action=new MyPageChangePwAction();
         	try {
         		forward=action.execute(request, response);
         	}catch(Exception e) {
