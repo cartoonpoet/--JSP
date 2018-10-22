@@ -1,7 +1,28 @@
 var scroll_position=0;
 $(document).ready(function(){
     $('.kinds button').on('click', function(e){
-    	alert('1');
+    	var start=$('#start_station option:selected').val();
+    	var end=$('#end_station option:selected').val();
+    	var popupX = (window.screen.width / 2) - (640 / 2);
+    	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+    	var popupY= (window.screen.height /2) - (360 / 2);
+    	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+    	
+    	if(start==''){
+    		alert('출발역을 선택하세요.');
+    		return false;
+    	}
+    	if(end==''){
+    		alert('도착역을 선택하세요.');
+    		return false;
+    	}
+    	
+    	if(start==end){
+    		alert('출발역과 도착역은 같을 수 없습니다.');
+    		return false;
+    	}
+    	window.open('./Note_Train.pl?start='+start+'&end='+end, 'new', 'width=640, height=360, resizable=no, scrollbars=no, status=no, left='+popupX+', top='+popupY);
     })
     $('#img').on('change', function(e){//파일 업로드 액션
         if($(this).val()!=""){

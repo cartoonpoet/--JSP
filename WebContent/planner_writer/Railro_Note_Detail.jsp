@@ -325,19 +325,19 @@ if(cookies!=null) {
                                         <%if(Detail_Info.get(o).getKinds_2().compareTo("이동")==0){ %>
                                         <img src="./mynote_jpg/hash.png" alt="" class="food_tour_hash">
                                         <select name="start" id="start_station">
-                                            <option value="">출발역 선택</option>
+                                            <option value="null">출발역 선택</option>
                                             <%for(int b=0; b<Detail_Info.get(o).getStart_Station().size(); b++) {%>
                                             <option value="<%=Detail_Info.get(o).getStart_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getStart_Station().get(b).getNodeName() %></option>
                                             <%} %>
 
                                         </select>
                                         <select name="end" id="end_station">
-                                            <option value="">도착역 선택</option>
+                                            <option value="null">도착역 선택</option>
                                              <%for(int b=0; b<Detail_Info.get(o).getEnd_Station().size(); b++) {%>
                                             <option value="<%=Detail_Info.get(o).getEnd_Station().get(b).getNodeId()%>"><%=Detail_Info.get(o).getEnd_Station().get(b).getNodeName() %></option>
                                             <%} %>
                                         </select>
-                                        <button>조회</button>
+                                        <button class="searched">조회</button>
                                         <a href="#"><img src="./mynote_jpg/info.png" alt="" class="info"></a>
                                         <%}} %>
                                     </div>
@@ -529,8 +529,8 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
     해당 노트를 내 노트에 담으시겠어요?
 </div>
 
-    <script src="./js/mynote.js?ver=21"></script>
-    <script src="./js/script.js?ver=7"></script>
+    <script src="./js/mynote.js?ver=26"></script>
+    <script src="./js/script.js?ver=8"></script>
     <script>
     $(function () {
 
