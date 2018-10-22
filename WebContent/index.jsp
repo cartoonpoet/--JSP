@@ -202,7 +202,7 @@ if(cookies!=null) {
                 <div class="section">
                     <section id="ban01"><!--내일로 소개 부분 -->
                         <div class="ban-textbox">
-                            <a href="#">
+                            <a href="./IntroRailro.me">
                                 <span class="text1">내일로 소개</span>
                                 <span class="title">Introduce<br><b>Railro</b></span>
                                 <span class="bar"></span>
@@ -210,7 +210,7 @@ if(cookies!=null) {
                             </a>
                         </div>
                         <div class="ban-imgbox">
-                            <a href="#">
+                            <a href="./IntroRailro.me">
                                 <img src="jpg/bn01.jpg" alt="">
                             </a>
                         </div>
@@ -237,7 +237,7 @@ if(cookies!=null) {
                              <span class="bottom">
                                  
                              </span>
-                            <a href="#">
+                            <a href="./Top100_Search.se?contenttypeid=12&page_num=1">
                                 <span class="text1">Top 100</span>
                                 <span class="title">Introduce<br><b>Top of Top</b></span>
                                 <span class="bar"></span>
