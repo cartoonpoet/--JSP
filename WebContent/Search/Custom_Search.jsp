@@ -311,30 +311,26 @@ if(cookies!=null) {
                 <div id="foot_top">
                     <ul>
                         <li>
-                            <a href="#">내일로소개</a>
+                            <a href="./IntroRailro.me">내일로소개</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">TOP 100</a>
+                            <a href="./Top100_Search.se?contenttypeid=12&page_num=1">TOP 100</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내일로노트</a>
+                            <a href="./Note_Plans_List.pl">내일로노트</a>
                             <span></span>
                         </li>
                         <li>
-                            <a href="#">내 주변</a>
-                            <span></span>
-                        </li>
-                        <li>
-                            <a href="#">고객센터</a>
+                            <a href="./NoticeList.no">고객센터</a>
                         </li>
                     </ul>
                 </div>
                 <div id="foot_bot">
                     <div id="f_logo">
                         <h2>
-                            <a href="#">
+                            <a href="./Main.me">
                             <img src="./jpg/RailroTour%20LOGO.png" alt="">
                             </a>
                         </h2>
