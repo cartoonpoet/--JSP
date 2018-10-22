@@ -1,4 +1,27 @@
 $(document).ready(function(){ //서브메뉴 애니메이션 부분
+	$('.CustomSearch .search').on('click', function(){
+		var people_cnt=$('.input_cover #count').val();
+		var travel_day=$('input[name="day"]:checked').val();
+		var tema;
+		for(var i=1; i<=4; i++){
+			if($('.tema'+i).css('display')=='block'){
+				tema=$('.tema'+i+' .tema_name').text();
+				break;
+			}
+		}
+		var area_cnt=$('.input_cover .area_count').val();
+		
+		console.log(people_cnt);
+		console.log(travel_day);
+		console.log(tema);
+		console.log(area_cnt);
+		
+		if(typeof travel_day=='undefined'){
+			alert('여행 기간을 선택해주세요.');
+			return;
+		}
+		window.open('./Custom_Search_Main.pl?people_cnt='+people_cnt+'&travel_day='+travel_day+'&tema='+tema+'&area_cnt='+area_cnt, 'new');
+	})
 	  $('#favorite').on('click', function(e) {
 		    var bookmarkURL = window.location.href;
 		    var bookmarkTitle = document.title;
@@ -150,7 +173,8 @@ function area_change(cnt){
   
    var a  = document.area_form;
    var b = Number(a.area_count.value) + cnt;
-   if(b < 1) b = 1;
+   if(b < 5) b = 5;
+   if(b > 10) b=10;
    a.area_count.value = b;
   
 }

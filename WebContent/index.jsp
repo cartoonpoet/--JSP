@@ -279,7 +279,7 @@ if(cookies!=null) {
                                 <ul>
                                     <li class="Search-Title">
                                         <img src="jpg/search.png" alt="">
-                                        사용자 맞춤 여행코스 검색
+                                        	사용자 맞춤 내일로노트 검색
                                     </li>
                                     <li class="People">인원</li>
                                     <li>
@@ -311,7 +311,7 @@ if(cookies!=null) {
                                                </div>
                                                 <div class="tema_slide_group tema2 myS">
                                                 	<img src="jpg/slide_icon2.png" alt="">
-                                                	<span class="tema_name">음식</span>
+                                                	<span class="tema_name">식사</span>
                                                 </div>
                                                 <div class="tema_slide_group tema3 myS">
                                                 	<img src="jpg/sleep.png" alt="" width="45px">
@@ -332,7 +332,7 @@ if(cookies!=null) {
                                             <button type="button" onclick="area_change(-1)" id="minus">-</button>
                                             <div class="input_cover">
                                             <img src="jpg/area.png" alt="">x
-                                            <input type="text" name='area_count' value="1" size="3" id="count" readonly>
+                                            <input type="text" name='area_count' value="5" size="3" id="count" class="area_count" readonly>
                                             
                                              </div>
                                             <button type="button" onclick="area_change(1)" id="plus">+</button>
@@ -496,7 +496,7 @@ Copyright ⓒ RAILRO COMBINATION SYSTEM. All rights reserved.
         </footer>
     </div>
     
-    <script src="js/script.js?ver=5"></script>
+    <script src="js/script.js?ver=8"></script>
     <script>
      $(function() {
       var count = $('#rank-list li').length;
